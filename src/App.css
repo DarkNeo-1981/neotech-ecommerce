@@ -1,15 +1,14 @@
 
+#root {
+  width: 100%;
+  min-height: 100vh;
+}
+
 .app {
   text-align: center;
-  padding: 40px;
 }
 
-.app h1 {
-  color: #2563EB;
-  font-size: 3rem;
-}
-
-.app p {
-  color: #555;
-  font-size: 1.2rem;
+h2 {
+  color: #2563eb;
+  text-align: center;
 }
