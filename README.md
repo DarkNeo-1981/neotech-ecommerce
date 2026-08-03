@@ -25,8 +25,12 @@ Actualmente el proyecto se encuentra en desarrollo y continuará evolucionando a
 ```
 src/
 ├── components/
-├── App.jsx
+│   ├── Footer.css
+│   ├── Footer.jsx
+│   ├── Navbar.css
+│   └── Navbar.jsx
 ├── App.css
+├── App.jsx
 ├── index.css
 └── main.jsx
 ```
