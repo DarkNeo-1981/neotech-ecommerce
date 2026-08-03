@@ -5,9 +5,8 @@ function ItemListContainer() {
   return (
     <section className="item-list-container">
       <h2>Bienvenido a NEOTECH</h2>
-      <p>
-        Encontrá notebooks, smartphones, auriculares y mucho más.
-      </p>
+      <p>Descubrí la mejor tecnología para potenciar tu día a día.</p>
+      <button>Ver productos</button>
     </section>
   );
 }

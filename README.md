@@ -27,6 +27,8 @@ src/
 ├── components/
 │   ├── Footer.css
 │   ├── Footer.jsx
+│   ├── ItemListContainer.css
+│   ├── ItemListContainer.jsx
 │   ├── Navbar.css
 │   └── Navbar.jsx
 ├── App.css
