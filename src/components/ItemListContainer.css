@@ -1,0 +1,17 @@
+
+.item-list-container {
+  min-height: calc(100vh - 220px);
+  padding: 50px 20px;
+  text-align: center;
+}
+
+.item-list-container h2 {
+  color: #2563EB;
+  margin-bottom: 15px;
+  font-size: 2rem;
+}
+
+.item-list-container p {
+  color: #555;
+  font-size: 1.1rem;
+}

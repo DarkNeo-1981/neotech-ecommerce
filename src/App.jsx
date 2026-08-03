@@ -2,12 +2,14 @@
 import './App.css';
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import ItemListContainer from "./components/ItemListContainer";
+
 
 function App() {
   return (
     <>
       <Navbar />
-      <h2>Tienda de tecnología</h2>
+      <ItemListContainer />
       <main>
 
       </main>
