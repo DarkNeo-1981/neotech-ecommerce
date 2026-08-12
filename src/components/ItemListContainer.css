@@ -1,51 +1,13 @@
 
 .item-list-container {
-  min-height: calc(100vh - 220px);
-  padding: 50px 20px;
+  padding: 40px 20px 20px;
   text-align: center;
 }
 
 .item-list-container h2 {
-  color: #2563EB;
-  margin-bottom: 15px;
-  font-size: 2rem;
+  margin-bottom: 10px;
 }
 
 .item-list-container p {
-  color: #555;
-  font-size: 1.1rem;
-}
-
-button {
-  margin-top: 35px;
-  padding: 16px 30px;
-  border: none;
-  border-radius: 50px;
-
-  background: linear-gradient(
-    180deg,
-    #00BFFF 0%,
-    #0057A8 100%
-  );
-
-  color: white;
-  font-size: 16px;
-  font-weight: 600;
-  cursor: pointer;
-
-  box-shadow: 0 8px 20px rgba(0, 87, 168, 0.35);
-
-  transition: all 0.3s ease;
-}
-
-button:hover {
-  transform: translateY(-3px);
-
-  background: linear-gradient(
-    180deg,
-    #33D6FF 0%,
-    #0077CC 100%
-  );
-
-  box-shadow: 0 12px 25px rgba(0, 191, 255, 0.45);
+  margin: 0;
 }
