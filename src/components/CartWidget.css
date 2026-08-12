@@ -1,0 +1,14 @@
+
+
+
+.cart-widget {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cart-widget img {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+}
