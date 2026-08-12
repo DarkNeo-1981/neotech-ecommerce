@@ -1,12 +1,12 @@
 
-.Footer {
+.footer {
   background-color: #0F172A;
   color: white;
   padding: 15px;
   text-align: center;
 }
 
-.Footer h1 {
-    margin: 0;
-    font-size: 0.875rem;
+.footer p {
+  margin: 0;
+  font-size: 0.875rem;
 }
