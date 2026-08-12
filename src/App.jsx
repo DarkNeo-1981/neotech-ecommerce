@@ -9,7 +9,7 @@ function App() {
   return (
     <>
       <Navbar />
-      <ItemListContainer />
+      <ItemListContainer greeting="¡Bienvenido a NEOTECH!"/>
       <main>
 
       </main>
