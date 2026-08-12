@@ -2,6 +2,7 @@
 main {
   padding: 30px 40px;
   display: flex;  
+  justify-content: center;
   gap: 25px;
   flex-wrap: wrap;
 }
