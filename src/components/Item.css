@@ -35,17 +35,69 @@
 }
 
 .item button {
-  margin-top: 15px;
-  padding: 10px 20px;
   border: none;
   border-radius: 8px;
-  background: linear-gradient(180deg, #00bfff 0%, #0057a8 100%);
-  color: #ffffff;
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
-.item button:hover {
+/* Contador de cantidad */
+
+.quantity {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  margin: 15px 0;
+}
+
+.quantity button {
+  padding: 6px 12px;
+  font-size: 18px;
+  background-color: #e5e5e5;
+  color: #333333;
+}
+
+.quantity button:hover {
+  background-color: #d0d0d0;
+}
+
+.quantity span {
+  font-size: 18px;
+  font-weight: bold;
+  min-width: 20px;
+}
+
+/* Favorito */
+
+.favorite {
+  display: block;
+  margin: 0 0 5px auto;
+  padding: 0;
+  background: none;
+  color: #999999;
+  font-size: 28px;
+}
+
+.favorite:hover {
+  transform: scale(1.1);
+  background: none;
+}
+
+.favorite.active {
+  color: #e53935;
+}
+
+/* Botón Ver producto */
+
+.item > button:last-child {
+  margin-top: 15px;
+  padding: 10px 20px;
+  background: linear-gradient(180deg, #00bfff 0%, #0057a8 100%);
+  color: #ffffff;
+}
+
+.item > button:last-child:hover {
   transform: translateY(-2px);
   box-shadow: 0 4px 10px rgba(0, 87, 168, 0.35);
   filter: brightness(1.1);
