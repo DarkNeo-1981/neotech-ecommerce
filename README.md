@@ -13,11 +13,11 @@ Actualmente el proyecto se encuentra en desarrollo y continuará evolucionando a
 
 ## 🚀 Tecnologías utilizadas
 
-- React
-- Vite
-- JavaScript (ES6+)
-- HTML5
-- CSS3
+* React
+* Vite
+* JavaScript (ES6+)
+* HTML5
+* CSS3
 
 ---
 
@@ -77,19 +77,56 @@ Barra de navegación principal de NEOTECH. Contiene el nombre de la tienda, las 
 
 ### CartWidget
 
-Componente encargado de mostrar el ícono del carrito y la cantidad de productos agregados. Actualmente la cantidad está representada mediante un valor estático.
+Componente encargado de mostrar el ícono del carrito y la cantidad de productos seleccionados.
+
+Actualmente funciona como representación visual del carrito. La integración con el estado de los productos será incorporada progresivamente a medida que avance el desarrollo del e-commerce.
 
 ### ItemListContainer
 
 Contenedor principal del catálogo. Recibe mediante props el mensaje de bienvenida (`greeting`) y la lista de productos.
 
+Se encarga de recorrer la información de los productos y renderizar un componente `Item` para cada uno.
+
 ### Item
 
-Representa individualmente cada producto del catálogo, mostrando su imagen, nombre, precio y botón de acceso al producto.
+Representa individualmente cada producto del catálogo, mostrando su imagen, nombre, precio y controles de interacción.
+
+El componente utiliza `useState` para administrar dos estados independientes:
+
+* `cantidad`: almacena la cantidad seleccionada del producto. Comienza en `0` y puede incrementarse o disminuirse mediante los botones correspondientes.
+* `esFavorito`: determina si el producto fue marcado como favorito. Comienza en `false` y alterna entre `true` y `false` mediante el botón de favorito.
+
+Las actualizaciones del estado utilizan la forma funcional del setter, por ejemplo `setCantidad(prev => prev + 1)` y `setEsFavorito(prev => !prev)`. De esta manera se trabaja sobre el valor anterior del estado sin realizar mutaciones directas.
+
+Cada instancia del componente `Item` mantiene su propio estado, por lo que las interacciones realizadas sobre un producto no modifican los demás productos del catálogo.
 
 ### Footer
 
 Pie de página de la aplicación con la identificación de la tienda.
+
+---
+
+## 🧠 Gestión de estado
+
+La gestión de estado se implementa actualmente dentro del componente `Item` utilizando el hook `useState` de React.
+
+Se eligieron dos estados independientes debido a que representan información de diferente naturaleza:
+
+* `cantidad` utiliza un valor numérico porque debe permitir operaciones de incremento y decremento.
+* `esFavorito` utiliza un valor booleano porque representa una condición de activado/desactivado.
+
+Para actualizar ambos estados se utiliza la forma funcional del setter, tomando como referencia el valor anterior:
+
+```jsx
+setCantidad(prev => prev + 1);
+setEsFavorito(prev => !prev);
+```
+
+El contador también incorpora una validación para evitar que la cantidad tome valores menores a `0`.
+
+Esta implementación permite que cada producto administre de manera independiente su cantidad seleccionada y su estado de favorito, actualizando la interfaz automáticamente sin necesidad de recargar la página.
+
+A futuro, cuando sea necesario sincronizar las cantidades seleccionadas con otros componentes como `CartWidget`, el estado podrá elevarse a un componente común mediante el patrón conocido como **lifting state up**.
 
 ---
 
@@ -119,12 +156,13 @@ npm run dev
 
 Desarrollar un e-commerce completo utilizando React, incorporando progresivamente funcionalidades como:
 
-- Componentes reutilizables
-- Navegación
-- Catálogo de productos
-- Carrito de compras
-- Checkout
-- Integración con Firebase
+* Componentes reutilizables
+* Gestión de estado
+* Navegación
+* Catálogo de productos
+* Carrito de compras
+* Checkout
+* Integración con Firebase
 
 ---
 
