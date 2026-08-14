@@ -16,6 +16,7 @@ function ItemListContainer({ greeting, products }) {
             image={product.image}
             name={product.name}
             price={product.price}
+            stock={product.stock}
           />
         ))}
       </main>
