@@ -1,11 +1,16 @@
 
 import "./Footer.css";
 import { FaLinkedin, FaGithub, FaGlobe } from "react-icons/fa";
+import { useTranslation } from "react-i18next";
 
 function Footer() {
+  const { t } = useTranslation();
+
   return (
     <footer className="footer">
-      <p>© 2026 NEOTECH — Tecnología para el futuro</p>
+      <p>
+        © 2026 NEOTECH — {t("footer.copyright")}
+      </p>
 
       <div className="footer-social">
         <a

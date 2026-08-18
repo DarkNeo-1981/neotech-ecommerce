@@ -1,0 +1,30 @@
+
+{
+  "navbar": {
+    "notebooks": "Laptops",
+    "peripherals": "Peripheriegeräte",
+    "monitors": "Monitore",
+    "components": "Komponenten"
+  },
+
+  "store": {
+    "title": "Mein Technikgeschäft"
+  },
+
+  "footer": {
+    "copyright": "Technologie für die Zukunft"
+  },
+
+  "product": {
+    "availableStock": "Verfügbarer Bestand",
+    "viewProduct": "Produkt ansehen",
+
+    "names": {
+      "1": "Gaming-Laptop",
+      "2": "Gaming-Maus",
+      "3": "Mechanische Tastatur",
+      "4": "24-Zoll-Monitor",
+      "5": "Gaming-Headset"
+    }
+  }
+}

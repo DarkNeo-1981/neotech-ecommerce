@@ -1,12 +1,17 @@
 
 import { useState } from "react";
 import "./Item.css";
+import { useTranslation } from "react-i18next";
 
 function Item({ product }) {
+  const { t } = useTranslation();
+
   const [cantidad, setCantidad] = useState(0);
   const [esFavorito, setEsFavorito] = useState(false);
 
-  const { name, price, img, stock } = product;
+  const { price, img, stock } = product;
+
+  const productName = t(`product.names.${product.id}`);
 
   const handleSumar = () => {
     setCantidad(prev => Math.min(stock, prev + 1));
@@ -30,12 +35,16 @@ function Item({ product }) {
       </button>
 
       <div className="item-image">
-        <img src={img} alt={name} />
+        <img src={img} alt={productName} />
       </div>
 
-      <h3>{name}</h3>
+      <h3>{productName}</h3>
+
       <p>${price.toLocaleString()}</p>
-      <p className="stock">Stock disponible: {stock}</p>
+
+      <p className="stock">
+        {t("product.availableStock")}: {stock}
+      </p>
 
       <div className="quantity">
         <button
@@ -55,7 +64,7 @@ function Item({ product }) {
         </button>
       </div>
 
-      <button>Ver producto</button>
+      <button>{t("product.viewProduct")}</button>
     </article>
   );
 }

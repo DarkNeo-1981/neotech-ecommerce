@@ -9,7 +9,9 @@ El objetivo del proyecto es construir una aplicación moderna para la venta de p
 
 Actualmente el proyecto se encuentra en desarrollo y continuará evolucionando a lo largo del curso.
 
-En este checkpoint se implementó un catálogo dinámico de productos utilizando una fuente de datos local y una simulación de carga asíncrona mediante `Promise`, `setTimeout`, `useEffect` y `async/await`.
+En esta etapa se implementó un catálogo dinámico de productos utilizando una fuente de datos local y una simulación de carga asíncrona mediante `Promise`, `setTimeout`, `useEffect` y `async/await`.
+
+Además, se incorporó internacionalización utilizando `react-i18next`, permitiendo cambiar dinámicamente el idioma de toda la aplicación entre Español, Inglés y Alemán.
 
 ---
 
@@ -21,6 +23,9 @@ En este checkpoint se implementó un catálogo dinámico de productos utilizando
 * HTML5
 * CSS3
 * React Hooks (`useState` y `useEffect`)
+* react-i18next (Internacionalización)
+* react-icons (Iconografía)
+* flag-icons (Banderas de idiomas)
 
 ---
 
@@ -50,6 +55,7 @@ NEOTECH/
 │   │   ├── Footer.jsx
 │   │   ├── Item.css
 │   │   ├── Item.jsx
+│   │   ├── ItemList.css
 │   │   ├── ItemList.jsx
 │   │   ├── ItemListContainer.css
 │   │   ├── ItemListContainer.jsx
@@ -59,9 +65,15 @@ NEOTECH/
 │   ├── data/
 │   │   └── products.js
 │   │
+│   ├── locals/
+│   │   ├── es.json
+│   │   ├── en.json
+│   │   └── de.json
+│   │
 │   ├── mock/
 │   │   └── asyncMock.js
 │   │
+│   ├── i18n.js
 │   ├── App.css
 │   ├── App.jsx
 │   ├── index.css
@@ -77,19 +89,40 @@ NEOTECH/
 
 ---
 
-## 🧩 Componentes principales
+# 🧩 Componentes principales
 
-### Navbar
+## Navbar
 
-Barra de navegación principal de NEOTECH. Contiene el nombre de la tienda, las categorías de productos y el componente `CartWidget`.
+Barra de navegación principal de NEOTECH.
 
-### CartWidget
+Contiene:
+
+* Nombre de la tienda
+* Categorías de productos
+* Selector de idioma
+* Componente `CartWidget`
+
+El selector permite cambiar dinámicamente entre:
+
+* Español 🇪🇸
+* English 🇬🇧
+* Deutsch 🇩🇪
+
+El idioma seleccionado se almacena utilizando `localStorage`.
+
+---
+
+## CartWidget
 
 Componente encargado de mostrar el ícono del carrito y la cantidad de productos seleccionados.
 
-Actualmente funciona como representación visual del carrito. La integración con el estado global de los productos será incorporada progresivamente a medida que avance el desarrollo del e-commerce.
+Actualmente funciona como representación visual del carrito.
 
-### ItemListContainer
+La integración con el estado global de los productos será incorporada progresivamente a medida que avance el desarrollo del e-commerce.
+
+---
+
+## ItemListContainer
 
 Es el componente contenedor principal del catálogo.
 
@@ -103,7 +136,9 @@ Una vez obtenidos los productos, se actualiza el estado mediante `setItems` y se
 
 El componente no realiza el `.map()` de los productos, ya que esa responsabilidad corresponde a `ItemList`.
 
-### ItemList
+---
+
+## ItemList
 
 Componente encargado de recibir el array de productos mediante props y recorrerlo utilizando el método `.map()`.
 
@@ -117,7 +152,9 @@ Cada elemento utiliza el identificador único del producto como `key`:
 
 De esta manera se evita utilizar el índice del array como clave y se mantiene una identificación estable para cada elemento renderizado.
 
-### Item
+---
+
+## Item
 
 Representa individualmente cada producto del catálogo.
 
@@ -133,27 +170,31 @@ Muestra:
 
 El componente utiliza `useState` para administrar dos estados independientes:
 
-* `cantidad`: almacena la cantidad seleccionada del producto. Comienza en `0` y puede incrementarse o disminuirse mediante los botones correspondientes.
-* `esFavorito`: determina si el producto fue marcado como favorito. Comienza en `false` y alterna entre `true` y `false` mediante el botón de favorito.
+* `cantidad`: almacena la cantidad seleccionada del producto.
+* `esFavorito`: determina si el producto fue marcado como favorito.
 
-Las actualizaciones del estado utilizan la forma funcional del setter, por ejemplo:
+Las actualizaciones del estado utilizan la forma funcional del setter:
 
 ```jsx
 setCantidad(prev => prev + 1);
 setEsFavorito(prev => !prev);
 ```
 
-De esta manera se trabaja sobre el valor anterior del estado sin realizar mutaciones directas.
-
 Cada instancia del componente `Item` mantiene su propio estado, por lo que las interacciones realizadas sobre un producto no modifican los demás productos del catálogo.
 
-### Footer
-
-Pie de página de la aplicación con la identificación de la tienda.
+Los nombres de los productos utilizan internacionalización, permitiendo mostrar el catálogo en diferentes idiomas sin modificar la fuente de datos original.
 
 ---
 
-## 📦 Datos de productos
+## Footer
+
+Pie de página de la aplicación con la identificación de la tienda y enlaces a redes sociales.
+
+También incorpora traducción dinámica según el idioma seleccionado.
+
+---
+
+# 📦 Datos de productos
 
 Los productos utilizados por el catálogo se encuentran definidos en:
 
@@ -197,9 +238,9 @@ Ejemplo:
 
 ---
 
-## 🔄 Carga dinámica y flujo asíncrono
+# 🔄 Carga dinámica y flujo asíncrono
 
-En este checkpoint se reemplazó el listado estático de productos por un flujo dinámico que simula la obtención de información desde una API.
+La aplicación utiliza un flujo dinámico que simula la obtención de información desde una API.
 
 La simulación se encuentra en:
 
@@ -207,19 +248,7 @@ La simulación se encuentra en:
 src/mock/asyncMock.js
 ```
 
-La función `getProducts` devuelve una `Promise` y utiliza `setTimeout` para simular un tiempo de respuesta de una API.
-
-La respuesta se obtiene después de 2 segundos:
-
-```js
-export const getProducts = () => {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(products);
-    }, 2000);
-  });
-};
-```
+La función `getProducts` devuelve una `Promise` y utiliza `setTimeout` para simular un tiempo de respuesta.
 
 El flujo de datos funciona de la siguiente manera:
 
@@ -241,78 +270,75 @@ ItemListContainer
       Item
 ```
 
-### useEffect
+---
 
-La carga de productos se ejecuta dentro de `useEffect` con un array de dependencias vacío:
+# 🌎 Internacionalización
 
-```jsx
-useEffect(() => {
-  const fetchProducts = async () => {
-    const products = await getProducts();
-    setItems(products);
-  };
+La aplicación incorpora soporte multiidioma mediante la librería `react-i18next`.
 
-  fetchProducts();
-}, []);
+Idiomas disponibles:
+
+* Español 🇪🇸
+* English 🇬🇧
+* Deutsch 🇩🇪
+
+La configuración se encuentra en:
+
+```text
+src/i18n.js
 ```
 
-El array vacío `[]` indica que el efecto se ejecuta únicamente cuando el componente se monta.
+Los archivos de traducción se encuentran en:
 
-La función `fetchProducts` utiliza `async/await` para esperar la resolución de la `Promise`.
+```text
+src/locales/
+```
 
-Una vez obtenidos los productos, se utiliza `setItems` para actualizar el estado.
+Archivos disponibles:
+
+```text
+es.json
+en.json
+de.json
+```
+
+El cambio de idioma se realiza desde el selector ubicado en el Navbar.
+
+Actualmente se traducen:
+
+* Navbar
+* Título principal
+* Nombre de productos
+* Stock disponible
+* Botones
+* Footer
 
 ---
 
-## 🧠 Gestión de estado
+# 🧠 Gestión de estado
 
 La gestión de estado se implementa actualmente utilizando los hooks `useState` y `useEffect` de React.
 
-### Estado de productos
-
-Dentro de `ItemListContainer` se utiliza:
+Dentro de `ItemListContainer`:
 
 ```jsx
 const [items, setItems] = useState([]);
 ```
 
-El estado comienza como un array vacío porque los productos todavía no fueron obtenidos.
-
-Una vez que la `Promise` se resuelve, los productos se almacenan mediante:
-
-```jsx
-setItems(products);
-```
-
-### Estado de interacción
-
-Dentro de `Item` se utilizan dos estados independientes:
+Dentro de `Item`:
 
 ```jsx
 const [cantidad, setCantidad] = useState(0);
 const [esFavorito, setEsFavorito] = useState(false);
 ```
 
-`cantidad` utiliza un valor numérico porque permite realizar operaciones de incremento y decremento.
+El contador incorpora validaciones para evitar valores negativos o superar el stock disponible.
 
-`esFavorito` utiliza un valor booleano porque representa una condición de activado/desactivado.
-
-Para actualizar ambos estados se utiliza la forma funcional del setter:
-
-```jsx
-setCantidad(prev => prev + 1);
-setEsFavorito(prev => !prev);
-```
-
-El contador también incorpora validaciones para evitar que la cantidad sea menor que `0` o supere el stock disponible.
-
-Esta implementación permite que cada producto administre de manera independiente su cantidad seleccionada y su estado de favorito.
-
-A futuro, cuando sea necesario sincronizar las cantidades seleccionadas con otros componentes como `CartWidget`, el estado podrá elevarse a un componente común mediante el patrón conocido como **lifting state up**.
+A futuro, cuando sea necesario sincronizar las cantidades seleccionadas con componentes como `CartWidget`, el estado podrá elevarse mediante el patrón conocido como **lifting state up**.
 
 ---
 
-## ⚙️ Instalación
+# ⚙️ Instalación
 
 Clonar el repositorio:
 
@@ -326,7 +352,7 @@ Ingresar al proyecto:
 cd neotech-ecommerce
 ```
 
-Instalar las dependencias:
+Instalar dependencias:
 
 ```bash
 npm install
@@ -340,14 +366,14 @@ npm run dev
 
 ---
 
-## 🎯 Objetivo
+# 🎯 Objetivo
 
-Desarrollar un e-commerce completo utilizando React, incorporando progresivamente funcionalidades como:
+Desarrollar un e-commerce completo utilizando React incorporando progresivamente:
 
 * Componentes reutilizables
 * Gestión de estado
 * Carga dinámica de productos
-* Flujo asíncrono
+* Internacionalización
 * Navegación
 * Catálogo de productos
 * Carrito de compras
@@ -356,9 +382,9 @@ Desarrollar un e-commerce completo utilizando React, incorporando progresivament
 
 ---
 
-## 📌 Próximos pasos
+# 📌 Próximos pasos
 
-En las próximas etapas del proyecto se incorporarán nuevas funcionalidades, entre ellas:
+En las próximas etapas del proyecto se incorporarán nuevas funcionalidades:
 
 * Custom Hooks
 * React Router
@@ -366,11 +392,12 @@ En las próximas etapas del proyecto se incorporarán nuevas funcionalidades, en
 * Detalle individual de productos
 * Filtrado por categorías
 * Carrito de compras
+* Persistencia de datos
 * Integración con Firebase
 
 ---
 
-## 👨‍💻 Autor
+# 👨‍💻 Autor
 
 **Nicolás Fasanella**
 

@@ -7,9 +7,21 @@
 
 main {
   padding: 30px 40px;
+  flex: 1;
+}
+
+.store-title {
+  width: 100%;
+  text-align: center;
+  margin: 5px 0 10px;
+  font-size: 35px;
+  font-weight: 700;
+  color: #0F172A;
+}
+
+.products-container {
   display: flex;
   justify-content: center;
   gap: 25px;
-  flex: 1;
   flex-wrap: wrap;
 }

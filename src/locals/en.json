@@ -1,0 +1,30 @@
+
+{
+  "navbar": {
+    "notebooks": "Laptops",
+    "peripherals": "Peripherals",
+    "monitors": "Monitors",
+    "components": "Components"
+  },
+
+  "store": {
+    "title": "My technology store"
+  },
+
+  "footer": {
+    "copyright": "Technology for the future"
+  },
+
+  "product": {
+    "availableStock": "Available stock",
+    "viewProduct": "View product",
+
+    "names": {
+      "1": "Gaming Laptop",
+      "2": "Gaming Mouse",
+      "3": "Mechanical Keyboard",
+      "4": "24-inch Monitor",
+      "5": "Gaming Headset"
+    }
+  }
+}
