@@ -2,31 +2,48 @@
 const products = [
   {
     id: 1,
-    image: "images/products/NotebookGamer.png",
     name: "Notebook Gamer",
     price: 1500000,
-    stock: 10
+    category: "Notebooks",
+    img: "images/products/NotebookGamer.png",
+    stock: 10,
+    description: "Notebook gamer de alto rendimiento para juegos y aplicaciones exigentes."
   },
   {
     id: 2,
-    image: "images/products/MouseGamer.png",
     name: "Mouse Gamer",
     price: 45000,
-    stock: 20
+    category: "Periféricos",
+    img: "images/products/MouseGamer.png",
+    stock: 20,
+    description: "Mouse gamer ergonómico con sensor de alta precisión."
   },
   {
     id: 3,
-    image: "images/products/TecladoMecanico.png",
     name: "Teclado Mecánico",
     price: 85000,
-    stock: 15
+    category: "Periféricos",
+    img: "images/products/TecladoMecanico.png",
+    stock: 15,
+    description: "Teclado mecánico ideal para gaming y productividad."
   },
   {
     id: 4,
-    image: "images/products/Monitor24.png",
     name: "Monitor 24 pulgadas",
     price: 320000,
-    stock: 5
+    category: "Monitores",
+    img: "images/products/Monitor24.png",
+    stock: 5,
+    description: "Monitor de 24 pulgadas con excelente calidad de imagen."
+  },
+  {
+    id: 5,
+    name: "Auriculares Gamer",
+    price: 95000,
+    category: "Periféricos",
+    img: "images/products/AuricularesGamer.png",
+    stock: 8,
+    description: "Auriculares gamer con sonido envolvente y micrófono integrado."
   }
 ];
 
