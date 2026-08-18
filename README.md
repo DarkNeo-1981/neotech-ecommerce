@@ -54,6 +54,9 @@ NEOTECH/
 │   ├── data/
 │   │   └── products.js
 │   │
+│   ├── mock/
+│   │   └── asyncMock.js
+│   │
 │   ├── App.css
 │   ├── App.jsx
 │   ├── index.css
