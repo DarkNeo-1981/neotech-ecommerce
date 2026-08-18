@@ -1,25 +1,24 @@
 
+import { useEffect, useState } from "react";
 import "./ItemListContainer.css";
-import Item from "./Item";
+import { getProducts } from "../mock/asyncMock";
+import ItemList from "./ItemList";
 
-function ItemListContainer({ greeting, products }) {
+function ItemListContainer() {
+  const [items, setItems] = useState([]);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const products = await getProducts();
+      setItems(products);
+    };
+
+    fetchProducts();
+  }, []);
+
   return (
     <section className="item-list-container">
-      <h2>{greeting}</h2>
-
-      <p>Descubrí la mejor tecnología para potenciar tu día a día.</p>
-
-      <main className="product-list">
-        {products.map((product) => (
-          <Item
-            key={product.id}
-            image={product.image}
-            name={product.name}
-            price={product.price}
-            stock={product.stock}
-          />
-        ))}
-      </main>
+      <ItemList items={items} />
     </section>
   );
 }

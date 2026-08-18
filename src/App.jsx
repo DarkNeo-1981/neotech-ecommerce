@@ -3,20 +3,18 @@ import './App.css';
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import ItemListContainer from "./components/ItemListContainer";
-import products from "./data/products";
 
 function App() {
   return (
-    <>
+    <div className="app">
       <Navbar />
 
-      <ItemListContainer
-        greeting="¡Bienvenido a NEOTECH!"
-        products={products}
-      />
+      <main>
+        <ItemListContainer />
+      </main>
 
       <Footer />
-    </>
+    </div>
   );
 }
 

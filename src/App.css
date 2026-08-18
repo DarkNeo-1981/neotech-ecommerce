@@ -1,22 +1,15 @@
 
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
 main {
   padding: 30px 40px;
-  display: flex;  
+  display: flex;
   justify-content: center;
   gap: 25px;
+  flex: 1;
   flex-wrap: wrap;
-}
-
-#root {
-  width: 100%;
-  min-height: 100vh;
-}
-
-.app {
-  text-align: center;
-}
-
-h2 {
-  color: #2563eb;
-  text-align: center;
 }

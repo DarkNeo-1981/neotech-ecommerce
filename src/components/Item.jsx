@@ -2,9 +2,11 @@
 import { useState } from "react";
 import "./Item.css";
 
-function Item({ name, price, image, stock }) {
+function Item({ product }) {
   const [cantidad, setCantidad] = useState(0);
   const [esFavorito, setEsFavorito] = useState(false);
+
+  const { name, price, img, stock } = product;
 
   const handleSumar = () => {
     setCantidad(prev => Math.min(stock, prev + 1));
@@ -28,7 +30,7 @@ function Item({ name, price, image, stock }) {
       </button>
 
       <div className="item-image">
-        <img src={image} alt={name} />
+        <img src={img} alt={name} />
       </div>
 
       <h3>{name}</h3>
@@ -36,9 +38,21 @@ function Item({ name, price, image, stock }) {
       <p className="stock">Stock disponible: {stock}</p>
 
       <div className="quantity">
-        <button onClick={handleRestar} disabled={cantidad === 0}> - </button>
+        <button
+          onClick={handleRestar}
+          disabled={cantidad === 0}
+        >
+          -
+        </button>
+
         <span>{cantidad}</span>
-        <button onClick={handleSumar} disabled={cantidad === stock}> + </button>
+
+        <button
+          onClick={handleSumar}
+          disabled={cantidad === stock}
+        >
+          +
+        </button>
       </div>
 
       <button>Ver producto</button>
