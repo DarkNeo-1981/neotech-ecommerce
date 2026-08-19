@@ -3,22 +3,32 @@ import { useEffect, useState } from "react";
 import "./ItemListContainer.css";
 import { getProducts } from "../mock/asyncMock";
 import ItemList from "./ItemList";
+import { useTranslation } from "react-i18next";
 
 function ItemListContainer() {
   const [items, setItems] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchProducts = async () => {
       const products = await getProducts();
+
       setItems(products);
+      setLoading(false);
     };
 
     fetchProducts();
   }, []);
 
+  const { t } = useTranslation();
+
   return (
     <section className="item-list-container">
-      <ItemList items={items} />
+      {loading ? (
+        <p className="loading">{t("product.loading")}</p>
+      ) : (
+        <ItemList items={items} />
+      )}
     </section>
   );
 }

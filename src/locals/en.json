@@ -33,6 +33,8 @@
       "3": "Mechanical keyboard ideal for gaming and productivity.",
       "4": "24-inch monitor with excellent image quality.",
       "5": "Gaming headset with immersive sound and a built-in microphone."
-    }
+    },
+
+    "loading": "Loading products..."
   }
 }
