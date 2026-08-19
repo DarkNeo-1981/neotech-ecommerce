@@ -25,6 +25,14 @@
       "3": "Mechanische Tastatur",
       "4": "24-Zoll-Monitor",
       "5": "Gaming-Headset"
+    },
+
+    "descriptions": {
+      "1": "Leistungsstarker Gaming-Laptop für anspruchsvolle Spiele und Anwendungen.",
+      "2": "Ergonomische Gaming-Maus mit hochpräzisem Sensor.",
+      "3": "Mechanische Tastatur, ideal für Gaming und Produktivität.",
+      "4": "24-Zoll-Monitor mit hervorragender Bildqualität.",
+      "5": "Gaming-Headset mit Surround-Sound und integriertem Mikrofon."
     }
   }
 }

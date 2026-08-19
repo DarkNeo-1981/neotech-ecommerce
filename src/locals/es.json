@@ -25,6 +25,14 @@
       "3": "Teclado Mecánico",
       "4": "Monitor 24 pulgadas",
       "5": "Auriculares Gamer"
+    },
+
+    "descriptions": {
+      "1": "Notebook gamer de alto rendimiento para juegos y aplicaciones exigentes.",
+      "2": "Mouse gamer ergonómico con sensor de alta precisión.",
+      "3": "Teclado mecánico ideal para gaming y productividad.",
+      "4": "Monitor de 24 pulgadas con excelente calidad de imagen.",
+      "5": "Auriculares gamer con sonido envolvente y micrófono integrado."
     }
   }
 }

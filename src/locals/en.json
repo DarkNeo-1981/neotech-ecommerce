@@ -25,6 +25,14 @@
       "3": "Mechanical Keyboard",
       "4": "24-inch Monitor",
       "5": "Gaming Headset"
+    },
+
+    "descriptions": {
+      "1": "High-performance gaming laptop for demanding games and applications.",
+      "2": "Ergonomic gaming mouse with a high-precision sensor.",
+      "3": "Mechanical keyboard ideal for gaming and productivity.",
+      "4": "24-inch monitor with excellent image quality.",
+      "5": "Gaming headset with immersive sound and a built-in microphone."
     }
   }
 }

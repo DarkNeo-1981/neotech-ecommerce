@@ -55,7 +55,6 @@ NEOTECH/
 │   │   ├── Footer.jsx
 │   │   ├── Item.css
 │   │   ├── Item.jsx
-│   │   ├── ItemList.css
 │   │   ├── ItemList.jsx
 │   │   ├── ItemListContainer.css
 │   │   ├── ItemListContainer.jsx
@@ -291,7 +290,7 @@ src/i18n.js
 Los archivos de traducción se encuentran en:
 
 ```text
-src/locales/
+src/locals/
 ```
 
 Archivos disponibles:

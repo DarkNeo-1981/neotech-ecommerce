@@ -12,6 +12,7 @@ function Item({ product }) {
   const { price, img, stock } = product;
 
   const productName = t(`product.names.${product.id}`);
+  const productDescription = t(`product.descriptions.${product.id}`);
 
   const handleSumar = () => {
     setCantidad(prev => Math.min(stock, prev + 1));
@@ -39,6 +40,8 @@ function Item({ product }) {
       </div>
 
       <h3>{productName}</h3>
+
+      <p className="description">{productDescription}</p>
 
       <p>${price.toLocaleString()}</p>
 

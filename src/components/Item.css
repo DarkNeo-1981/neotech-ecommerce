@@ -6,6 +6,10 @@
   border-radius: 12px;
   text-align: center;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+
+  display: flex;
+  flex-direction: column;
 }
 
 .item-image {
@@ -26,6 +30,10 @@
 
 .item h3 {
   margin: 10px 0;
+  min-height: 2.5em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .item p {
@@ -37,6 +45,16 @@
 .item .stock {
   font-size: 12px;
 }
+
+.item .description {
+  min-height: 4.2em;
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 1.4;
+  color: #666666;
+}
+
+/* Botones */
 
 .item button {
   border: none;
@@ -95,7 +113,7 @@
 /* Botón Ver producto */
 
 .item > button:last-child {
-  margin-top: 15px;
+  margin-top: auto;
   padding: 10px 20px;
   background: linear-gradient(180deg, #00bfff 0%, #0057a8 100%);
   color: #ffffff;
