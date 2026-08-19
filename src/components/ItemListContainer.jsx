@@ -11,10 +11,14 @@ function ItemListContainer() {
 
   useEffect(() => {
     const fetchProducts = async () => {
-      const products = await getProducts();
-
-      setItems(products);
-      setLoading(false);
+      try{
+        const products = await getProducts();  
+        setItems(products);
+      }catch(error){
+        console.error("Error fetching products:", error);
+      }finally{
+        setLoading(false);
+      }
     };
 
     fetchProducts();
