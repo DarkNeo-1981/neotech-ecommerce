@@ -1,6 +1,6 @@
 
 import "./Navbar.css";
-import CartWidget from "./CartWidget";
+import CartWidget from "../CartWidget/CartWidget";
 import { useTranslation } from "react-i18next";
 
 function Navbar() {

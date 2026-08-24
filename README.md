@@ -46,38 +46,38 @@ NEOTECH/
 │           ├── MouseGamer.png
 │           ├── NotebookGamer.png
 │           └── TecladoMecanico.png
-│
 ├── src/
 │   ├── components/
-│   │   ├── CartWidget.css
-│   │   ├── CartWidget.jsx
-│   │   ├── Footer.css
-│   │   ├── Footer.jsx
-│   │   ├── Item.css
-│   │   ├── Item.jsx
-│   │   ├── ItemList.jsx
-│   │   ├── ItemListContainer.css
-│   │   ├── ItemListContainer.jsx
-│   │   ├── Navbar.css
-│   │   └── Navbar.jsx
-│   │
+│   │   ├── CartWidget/
+│   │   │   ├── CartWidget.css
+│   │   │   └── CartWidget.jsx
+│   │   ├── Footer/
+│   │   │   ├── Footer.css
+│   │   │   └── Footer.jsx
+│   │   ├── Item/
+│   │   │   ├── Item.css
+│   │   │   └── Item.jsx
+│   │   ├── ItemList/
+│   │   │   └── ItemList.jsx
+│   │   ├── ItemListContainer/
+│   │   │   ├── ItemListContainer.css
+│   │   │   └── ItemListContainer.jsx
+│   │   └── Navbar/
+│   │       ├── Navbar.css
+│   │       └── Navbar.jsx
 │   ├── data/
 │   │   └── products.js
-│   │
 │   ├── locals/
-│   │   ├── es.json
+│   │   ├── de.json
 │   │   ├── en.json
-│   │   └── de.json
-│   │
+│   │   └── es.json
 │   ├── mock/
 │   │   └── asyncMock.js
-│   │
-│   ├── i18n.js
 │   ├── App.css
 │   ├── App.jsx
+│   ├── i18n.js
 │   ├── index.css
 │   └── main.jsx
-│
 ├── .gitignore
 ├── index.html
 ├── package-lock.json

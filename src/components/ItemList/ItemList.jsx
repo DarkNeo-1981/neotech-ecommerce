@@ -1,5 +1,5 @@
 
-import Item from "./Item";
+import Item from "../Item/Item";
 
 function ItemList({ items }) {
   return (

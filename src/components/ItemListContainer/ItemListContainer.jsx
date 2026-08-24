@@ -1,8 +1,8 @@
 
 import { useEffect, useState } from "react";
 import "./ItemListContainer.css";
-import { getProducts } from "../mock/asyncMock";
-import ItemList from "./ItemList";
+import { getProducts } from "../../mock/asyncMock";
+import ItemList from "../ItemList/ItemList";
 import { useTranslation } from "react-i18next";
 
 function ItemListContainer() {
