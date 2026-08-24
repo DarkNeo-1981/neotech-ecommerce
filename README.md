@@ -9,23 +9,26 @@ El objetivo del proyecto es construir una aplicación moderna para la venta de p
 
 Actualmente el proyecto se encuentra en desarrollo y continuará evolucionando a lo largo del curso.
 
-En esta etapa se implementó un catálogo dinámico de productos utilizando una fuente de datos local y una simulación de carga asíncrona mediante `Promise`, `setTimeout`, `useEffect` y `async/await`.
+En esta etapa se implementó un catálogo dinámico de productos utilizando una fuente de datos local y una simulación de carga asíncrona mediante `Promise`, `setTimeout` y `async/await`.
 
 Además, se incorporó internacionalización utilizando `react-i18next`, permitiendo cambiar dinámicamente el idioma de toda la aplicación entre Español, Inglés y Alemán.
+
+La lógica de carga de productos se encuentra separada en un Custom Hook llamado `useProducts`, manteniendo los componentes enfocados en la interfaz.
 
 ---
 
 ## 🚀 Tecnologías utilizadas
 
-* React
-* Vite
-* JavaScript (ES6+)
-* HTML5
-* CSS3
-* React Hooks (`useState` y `useEffect`)
-* react-i18next (Internacionalización)
-* react-icons (Iconografía)
-* flag-icons (Banderas de idiomas)
+- React
+- Vite
+- JavaScript (ES6+)
+- HTML5
+- CSS3
+- React Hooks (`useState` y `useEffect`)
+- Custom Hooks (`useProducts`)
+- react-i18next (Internacionalización)
+- react-icons (Iconografía)
+- flag-icons (Banderas de idiomas)
 
 ---
 
@@ -67,6 +70,8 @@ NEOTECH/
 │   │       └── Navbar.jsx
 │   ├── data/
 │   │   └── products.js
+│   ├── hooks/
+│   │   └── useProducts.js
 │   ├── locals/
 │   │   ├── de.json
 │   │   ├── en.json
@@ -88,30 +93,30 @@ NEOTECH/
 
 ---
 
-# 🧩 Componentes principales
+## 🧩 Componentes principales
 
-## Navbar
+### Navbar
 
 Barra de navegación principal de NEOTECH.
 
 Contiene:
 
-* Nombre de la tienda
-* Categorías de productos
-* Selector de idioma
-* Componente `CartWidget`
+- Nombre de la tienda
+- Categorías de productos
+- Selector de idioma
+- Componente `CartWidget`
 
 El selector permite cambiar dinámicamente entre:
 
-* Español 🇪🇸
-* English 🇬🇧
-* Deutsch 🇩🇪
+- Español 🇪🇸
+- English 🇬🇧
+- Deutsch 🇩🇪
 
 El idioma seleccionado se almacena utilizando `localStorage`.
 
 ---
 
-## CartWidget
+### CartWidget
 
 Componente encargado de mostrar el ícono del carrito y la cantidad de productos seleccionados.
 
@@ -121,23 +126,25 @@ La integración con el estado global de los productos será incorporada progresi
 
 ---
 
-## ItemListContainer
+### ItemListContainer
 
 Es el componente contenedor principal del catálogo.
 
-Su responsabilidad es gestionar la obtención de los productos y almacenarlos en el estado `items`.
+Su responsabilidad es mostrar el estado de carga, un posible error o el listado de productos.
 
-Utiliza `useState` para mantener el listado de productos y `useEffect` para ejecutar la carga de datos una única vez cuando el componente se monta.
+Recibe los datos mediante el Custom Hook `useProducts`:
 
-La obtención de los productos se realiza mediante la función `getProducts`, que devuelve una `Promise` con una demora simulada de 2 segundos.
+```jsx
+const { products, loading, error } = useProducts();
+```
 
-Una vez obtenidos los productos, se actualiza el estado mediante `setItems` y se pasan los datos al componente `ItemList` mediante props.
+De esta forma, `ItemListContainer` no conoce cómo se obtienen los productos: solo utiliza los datos que recibe del hook y los envía a `ItemList` mediante props.
 
 El componente no realiza el `.map()` de los productos, ya que esa responsabilidad corresponde a `ItemList`.
 
 ---
 
-## ItemList
+### ItemList
 
 Componente encargado de recibir el array de productos mediante props y recorrerlo utilizando el método `.map()`.
 
@@ -153,30 +160,30 @@ De esta manera se evita utilizar el índice del array como clave y se mantiene u
 
 ---
 
-## Item
+### Item
 
 Representa individualmente cada producto del catálogo.
 
 Muestra:
 
-* Imagen
-* Nombre
-* Precio
-* Stock disponible
-* Selector de cantidad
-* Botón para marcar el producto como favorito
-* Botón para ver el producto
+- Imagen
+- Nombre
+- Precio
+- Stock disponible
+- Selector de cantidad
+- Botón para marcar el producto como favorito
+- Botón para ver el producto
 
 El componente utiliza `useState` para administrar dos estados independientes:
 
-* `cantidad`: almacena la cantidad seleccionada del producto.
-* `esFavorito`: determina si el producto fue marcado como favorito.
+- `cantidad`: almacena la cantidad seleccionada del producto.
+- `esFavorito`: determina si el producto fue marcado como favorito.
 
 Las actualizaciones del estado utilizan la forma funcional del setter:
 
 ```jsx
-setCantidad(prev => prev + 1);
-setEsFavorito(prev => !prev);
+setCantidad((prev) => prev + 1);
+setEsFavorito((prev) => !prev);
 ```
 
 Cada instancia del componente `Item` mantiene su propio estado, por lo que las interacciones realizadas sobre un producto no modifican los demás productos del catálogo.
@@ -185,7 +192,7 @@ Los nombres de los productos utilizan internacionalización, permitiendo mostrar
 
 ---
 
-## Footer
+### Footer
 
 Pie de página de la aplicación con la identificación de la tienda y enlaces a redes sociales.
 
@@ -193,7 +200,38 @@ También incorpora traducción dinámica según el idioma seleccionado.
 
 ---
 
-# 📦 Datos de productos
+## 🪝 Custom Hook: useProducts
+
+El proyecto utiliza el Custom Hook `useProducts`, ubicado en:
+
+```text
+src/hooks/useProducts.js
+```
+
+Su responsabilidad es centralizar la lógica de carga de productos.
+
+El hook administra:
+
+- El listado de productos.
+- El estado de carga.
+- El posible estado de error.
+- La llamada a `getProducts`.
+
+Retorna un objeto con los datos necesarios para que los componentes puedan utilizarlo:
+
+```jsx
+{
+  products,
+  loading,
+  error
+}
+```
+
+Esto permite separar la lógica de la interfaz y mantener `ItemListContainer` más limpio y fácil de reutilizar.
+
+---
+
+## 📦 Datos de productos
 
 Los productos utilizados por el catálogo se encuentran definidos en:
 
@@ -203,11 +241,11 @@ src/data/products.js
 
 Actualmente se cuenta con cinco productos:
 
-* Notebook Gamer
-* Mouse Gamer
-* Teclado Mecánico
-* Monitor 24 pulgadas
-* Auriculares Gamer
+- Notebook Gamer
+- Mouse Gamer
+- Teclado Mecánico
+- Monitor 24 pulgadas
+- Auriculares Gamer
 
 Cada producto posee las siguientes propiedades:
 
@@ -237,7 +275,7 @@ Ejemplo:
 
 ---
 
-# 🔄 Carga dinámica y flujo asíncrono
+## 🔄 Carga dinámica y flujo asíncrono
 
 La aplicación utiliza un flujo dinámico que simula la obtención de información desde una API.
 
@@ -254,13 +292,15 @@ El flujo de datos funciona de la siguiente manera:
 ```text
 ItemListContainer
         ↓
-    getProducts()
+  useProducts()
+        ↓
+  getProducts()
         ↓
      Promise
         ↓
    2 segundos
         ↓
-   setItems(products)
+{ products, loading, error }
         ↓
      ItemList
         ↓
@@ -271,15 +311,15 @@ ItemListContainer
 
 ---
 
-# 🌎 Internacionalización
+## 🌎 Internacionalización
 
 La aplicación incorpora soporte multiidioma mediante la librería `react-i18next`.
 
 Idiomas disponibles:
 
-* Español 🇪🇸
-* English 🇬🇧
-* Deutsch 🇩🇪
+- Español 🇪🇸
+- English 🇬🇧
+- Deutsch 🇩🇪
 
 La configuración se encuentra en:
 
@@ -305,26 +345,28 @@ El cambio de idioma se realiza desde el selector ubicado en el Navbar.
 
 Actualmente se traducen:
 
-* Navbar
-* Título principal
-* Nombre de productos
-* Stock disponible
-* Botones
-* Footer
+- Navbar
+- Título principal
+- Nombre de productos
+- Stock disponible
+- Botones
+- Footer
 
 ---
 
-# 🧠 Gestión de estado
+## 🧠 Gestión de estado
 
-La gestión de estado se implementa actualmente utilizando los hooks `useState` y `useEffect` de React.
+La gestión de estado se implementa utilizando Hooks de React.
 
-Dentro de `ItemListContainer`:
+El hook `useProducts` administra el estado relacionado con la obtención del catálogo:
 
 ```jsx
-const [items, setItems] = useState([]);
+const [products, setProducts] = useState([]);
+const [loading, setLoading] = useState(true);
+const [error, setError] = useState(null);
 ```
 
-Dentro de `Item`:
+Dentro de `Item`, cada producto administra su estado independiente:
 
 ```jsx
 const [cantidad, setCantidad] = useState(0);
@@ -337,7 +379,7 @@ A futuro, cuando sea necesario sincronizar las cantidades seleccionadas con comp
 
 ---
 
-# ⚙️ Instalación
+## ⚙️ Instalación
 
 Clonar el repositorio:
 
@@ -365,38 +407,38 @@ npm run dev
 
 ---
 
-# 🎯 Objetivo
+## 🎯 Objetivo
 
 Desarrollar un e-commerce completo utilizando React incorporando progresivamente:
 
-* Componentes reutilizables
-* Gestión de estado
-* Carga dinámica de productos
-* Internacionalización
-* Navegación
-* Catálogo de productos
-* Carrito de compras
-* Checkout
-* Integración con Firebase
+- Componentes reutilizables
+- Gestión de estado
+- Custom Hooks
+- Carga dinámica de productos
+- Internacionalización
+- Navegación
+- Catálogo de productos
+- Carrito de compras
+- Checkout
+- Integración con Firebase
 
 ---
 
-# 📌 Próximos pasos
+## 📌 Próximos pasos
 
 En las próximas etapas del proyecto se incorporarán nuevas funcionalidades:
 
-* Custom Hooks
-* React Router
-* Navegación entre vistas
-* Detalle individual de productos
-* Filtrado por categorías
-* Carrito de compras
-* Persistencia de datos
-* Integración con Firebase
+- React Router
+- Navegación entre vistas
+- Detalle individual de productos
+- Filtrado por categorías
+- Carrito de compras
+- Persistencia de datos
+- Integración con Firebase
 
 ---
 
-# 👨‍💻 Autor
+## 👨‍💻 Autor
 
 **Nicolás Fasanella**
 
