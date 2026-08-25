@@ -18,6 +18,14 @@
   "product": {
     "availableStock": "Verfügbarer Bestand",
     "viewProduct": "Produkt ansehen",
+    "category": "Kategorie",
+
+    "categories": {
+      "Notebooks": "Laptops",
+      "Periféricos": "Peripheriegeräte",
+      "Monitores": "Monitore",
+      "Componentes": "Komponenten"
+    },
 
     "names": {
       "1": "Gaming-Laptop",
@@ -35,6 +43,17 @@
       "5": "Gaming-Headset mit Surround-Sound und integriertem Mikrofon."
     },
 
-    "loading": "Produkte werden geladen..."
+    "longDescriptions": {
+      "1": "Leistungsstarker Gaming-Laptop für Gaming, Arbeit und anspruchsvolle Anwendungen. Er verfügt über einen leistungsfähigen Prozessor, dedizierte Grafik und schnellen Speicher für eine flüssige Nutzung auch bei intensiven Aufgaben.",
+      "2": "Ergonomische Gaming-Maus für Präzision und Komfort bei langen Gaming-Sessions. Der hochpräzise Sensor ermöglicht schnelle und genaue Bewegungen.",
+      "3": "Mechanische Tastatur für Gaming und Produktivität. Die Tasten bieten eine schnelle und präzise Reaktion und sorgen für ein komfortables Erlebnis beim Spielen und Arbeiten.",
+      "4": "24-Zoll-Monitor für Gaming, Unterhaltung und Arbeit. Er bietet eine hervorragende Bildqualität und eine ideale Größe für komfortables Arbeiten und Genießen von Inhalten.",
+      "5": "Gaming-Headset mit Surround-Sound und integriertem Mikrofon. Entwickelt für ein immersives Spielerlebnis und eine klare Kommunikation mit anderen Spielern."
+    },
+
+    "loading": "Produkt wird geladen...",
+    "loadingDetail": "Produkt wird geladen...",
+    "backToProducts": "Zurück zu den Produkten",
+    "addToCart": "In den Warenkorb"
   }
 }

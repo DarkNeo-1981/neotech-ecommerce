@@ -2,9 +2,8 @@
 import { useState } from "react";
 import "./Item.css";
 import { useTranslation } from "react-i18next";
-import ItemCount from "../ItemCount/ItemCount";
 
-function Item({ product }) {
+function Item({ product, onViewDetail }) {
   const { t } = useTranslation();
 
   const [esFavorito, setEsFavorito] = useState(false);
@@ -15,7 +14,7 @@ function Item({ product }) {
   const productDescription = t(`product.descriptions.${product.id}`);
 
   const toggleFavorite = () => {
-    setEsFavorito(prev => !prev);
+    setEsFavorito((prev) => !prev);
   };
 
   return (
@@ -41,8 +40,9 @@ function Item({ product }) {
         {t("product.availableStock")}: {stock}
       </p>
 
-      <ItemCount stock={stock} />
-      <button>{t("product.viewProduct")}</button>
+      <button onClick={() => onViewDetail(product.id)}>
+        {t("product.viewProduct")}
+      </button>
     </article>
   );
 }

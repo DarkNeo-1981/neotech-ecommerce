@@ -18,6 +18,14 @@
   "product": {
     "availableStock": "Stock disponible",
     "viewProduct": "Ver producto",
+    "category": "Categoría",
+
+    "categories": {
+      "Notebooks": "Notebooks",
+      "Periféricos": "Periféricos",
+      "Monitores": "Monitores",
+      "Componentes": "Componentes"
+    },
 
     "names": {
       "1": "Notebook Gamer",
@@ -35,6 +43,17 @@
       "5": "Auriculares gamer con sonido envolvente y micrófono integrado."
     },
 
-    "loading": "Cargando producto..."
+    "longDescriptions": {
+      "1": "Notebook gamer de alto rendimiento diseñada para gaming, trabajo y aplicaciones exigentes. Cuenta con un potente procesador, gráficos dedicados y almacenamiento rápido para ofrecer una experiencia fluida incluso en tareas intensivas.",
+      "2": "Mouse gamer ergonómico diseñado para ofrecer precisión y comodidad durante largas sesiones de juego. Su sensor de alta precisión permite movimientos rápidos y exactos.",
+      "3": "Teclado mecánico diseñado para gaming y productividad. Sus teclas ofrecen una respuesta rápida y precisa, brindando una experiencia cómoda tanto para jugar como para trabajar.",
+      "4": "Monitor de 24 pulgadas pensado para gaming, entretenimiento y trabajo. Ofrece una excelente calidad de imagen y un tamaño ideal para disfrutar de tus contenidos con comodidad.",
+      "5": "Auriculares gamer con sonido envolvente y micrófono integrado. Diseñados para ofrecer una experiencia inmersiva durante los juegos y una comunicación clara con otros jugadores."
+    },
+
+    "loading": "Cargando producto...",
+    "loadingDetail": "Cargando producto...",
+    "backToProducts": "Volver a productos",
+    "addToCart": "Agregar al carrito"
   }
 }

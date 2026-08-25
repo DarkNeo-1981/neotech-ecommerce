@@ -5,15 +5,17 @@
 
 NEOTECH es un e-commerce desarrollado con React como proyecto final del curso de React JS.
 
-El objetivo del proyecto es construir una aplicación moderna para la venta de productos tecnológicos, aplicando buenas prácticas de desarrollo, una arquitectura basada en componentes y una interfaz intuitiva.
+El objetivo del proyecto es construir una aplicación moderna para la venta de productos tecnológicos, aplicando buenas prácticas de desarrollo, una arquitectura basada en componentes, gestión de estado y una interfaz intuitiva.
 
-Actualmente el proyecto se encuentra en desarrollo y continuará evolucionando a lo largo del curso.
+El proyecto se encuentra en desarrollo y continuará incorporando nuevas funcionalidades a lo largo del curso.
 
-En esta etapa se implementó un catálogo dinámico de productos utilizando una fuente de datos local y una simulación de carga asíncrona mediante `Promise`, `setTimeout` y `async/await`.
+Actualmente la aplicación cuenta con un catálogo dinámico de productos utilizando una fuente de datos local y una simulación de carga asíncrona mediante `Promise` y `setTimeout`.
 
-Además, se incorporó internacionalización utilizando `react-i18next`, permitiendo cambiar dinámicamente el idioma de toda la aplicación entre Español, Inglés y Alemán.
+También se incorporó internacionalización mediante `react-i18next`, permitiendo cambiar dinámicamente el idioma de la aplicación entre Español, Inglés y Alemán.
 
-La lógica de carga de productos se encuentra separada en un Custom Hook llamado `useProducts`, manteniendo los componentes enfocados en la interfaz.
+La lógica de carga de productos se encuentra separada en un Custom Hook llamado `useProducts`, manteniendo los componentes enfocados en la presentación y la interacción con el usuario.
+
+Además, se incorporó una vista de detalle individual para cada producto, con información ampliada, selección de cantidad y un botón preparado para la futura integración con el carrito de compras.
 
 ---
 
@@ -26,9 +28,11 @@ La lógica de carga de productos se encuentra separada en un Custom Hook llamado
 - CSS3
 - React Hooks (`useState` y `useEffect`)
 - Custom Hooks (`useProducts`)
-- react-i18next (Internacionalización)
-- react-icons (Iconografía)
-- flag-icons (Banderas de idiomas)
+- React Router
+- react-i18next
+- react-icons
+- flag-icons
+- LocalStorage
 
 ---
 
@@ -49,6 +53,7 @@ NEOTECH/
 │           ├── MouseGamer.png
 │           ├── NotebookGamer.png
 │           └── TecladoMecanico.png
+│
 ├── src/
 │   ├── components/
 │   │   ├── CartWidget/
@@ -60,6 +65,14 @@ NEOTECH/
 │   │   ├── Item/
 │   │   │   ├── Item.css
 │   │   │   └── Item.jsx
+│   │   ├── ItemCount/
+│   │   │   ├── ItemCount.css
+│   │   │   └── ItemCount.jsx
+│   │   ├── ItemDetail/
+│   │   │   ├── ItemDetail.css
+│   │   │   └── ItemDetail.jsx
+│   │   ├── ItemDetailContainer/
+│   │   │   └── ItemDetailContainer.jsx
 │   │   ├── ItemList/
 │   │   │   └── ItemList.jsx
 │   │   ├── ItemListContainer/
@@ -68,6 +81,7 @@ NEOTECH/
 │   │   └── Navbar/
 │   │       ├── Navbar.css
 │   │       └── Navbar.jsx
+│   │
 │   ├── data/
 │   │   └── products.js
 │   ├── hooks/
@@ -83,13 +97,17 @@ NEOTECH/
 │   ├── i18n.js
 │   ├── index.css
 │   └── main.jsx
+│
 ├── .gitignore
+├── eslint.config.js
 ├── index.html
 ├── package-lock.json
 ├── package.json
 ├── README.md
 └── vite.config.js
 ```
+
+> La carpeta `dist/` es generada automáticamente durante el proceso de build y no forma parte de la estructura principal del código fuente.
 
 ---
 
@@ -118,11 +136,11 @@ El idioma seleccionado se almacena utilizando `localStorage`.
 
 ### CartWidget
 
-Componente encargado de mostrar el ícono del carrito y la cantidad de productos seleccionados.
+Componente encargado de mostrar visualmente el carrito de compras y la cantidad de productos seleccionados.
 
 Actualmente funciona como representación visual del carrito.
 
-La integración con el estado global de los productos será incorporada progresivamente a medida que avance el desarrollo del e-commerce.
+La integración completa con el estado del carrito será incorporada progresivamente durante el desarrollo.
 
 ---
 
@@ -130,23 +148,25 @@ La integración con el estado global de los productos será incorporada progresi
 
 Es el componente contenedor principal del catálogo.
 
-Su responsabilidad es mostrar el estado de carga, un posible error o el listado de productos.
+Su responsabilidad es controlar los estados de:
 
-Recibe los datos mediante el Custom Hook `useProducts`:
+- Carga
+- Error
+- Productos obtenidos
+
+Utiliza el Custom Hook `useProducts`:
 
 ```jsx
 const { products, loading, error } = useProducts();
 ```
 
-De esta forma, `ItemListContainer` no conoce cómo se obtienen los productos: solo utiliza los datos que recibe del hook y los envía a `ItemList` mediante props.
-
-El componente no realiza el `.map()` de los productos, ya que esa responsabilidad corresponde a `ItemList`.
+Una vez obtenidos los productos, los envía a `ItemList` mediante props.
 
 ---
 
 ### ItemList
 
-Componente encargado de recibir el array de productos mediante props y recorrerlo utilizando el método `.map()`.
+Componente encargado de recibir el array de productos mediante props y recorrerlo utilizando `.map()`.
 
 Por cada producto genera un componente `Item`.
 
@@ -156,47 +176,110 @@ Cada elemento utiliza el identificador único del producto como `key`:
 <Item key={product.id} product={product} />
 ```
 
-De esta manera se evita utilizar el índice del array como clave y se mantiene una identificación estable para cada elemento renderizado.
+De esta manera se mantiene una identificación estable para cada elemento renderizado.
 
 ---
 
 ### Item
 
-Representa individualmente cada producto del catálogo.
+Representa individualmente cada producto dentro del catálogo.
 
 Muestra:
 
 - Imagen
 - Nombre
+- Descripción corta
 - Precio
 - Stock disponible
-- Selector de cantidad
 - Botón para marcar el producto como favorito
-- Botón para ver el producto
+- Botón para acceder al detalle del producto
 
-El componente utiliza `useState` para administrar dos estados independientes:
-
-- `cantidad`: almacena la cantidad seleccionada del producto.
-- `esFavorito`: determina si el producto fue marcado como favorito.
-
-Las actualizaciones del estado utilizan la forma funcional del setter:
+El componente utiliza `useState` para administrar el estado del favorito:
 
 ```jsx
-setCantidad((prev) => prev + 1);
-setEsFavorito((prev) => !prev);
+const [esFavorito, setEsFavorito] = useState(false);
 ```
 
-Cada instancia del componente `Item` mantiene su propio estado, por lo que las interacciones realizadas sobre un producto no modifican los demás productos del catálogo.
+Cada instancia de `Item` mantiene su propio estado, por lo que marcar un producto como favorito no modifica los demás productos.
 
-Los nombres de los productos utilizan internacionalización, permitiendo mostrar el catálogo en diferentes idiomas sin modificar la fuente de datos original.
+La selección de cantidad fue trasladada a la vista de detalle para mantener las tarjetas del catálogo más simples y enfocadas en la presentación del producto.
+
+---
+
+### ItemCount
+
+Componente reutilizable encargado de controlar la cantidad de unidades de un producto.
+
+Utiliza `useState` para administrar la cantidad seleccionada:
+
+```jsx
+const [cantidad, setCantidad] = useState(0);
+```
+
+El contador incorpora validaciones para evitar:
+
+- Valores menores a cero.
+- Superar el stock disponible.
+
+Los botones se deshabilitan automáticamente cuando se alcanza el mínimo o máximo permitido.
+
+Actualmente se utiliza dentro de `ItemDetail`.
+
+---
+
+### ItemDetailContainer
+
+Componente encargado de obtener un producto específico mediante su identificador.
+
+Utiliza `useEffect` para solicitar el producto mediante:
+
+```jsx
+getProductById(productId)
+```
+
+Administra los estados de:
+
+- Producto seleccionado
+- Carga
+- Error
+
+Una vez obtenido el producto, lo envía a `ItemDetail`.
+
+También permite volver al catálogo mediante la función `onBack`.
+
+---
+
+### ItemDetail
+
+Componente encargado de mostrar la información detallada de un producto.
+
+Actualmente muestra:
+
+- Imagen
+- Nombre
+- Categoría
+- Descripción detallada
+- Precio
+- Stock disponible
+- Contador de unidades
+- Botón `Agregar al carrito`
+
+La vista utiliza una descripción ampliada diferente de la utilizada en las tarjetas del catálogo.
+
+El botón `Agregar al carrito` se encuentra preparado visualmente para una futura integración con la lógica del carrito.
 
 ---
 
 ### Footer
 
-Pie de página de la aplicación con la identificación de la tienda y enlaces a redes sociales.
+Pie de página de la aplicación.
 
-También incorpora traducción dinámica según el idioma seleccionado.
+Incluye:
+
+- Identificación de NEOTECH
+- Información de copyright
+- Enlaces a redes sociales
+- Traducción dinámica según el idioma seleccionado
 
 ---
 
@@ -217,7 +300,7 @@ El hook administra:
 - El posible estado de error.
 - La llamada a `getProducts`.
 
-Retorna un objeto con los datos necesarios para que los componentes puedan utilizarlo:
+Retorna:
 
 ```jsx
 {
@@ -227,7 +310,7 @@ Retorna un objeto con los datos necesarios para que los componentes puedan utili
 }
 ```
 
-Esto permite separar la lógica de la interfaz y mantener `ItemListContainer` más limpio y fácil de reutilizar.
+Esto permite separar la lógica de obtención de datos de la interfaz y mantener `ItemListContainer` más limpio y reutilizable.
 
 ---
 
@@ -247,7 +330,7 @@ Actualmente se cuenta con cinco productos:
 - Monitor 24 pulgadas
 - Auriculares Gamer
 
-Cada producto posee las siguientes propiedades:
+Cada producto posee información como:
 
 ```text
 id
@@ -273,6 +356,12 @@ Ejemplo:
 }
 ```
 
+La información utilizada para las traducciones y las descripciones ampliadas se encuentra en los archivos de idioma dentro de:
+
+```text
+src/locals/
+```
+
 ---
 
 ## 🔄 Carga dinámica y flujo asíncrono
@@ -287,7 +376,9 @@ src/mock/asyncMock.js
 
 La función `getProducts` devuelve una `Promise` y utiliza `setTimeout` para simular un tiempo de respuesta.
 
-El flujo de datos funciona de la siguiente manera:
+También se utiliza `getProductById` para obtener un producto específico.
+
+### Flujo del catálogo
 
 ```text
 ItemListContainer
@@ -296,17 +387,33 @@ ItemListContainer
         ↓
   getProducts()
         ↓
-     Promise
+    Promise
         ↓
    2 segundos
         ↓
 { products, loading, error }
         ↓
-     ItemList
+    ItemList
         ↓
-       .map()
+      .map()
         ↓
       Item
+```
+
+### Flujo del detalle
+
+```text
+Item
+  ↓
+Ver producto
+  ↓
+ItemDetailContainer
+  ↓
+getProductById(productId)
+  ↓
+Promise
+  ↓
+ItemDetail
 ```
 
 ---
@@ -347,9 +454,13 @@ Actualmente se traducen:
 
 - Navbar
 - Título principal
-- Nombre de productos
+- Nombres de productos
+- Descripciones
+- Categorías
 - Stock disponible
 - Botones
+- Estados de carga
+- Vista de detalle
 - Footer
 
 ---
@@ -358,7 +469,7 @@ Actualmente se traducen:
 
 La gestión de estado se implementa utilizando Hooks de React.
 
-El hook `useProducts` administra el estado relacionado con la obtención del catálogo:
+El Custom Hook `useProducts` administra el estado relacionado con la obtención del catálogo:
 
 ```jsx
 const [products, setProducts] = useState([]);
@@ -366,16 +477,34 @@ const [loading, setLoading] = useState(true);
 const [error, setError] = useState(null);
 ```
 
-Dentro de `Item`, cada producto administra su estado independiente:
+Dentro de `Item`, cada producto administra su estado independiente de favorito:
+
+```jsx
+const [esFavorito, setEsFavorito] = useState(false);
+```
+
+`ItemCount` administra la cantidad seleccionada de manera independiente:
 
 ```jsx
 const [cantidad, setCantidad] = useState(0);
-const [esFavorito, setEsFavorito] = useState(false);
 ```
 
 El contador incorpora validaciones para evitar valores negativos o superar el stock disponible.
 
 A futuro, cuando sea necesario sincronizar las cantidades seleccionadas con componentes como `CartWidget`, el estado podrá elevarse mediante el patrón conocido como **lifting state up**.
+
+---
+
+## 🛒 Estado actual del carrito
+
+El proyecto cuenta actualmente con:
+
+- `CartWidget`
+- Iconografía del carrito
+- Botón `Agregar al carrito` en el detalle
+- Contador de unidades
+
+La funcionalidad completa de agregado, eliminación, actualización de cantidades y persistencia del carrito será implementada en una etapa posterior.
 
 ---
 
@@ -393,23 +522,29 @@ Ingresar al proyecto:
 cd neotech-ecommerce
 ```
 
-Instalar dependencias:
+Instalar las dependencias:
 
 ```bash
 npm install
 ```
 
-Ejecutar el proyecto:
+Ejecutar el proyecto en modo desarrollo:
 
 ```bash
 npm run dev
+```
+
+Para generar una versión de producción:
+
+```bash
+npm run build
 ```
 
 ---
 
 ## 🎯 Objetivo
 
-Desarrollar un e-commerce completo utilizando React incorporando progresivamente:
+Desarrollar progresivamente un e-commerce completo utilizando React e incorporando:
 
 - Componentes reutilizables
 - Gestión de estado
@@ -418,7 +553,9 @@ Desarrollar un e-commerce completo utilizando React incorporando progresivamente
 - Internacionalización
 - Navegación
 - Catálogo de productos
+- Detalle individual de productos
 - Carrito de compras
+- Persistencia de datos
 - Checkout
 - Integración con Firebase
 
@@ -426,15 +563,16 @@ Desarrollar un e-commerce completo utilizando React incorporando progresivamente
 
 ## 📌 Próximos pasos
 
-En las próximas etapas del proyecto se incorporarán nuevas funcionalidades:
+Entre las próximas etapas del proyecto se encuentran:
 
-- React Router
-- Navegación entre vistas
-- Detalle individual de productos
-- Filtrado por categorías
-- Carrito de compras
-- Persistencia de datos
-- Integración con Firebase
+- Mejorar la navegación entre categorías.
+- Implementar el filtrado de productos.
+- Completar la funcionalidad del carrito.
+- Compartir el estado del carrito entre componentes.
+- Implementar persistencia del carrito.
+- Desarrollar el checkout.
+- Integrar Firebase.
+- Continuar mejorando la interfaz y la experiencia de usuario.
 
 ---
 

@@ -1,7 +1,7 @@
 
 {
   "navbar": {
-    "notebooks": "Laptops",
+    "notebooks": "Notebooks",
     "peripherals": "Peripherals",
     "monitors": "Monitors",
     "components": "Components"
@@ -18,6 +18,14 @@
   "product": {
     "availableStock": "Available stock",
     "viewProduct": "View product",
+    "category": "Category",
+
+    "categories": {
+      "Notebooks": "Notebooks",
+      "Periféricos": "Peripherals",
+      "Monitores": "Monitors",
+      "Componentes": "Components"
+    },
 
     "names": {
       "1": "Gaming Laptop",
@@ -32,9 +40,20 @@
       "2": "Ergonomic gaming mouse with a high-precision sensor.",
       "3": "Mechanical keyboard ideal for gaming and productivity.",
       "4": "24-inch monitor with excellent image quality.",
-      "5": "Gaming headset with immersive sound and a built-in microphone."
+      "5": "Gaming headset with surround sound and integrated microphone."
     },
 
-    "loading": "Loading products..."
+    "longDescriptions": {
+      "1": "High-performance gaming laptop designed for gaming, work, and demanding applications. It features a powerful processor, dedicated graphics, and fast storage for a smooth experience even during intensive tasks.",
+      "2": "Ergonomic gaming mouse designed to provide precision and comfort during long gaming sessions. Its high-precision sensor allows fast and accurate movements.",
+      "3": "Mechanical keyboard designed for gaming and productivity. Its keys provide fast and precise response, offering a comfortable experience for both gaming and work.",
+      "4": "24-inch monitor designed for gaming, entertainment, and work. It delivers excellent image quality and an ideal size for enjoying your content comfortably.",
+      "5": "Gaming headset with surround sound and integrated microphone. Designed to provide an immersive gaming experience and clear communication with other players."
+    },
+
+    "loading": "Loading product...",
+    "loadingDetail": "Loading product...",
+    "backToProducts": "Back to products",
+    "addToCart": "Add to cart"
   }
 }
