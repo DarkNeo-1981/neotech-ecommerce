@@ -2,25 +2,17 @@
 import { useState } from "react";
 import "./Item.css";
 import { useTranslation } from "react-i18next";
+import ItemCount from "../ItemCount/ItemCount";
 
 function Item({ product }) {
   const { t } = useTranslation();
 
-  const [cantidad, setCantidad] = useState(0);
   const [esFavorito, setEsFavorito] = useState(false);
 
   const { price, img, stock } = product;
 
   const productName = t(`product.names.${product.id}`);
   const productDescription = t(`product.descriptions.${product.id}`);
-
-  const handleSumar = () => {
-    setCantidad(prev => Math.min(stock, prev + 1));
-  };
-
-  const handleRestar = () => {
-    setCantidad(prev => Math.max(0, prev - 1));
-  };
 
   const toggleFavorite = () => {
     setEsFavorito(prev => !prev);
@@ -49,24 +41,7 @@ function Item({ product }) {
         {t("product.availableStock")}: {stock}
       </p>
 
-      <div className="quantity">
-        <button
-          onClick={handleRestar}
-          disabled={cantidad === 0}
-        >
-          -
-        </button>
-
-        <span>{cantidad}</span>
-
-        <button
-          onClick={handleSumar}
-          disabled={cantidad === stock}
-        >
-          +
-        </button>
-      </div>
-
+      <ItemCount stock={stock} />
       <button>{t("product.viewProduct")}</button>
     </article>
   );

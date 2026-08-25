@@ -1,0 +1,27 @@
+
+/* Contador de cantidad */
+
+.quantity {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin: 8px 0;
+}
+
+.quantity button {
+  padding: 2px 8px; /* Botones de + / - más pequeños */
+  font-size: 14px;
+  background-color: #e5e5e5;
+  color: #333333;
+}
+
+.quantity button:hover {
+  background-color: #d0d0d0;
+}
+
+.quantity span {
+  font-size: 14px;
+  font-weight: bold;
+  min-width: 16px;
+}
