@@ -24,6 +24,9 @@ function App() {
             <Route path="/" element={<ItemListContainer />} />
             <Route path="/category/:categoryId" element={<ItemListContainer />}/>
             <Route path="/product/:productId" element={<ItemDetailContainer />}/>
+            <Route path="/productos" element={<ItemListContainer />} />
+            <Route path="/detalle" element={<p className="loading"> Próximamente detalle del producto </p>}/>
+            <Route path="*" element={<p className="loading">Página no encontrada</p>}/>
           </Routes>
         </main>
 

@@ -2,7 +2,7 @@
 import "./Navbar.css";
 import CartWidget from "../CartWidget/CartWidget";
 import { useTranslation } from "react-i18next";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 function Navbar() {
   const { t, i18n } = useTranslation();
@@ -14,26 +14,37 @@ function Navbar() {
 
   return (
     <nav className="navbar">
-      <Link to="/" className="logo">
+      <NavLink to="/" className="logo"> 
          NEOTECH
-      </Link>
+      </NavLink>
 
       <div className="categories">
-        <Link to="/category/1">
+        <NavLink to="/category/1"
+          className={({ isActive }) => (isActive ? "active" : "")}
+        >
           {t("navbar.notebooks")}
-        </Link>
+        </NavLink>
 
-        <Link to="/category/2">
+        <NavLink
+          to="/category/2"
+          className={({ isActive }) => (isActive ? "active" : "")}
+        >
           {t("navbar.peripherals")}
-        </Link>
+        </NavLink>
 
-        <Link to="/category/3">
+        <NavLink
+          to="/category/3"
+          className={({ isActive }) => (isActive ? "active" : "")}
+        >
           {t("navbar.monitors")}
-        </Link>
+        </NavLink>
 
-        <Link to="/category/4">
+        <NavLink
+          to="/category/4"
+          className={({ isActive }) => (isActive ? "active" : "")}
+        >
           {t("navbar.components")}
-        </Link>
+        </NavLink>
       </div>
 
       <div className="navbar-actions">

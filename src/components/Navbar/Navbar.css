@@ -113,3 +113,8 @@
   font-size: 28px;
   font-weight: bold;
 }
+
+.categories a.active {
+  font-weight: bold;
+  color: #0057a8;
+}
