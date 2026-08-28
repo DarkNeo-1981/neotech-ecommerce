@@ -40,8 +40,9 @@ El proyecto también incorpora navegación mediante React Router, permitiendo de
 
 ## 📂 Estructura del proyecto
 
+```text
 NEOTECH/
-
+│
 ├── public/
 │   └── images/
 │       ├── carrito/
