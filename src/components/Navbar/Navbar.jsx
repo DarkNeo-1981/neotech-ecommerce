@@ -2,6 +2,7 @@
 import "./Navbar.css";
 import CartWidget from "../CartWidget/CartWidget";
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 
 function Navbar() {
   const { t, i18n } = useTranslation();
@@ -13,13 +14,26 @@ function Navbar() {
 
   return (
     <nav className="navbar">
-      <h1>NEOTECH</h1>
+      <Link to="/" className="logo">
+         NEOTECH
+      </Link>
 
       <div className="categories">
-        <a href="#">{t("navbar.notebooks")}</a>
-        <a href="#">{t("navbar.peripherals")}</a>
-        <a href="#">{t("navbar.monitors")}</a>
-        <a href="#">{t("navbar.components")}</a>
+        <Link to="/category/1">
+          {t("navbar.notebooks")}
+        </Link>
+
+        <Link to="/category/2">
+          {t("navbar.peripherals")}
+        </Link>
+
+        <Link to="/category/3">
+          {t("navbar.monitors")}
+        </Link>
+
+        <Link to="/category/4">
+          {t("navbar.components")}
+        </Link>
       </div>
 
       <div className="navbar-actions">
@@ -30,6 +44,7 @@ function Navbar() {
                 i18n.language === "en" ? "gb" : i18n.language
               }`}
             />
+
             <span>
               {i18n.language === "es"
                 ? "Español"
@@ -37,6 +52,7 @@ function Navbar() {
                 ? "English"
                 : "Deutsch"}
             </span>
+
             <span className="language-arrow">▾</span>
           </button>
 

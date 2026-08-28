@@ -1,29 +1,33 @@
 
-import './App.css';
+import "./App.css";
 import Navbar from "./components/Navbar/Navbar";
 import Footer from "./components/Footer/Footer";
 import ItemListContainer from "./components/ItemListContainer/ItemListContainer";
 import { useTranslation } from "react-i18next";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 function App() {
   const { t } = useTranslation();
 
   return (
-    <div className="app">
-      <Navbar />
+    <BrowserRouter>
+      <div className="app">
+        <Navbar />
 
-      <main>
-        <h2 className="store-title">
-          {t("store.title")}
-        </h2>
+        <main>
+          <h2 className="store-title">
+            {t("store.title")}
+          </h2>
 
-        <div className="products-container">
-          <ItemListContainer />
-        </div>
-      </main>
+          <Routes>
+            <Route path="/" element={<ItemListContainer />} />
+            <Route path="/category/:categoryId" element={<ItemListContainer />}/>
+          </Routes>
+        </main>
 
-      <Footer />
-    </div>
+        <Footer />
+      </div>
+    </BrowserRouter>
   );
 }
 

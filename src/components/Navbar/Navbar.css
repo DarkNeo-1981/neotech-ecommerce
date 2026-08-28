@@ -106,3 +106,10 @@
   align-items: center;
   gap: 20px;
 }
+
+.logo {
+  color: inherit;
+  text-decoration: none;
+  font-size: 28px;
+  font-weight: bold;
+}
