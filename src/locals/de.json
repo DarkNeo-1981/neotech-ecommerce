@@ -32,7 +32,8 @@
       "2": "Gaming-Maus",
       "3": "Mechanische Tastatur",
       "4": "24-Zoll-Monitor",
-      "5": "Gaming-Headset"
+      "5": "Gaming-Headset",
+      "6": "AMD Ryzen 7 Prozessor"
     },
 
     "descriptions": {
@@ -40,7 +41,8 @@
       "2": "Ergonomische Gaming-Maus mit hochpräzisem Sensor.",
       "3": "Mechanische Tastatur, ideal für Gaming und Produktivität.",
       "4": "24-Zoll-Monitor mit hervorragender Bildqualität.",
-      "5": "Gaming-Headset mit Surround-Sound und integriertem Mikrofon."
+      "5": "Gaming-Headset mit Surround-Sound und integriertem Mikrofon.",
+      "6": "Leistungsstarker Prozessor, ideal für Gaming und anspruchsvolle Aufgaben."
     },
 
     "longDescriptions": {
@@ -48,7 +50,8 @@
       "2": "Ergonomische Gaming-Maus für Präzision und Komfort bei langen Gaming-Sessions. Der hochpräzise Sensor ermöglicht schnelle und genaue Bewegungen.",
       "3": "Mechanische Tastatur für Gaming und Produktivität. Die Tasten bieten eine schnelle und präzise Reaktion und sorgen für ein komfortables Erlebnis beim Spielen und Arbeiten.",
       "4": "24-Zoll-Monitor für Gaming, Unterhaltung und Arbeit. Er bietet eine hervorragende Bildqualität und eine ideale Größe für komfortables Arbeiten und Genießen von Inhalten.",
-      "5": "Gaming-Headset mit Surround-Sound und integriertem Mikrofon. Entwickelt für ein immersives Spielerlebnis und eine klare Kommunikation mit anderen Spielern."
+      "5": "Gaming-Headset mit Surround-Sound und integriertem Mikrofon. Entwickelt für ein immersives Spielerlebnis und eine klare Kommunikation mit anderen Spielern.",
+      "6": "Leistungsstarker AMD Ryzen 7 Prozessor, entwickelt für Gaming, Produktivität und anspruchsvolle Anwendungen. Er bietet eine hervorragende Kombination aus Leistung und Effizienz für flüssiges Multitasking."
     },
 
     "loading": "Produkt wird geladen...",

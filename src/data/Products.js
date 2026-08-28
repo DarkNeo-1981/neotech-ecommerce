@@ -49,6 +49,16 @@ const products = [
     stock: 8,
     description: "Auriculares gamer con sonido envolvente y micrófono integrado.",
   },
+
+  {
+  id: 6,
+  name: "Procesador AMD Ryzen 7",
+  price: 420000,
+  category: "Componentes",
+  img: "/images/products/Ryzen7.png",
+  stock: 7,
+  description: "Procesador de alto rendimiento ideal para gaming y tareas exigentes."
+  },
 ];
 
 export default products;

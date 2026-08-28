@@ -32,7 +32,8 @@
       "2": "Mouse Gamer",
       "3": "Teclado Mecánico",
       "4": "Monitor 24 pulgadas",
-      "5": "Auriculares Gamer"
+      "5": "Auriculares Gamer",
+      "6": "Procesador AMD Ryzen 7"
     },
 
     "descriptions": {
@@ -40,7 +41,8 @@
       "2": "Mouse gamer ergonómico con sensor de alta precisión.",
       "3": "Teclado mecánico ideal para gaming y productividad.",
       "4": "Monitor de 24 pulgadas con excelente calidad de imagen.",
-      "5": "Auriculares gamer con sonido envolvente y micrófono integrado."
+      "5": "Auriculares gamer con sonido envolvente y micrófono integrado.",
+      "6": "Procesador de alto rendimiento ideal para gaming y tareas exigentes."
     },
 
     "longDescriptions": {
@@ -48,7 +50,8 @@
       "2": "Mouse gamer ergonómico diseñado para ofrecer precisión y comodidad durante largas sesiones de juego. Su sensor de alta precisión permite movimientos rápidos y exactos.",
       "3": "Teclado mecánico diseñado para gaming y productividad. Sus teclas ofrecen una respuesta rápida y precisa, brindando una experiencia cómoda tanto para jugar como para trabajar.",
       "4": "Monitor de 24 pulgadas pensado para gaming, entretenimiento y trabajo. Ofrece una excelente calidad de imagen y un tamaño ideal para disfrutar de tus contenidos con comodidad.",
-      "5": "Auriculares gamer con sonido envolvente y micrófono integrado. Diseñados para ofrecer una experiencia inmersiva durante los juegos y una comunicación clara con otros jugadores."
+      "5": "Auriculares gamer con sonido envolvente y micrófono integrado. Diseñados para ofrecer una experiencia inmersiva durante los juegos y una comunicación clara con otros jugadores.",
+      "6": "Procesador AMD Ryzen 7 de alto rendimiento, diseñado para gaming, productividad y aplicaciones exigentes. Ofrece una excelente combinación de potencia y eficiencia para ejecutar múltiples tareas de manera fluida."
     },
 
     "loading": "Cargando producto...",

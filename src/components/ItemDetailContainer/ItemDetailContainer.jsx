@@ -3,9 +3,11 @@ import { useEffect, useState } from "react";
 import { getProductById } from "../../mock/asyncMock";
 import ItemDetail from "../ItemDetail/ItemDetail";
 import { useTranslation } from "react-i18next";
+import { useParams } from "react-router-dom";
 
-function ItemDetailContainer({ productId, onBack }) {
+function ItemDetailContainer() {
   const { t } = useTranslation();
+  const { productId } = useParams();
 
   const [producto, setProducto] = useState(null);
   const [error, setError] = useState(null);
@@ -14,7 +16,7 @@ function ItemDetailContainer({ productId, onBack }) {
     setProducto(null);
     setError(null);
 
-    getProductById(productId)
+    getProductById(Number(productId))
       .then((productoEncontrado) => {
         setProducto(productoEncontrado);
       })
@@ -28,7 +30,7 @@ function ItemDetailContainer({ productId, onBack }) {
       <div>
         <p>{error}</p>
 
-        <button onClick={onBack}>
+        <button onClick={() => window.history.back()}>
           {t("product.backToProducts")}
         </button>
       </div>
@@ -36,15 +38,16 @@ function ItemDetailContainer({ productId, onBack }) {
   }
 
   if (!producto) {
-    return <p className="loading">{t("product.loadingDetail")}</p>;
+    return (
+      <p className="loading">
+        {t("product.loadingDetail")}
+      </p>
+    );
   }
 
   return (
     <div className="item-detail-container">
-      <ItemDetail
-        producto={producto}
-        onBack={onBack}
-      />
+      <ItemDetail producto={producto} />
     </div>
   );
 }

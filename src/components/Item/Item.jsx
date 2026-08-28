@@ -2,8 +2,9 @@
 import { useState } from "react";
 import "./Item.css";
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 
-function Item({ product, onViewDetail }) {
+function Item({ product }) {
   const { t } = useTranslation();
 
   const [esFavorito, setEsFavorito] = useState(false);
@@ -40,9 +41,9 @@ function Item({ product, onViewDetail }) {
         {t("product.availableStock")}: {stock}
       </p>
 
-      <button onClick={() => onViewDetail(product.id)}>
+      <Link to={`/product/${product.id}`}>
         {t("product.viewProduct")}
-      </button>
+      </Link>
     </article>
   );
 }

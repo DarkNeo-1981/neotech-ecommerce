@@ -2,23 +2,31 @@
 import "./ItemDetail.css";
 import ItemCount from "../ItemCount/ItemCount";
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 
-function ItemDetail({ producto, onBack }) {
+function ItemDetail({ producto }) {
   const { t } = useTranslation();
 
   const productName = t(`product.names.${producto.id}`);
-  const productDescription = t(`product.longDescriptions.${producto.id}`);
-  const productCategory = t(`product.categories.${producto.category}`);
+  const productDescription = t(
+    `product.longDescriptions.${producto.id}`
+  );
+  const productCategory = t(
+    `product.categories.${producto.category}`
+  );
 
   return (
     <section className="item-detail">
-      <button className="back-button" onClick={onBack}>
+      <Link to="/" className="back-button">
         ← {t("product.backToProducts")}
-      </button>
+      </Link>
 
       <div className="item-detail-content">
         <div className="item-detail-image">
-          <img src={`/${producto.img}`} alt={productName} />
+          <img
+            src={producto.img}
+            alt={productName}
+          />
         </div>
 
         <div className="item-detail-info">

@@ -110,3 +110,11 @@
 .add-to-cart-button:hover {
   background-color: #1e293b;
 }
+
+.loading {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: rgb(0, 87, 168);
+  padding: 80px 0;
+  text-align: center;
+}
