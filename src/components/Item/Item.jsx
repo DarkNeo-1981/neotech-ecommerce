@@ -41,7 +41,7 @@ function Item({ product }) {
         {t("product.availableStock")}: {stock}
       </p>
 
-      <Link to={`/product/${product.id}`}>
+      <Link to={`/item/${product.id}`}>
         {t("product.viewProduct")}
       </Link>
     </article>

@@ -7,7 +7,7 @@ import { useParams } from "react-router-dom";
 
 function ItemDetailContainer() {
   const { t } = useTranslation();
-  const { productId } = useParams();
+  const { id } = useParams();
 
   const [producto, setProducto] = useState(null);
   const [error, setError] = useState(null);
@@ -16,14 +16,14 @@ function ItemDetailContainer() {
     setProducto(null);
     setError(null);
 
-    getProductById(Number(productId))
+    getProductById(Number(id))
       .then((productoEncontrado) => {
         setProducto(productoEncontrado);
       })
       .catch((error) => {
         setError(error.message);
       });
-  }, [productId]);
+  }, [id]);
 
   if (error) {
     return (
