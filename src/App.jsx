@@ -6,6 +6,7 @@ import ItemListContainer from "./components/ItemListContainer/ItemListContainer"
 import ItemDetailContainer from "./components/ItemDetailContainer/ItemDetailContainer";
 import { useTranslation } from "react-i18next";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import NotFound from "./components/NotFound/NotFound";
 
 function App() {
   const { t } = useTranslation();
@@ -30,10 +31,7 @@ function App() {
               path="/item/:id"
               element={<ItemDetailContainer />}
             />
-            <Route
-              path="*"
-              element={<p className="loading">Página no encontrada</p>}
-            />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </main>
 
