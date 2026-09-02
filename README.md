@@ -17,7 +17,9 @@ La lógica de carga de productos se encuentra separada en un Custom Hook llamado
 
 Además, se incorporó una vista de detalle individual para cada producto, con información ampliada, selección de cantidad y un botón preparado para la futura integración con el carrito de compras.
 
-El proyecto también incorpora navegación mediante React Router, permitiendo desplazarse entre las diferentes secciones del e-commerce y acceder a categorías y detalles individuales de productos sin realizar recargas completas de la página.
+El proyecto también incorpora navegación mediante React Router, permitiendo desplazarse entre las diferentes secciones del e-commerce, filtrar productos por categoría y acceder a detalles individuales sin realizar recargas completas de la página.
+
+Se incorporó además una página `NotFound` para manejar rutas inexistentes y un componente `CategoryNotFound` para informar cuando se solicita una categoría que no existe.
 
 ---
 
@@ -42,6 +44,7 @@ El proyecto también incorpora navegación mediante React Router, permitiendo de
 
 ```text
 NEOTECH/
+
 │
 ├── public/
 │   └── images/
@@ -63,6 +66,8 @@ NEOTECH/
 │   │   ├── CartWidget/
 │   │   │   ├── CartWidget.css
 │   │   │   └── CartWidget.jsx
+│   │   ├── CategoryNotFound/
+│   │   │   └── CategoryNotFound.jsx
 │   │   ├── Footer/
 │   │   │   ├── Footer.css
 │   │   │   └── Footer.jsx
@@ -82,15 +87,17 @@ NEOTECH/
 │   │   ├── ItemListContainer/
 │   │   │   ├── ItemListContainer.css
 │   │   │   └── ItemListContainer.jsx
-│   │   └── Navbar/
-│   │       ├── Navbar.css
-│   │       └── Navbar.jsx
+│   │   ├── Navbar/
+│   │   │   ├── Navbar.css
+│   │   │   └── Navbar.jsx
+│   │   └── NotFound/
+│   │       └── NotFound.jsx
 │   │
 │   ├── data/
 │   │   └── products.js
 │   ├── hooks/
 │   │   └── useProducts.js
-│   ├── locales/
+│   ├── locals/
 │   │   ├── de.json
 │   │   ├── en.json
 │   │   └── es.json
@@ -109,7 +116,6 @@ NEOTECH/
 ├── package.json
 ├── README.md
 └── vite.config.js
-
 ```
 
 > La carpeta `dist/` es generada automáticamente durante el proceso de build y no forma parte de la estructura principal del código fuente.
@@ -159,11 +165,12 @@ La integración completa con el estado del carrito será incorporada progresivam
 
 Es el componente contenedor principal del catálogo.
 
-Su responsabilidad es controlar los estados de:
+Su responsabilidad es controlar:
 
-* Carga
-* Error
-* Productos obtenidos
+* Carga de productos
+* Estado de error
+* Filtrado por categoría
+* Renderizado del listado
 
 Utiliza el Custom Hook `useProducts`:
 
@@ -171,9 +178,28 @@ Utiliza el Custom Hook `useProducts`:
 const { products, loading, error } = useProducts();
 ```
 
-Una vez obtenidos los productos, los envía a `ItemList` mediante props.
+También utiliza `useParams` de React Router para obtener el parámetro dinámico de categoría:
 
-La navegación hacia el detalle de cada producto se realiza actualmente mediante React Router, utilizando una ruta dinámica basada en el identificador del producto.
+```jsx
+const { categoryId } = useParams();
+```
+
+Cuando no existe un `categoryId`, se muestran todos los productos.
+
+Cuando existe un `categoryId`, el listado se filtra de acuerdo con la categoría correspondiente.
+
+Las categorías disponibles actualmente son:
+
+```text
+1 → Notebooks
+2 → Periféricos
+3 → Monitores
+4 → Componentes
+```
+
+Si se solicita un identificador de categoría inexistente, se muestra el componente `CategoryNotFound`.
+
+Una vez obtenidos y filtrados los productos, se envían a `ItemList` mediante props.
 
 ---
 
@@ -246,10 +272,16 @@ Actualmente se utiliza dentro de `ItemDetail`.
 
 Componente encargado de obtener un producto específico mediante su identificador.
 
+Utiliza `useParams` para obtener el ID desde la URL:
+
+```jsx
+const { id } = useParams();
+```
+
 Utiliza `useEffect` para solicitar el producto mediante:
 
 ```jsx
-getProductById(productId)
+getProductById(id)
 ```
 
 Administra los estados de:
@@ -260,23 +292,21 @@ Administra los estados de:
 
 Una vez obtenido el producto, lo envía a `ItemDetail`.
 
-El identificador del producto se obtiene mediante un parámetro dinámico de React Router:
+La vista de detalle utiliza la ruta dinámica:
 
 ```text
-/product/:productId
+/item/:id
 ```
 
 Por ejemplo:
 
 ```text
-/product/1
-/product/2
-/product/6
+/item/1
+/item/2
+/item/6
 ```
 
 Cada URL permite acceder al detalle del producto correspondiente.
-
-La navegación hacia el detalle ya no depende de un estado local para cambiar de vista, sino de una ruta real de la aplicación.
 
 ---
 
@@ -303,6 +333,54 @@ El botón para volver permite regresar al catálogo mediante navegación interna
 
 ---
 
+### CategoryNotFound
+
+Componente encargado de informar al usuario cuando se solicita una categoría inexistente.
+
+Se utiliza cuando la ruta posee un formato válido:
+
+```text
+/category/:categoryId
+```
+
+pero el identificador recibido no corresponde a ninguna categoría disponible.
+
+Por ejemplo:
+
+```text
+/category/123456
+```
+
+En este caso se muestra el mensaje:
+
+```text
+Categoría no encontrada
+```
+
+Este componente permite mantener separada la responsabilidad de presentación del mensaje respecto de la lógica de filtrado del catálogo.
+
+---
+
+### NotFound
+
+Componente encargado de manejar las rutas inexistentes de la aplicación.
+
+Se utiliza mediante una ruta comodín:
+
+```jsx
+<Route path="*" element={<NotFound />} />
+```
+
+De esta manera, cualquier URL que no coincida con las rutas definidas muestra una página de error 404.
+
+Por ejemplo:
+
+```text
+/esto-no-existe
+```
+
+---
+
 ### Footer
 
 Pie de página de la aplicación.
@@ -313,6 +391,8 @@ Incluye:
 * Información de copyright
 * Enlaces a redes sociales
 * Traducción dinámica según el idioma seleccionado
+
+El Footer se encuentra fuera de `Routes`, por lo que permanece visible en las diferentes rutas de la aplicación.
 
 ---
 
@@ -360,19 +440,18 @@ La aplicación utiliza:
 * `Route`
 * `Link`
 * `NavLink`
+* `useParams`
 
-Esto permite navegar entre las diferentes vistas sin realizar una recarga completa de la página.
+Esto permite navegar entre las diferentes vistas sin realizar una recarga completa de la aplicación.
 
 ### Rutas configuradas
 
-| Ruta                    | Función                                                     |
-| ----------------------- | ----------------------------------------------------------- |
-| `/`                     | Página principal con el listado de productos                |
-| `/productos`            | Catálogo de productos                                       |
-| `/category/:categoryId` | Filtrado de productos por categoría                         |
-| `/product/:productId`   | Detalle individual de un producto                           |
-| `/detalle`              | Espacio reservado para el detalle solicitado en la consigna |
-| `*`                     | Página 404 para rutas inexistentes                          |
+| Ruta                    | Función                                      |
+| ----------------------- | -------------------------------------------- |
+| `/`                     | Página principal con el listado de productos |
+| `/category/:categoryId` | Filtrado de productos por categoría          |
+| `/item/:id`             | Detalle individual de un producto            |
+| `*`                     | Página 404 para rutas inexistentes           |
 
 ### Rutas de categorías
 
@@ -394,29 +473,31 @@ Cada identificador representa una categoría diferente:
 
 El catálogo se actualiza de acuerdo con la categoría seleccionada.
 
+Si se ingresa un identificador que no corresponde a ninguna categoría, se muestra `CategoryNotFound`.
+
 ### Ruta de detalle
 
 Cada producto posee una ruta dinámica utilizando su identificador:
 
 ```text
-/product/:productId
+/item/:id
 ```
 
 Por ejemplo:
 
 ```text
-/product/1
+/item/1
 ```
 
 permite acceder al detalle de la Notebook Gamer.
 
 ```text
-/product/6
+/item/6
 ```
 
 permite acceder al detalle del procesador AMD Ryzen 7.
 
-El identificador se obtiene desde la URL y se utiliza para buscar el producto correspondiente mediante `getProductById`.
+El identificador se obtiene mediante `useParams` y se utiliza para buscar el producto correspondiente mediante `getProductById`.
 
 ### Navegación interna
 
@@ -426,18 +507,37 @@ Esto permite que React Router gestione la navegación sin recargar completamente
 
 Además, `NavLink` permite identificar visualmente la sección activa mediante la propiedad `isActive`.
 
-### Ruta 404
+---
 
-Se configuró una ruta comodín para manejar URLs inexistentes:
+## 🧱 Layout compartido
 
-```jsx
-<Route
-  path="*"
-  element={<p className="loading">Página no encontrada</p>}
-/>
+La aplicación utiliza un layout general que mantiene los elementos principales de navegación presentes en todas las rutas.
+
+La estructura principal se encuentra en `App.jsx`:
+
+```text
+BrowserRouter
+    ↓
+    App
+    ↓
+  Navbar
+    ↓
+   Main
+    ↓
+  Routes
+    ↓
+ Footer
 ```
 
-De esta manera, cualquier ruta que no coincida con las definidas anteriormente mostrará una página de error 404.
+El `Navbar`, el `CartWidget` y el `Footer` se encuentran fuera del componente `Routes`, por lo que permanecen disponibles mientras el usuario navega entre:
+
+```text
+/
+/category/:categoryId
+/item/:id
+```
+
+Esto permite mantener una experiencia de navegación consistente en toda la aplicación.
 
 ---
 
@@ -489,7 +589,7 @@ El producto correspondiente a la categoría Componentes es el procesador AMD Ryz
 La información utilizada para las traducciones y las descripciones ampliadas se encuentra en los archivos de idioma dentro de:
 
 ```text
-src/locales/
+src/locals/
 ```
 
 ---
@@ -513,15 +613,17 @@ También se utiliza `getProductById` para obtener un producto específico.
 ```text
 ItemListContainer
         ↓
-  useProducts()
+   useProducts()
         ↓
-  getProducts()
+   getProducts()
         ↓
-    Promise
+     Promise
         ↓
-   2 segundos
+   setTimeout
         ↓
 { products, loading, error }
+        ↓
+    Filtrado
         ↓
     ItemList
         ↓
@@ -539,11 +641,13 @@ Ver producto
   ↓
 React Router
   ↓
-/product/:productId
+/item/:id
   ↓
 ItemDetailContainer
   ↓
-getProductById(productId)
+useParams()
+  ↓
+getProductById(id)
   ↓
 Promise
   ↓
@@ -571,7 +675,7 @@ src/i18n.js
 Los archivos de traducción se encuentran en:
 
 ```text
-src/locales/
+src/locals/
 ```
 
 Archivos disponibles:
@@ -631,7 +735,7 @@ El contador incorpora validaciones para evitar valores negativos o superar el st
 
 La navegación y el producto seleccionado ya no se manejan mediante un estado local para cambiar de pantalla, sino mediante las rutas dinámicas proporcionadas por React Router.
 
-A futuro, cuando sea necesario sincronizar las cantidades seleccionadas con componentes como `CartWidget`, el estado podrá elevarse mediante el patrón conocido como **lifting state up**.
+A futuro, cuando sea necesario sincronizar las cantidades seleccionadas con componentes como `CartWidget`, el estado podrá elevarse mediante el patrón conocido como **lifting state up** o mediante Context API, que será incorporado en una etapa posterior.
 
 ---
 
@@ -695,6 +799,7 @@ Desarrollar progresivamente un e-commerce completo utilizando React e incorporan
 * Catálogo de productos
 * Filtrado por categorías
 * Detalle individual de productos
+* Manejo de rutas inexistentes
 * Carrito de compras
 * Persistencia de datos
 * Checkout
@@ -708,6 +813,7 @@ Entre las próximas etapas del proyecto se encuentran:
 
 * Completar la funcionalidad del carrito.
 * Compartir el estado del carrito entre componentes.
+* Implementar Context API.
 * Implementar persistencia del carrito.
 * Desarrollar el checkout.
 * Integrar Firebase.
@@ -721,3 +827,4 @@ Entre las próximas etapas del proyecto se encuentran:
 **Nicolás Fasanella**
 
 Proyecto realizado como entrega del curso de React JS.
+
