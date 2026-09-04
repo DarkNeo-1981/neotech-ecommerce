@@ -5,6 +5,7 @@ import CategoryNotFound from "../CategoryNotFound/CategoryNotFound";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 import useProducts from "../../hooks/useProducts";
+import LoaderComponent from "../LoaderComponent/LoaderComponent";
 
 function ItemListContainer() {
   const { t } = useTranslation();
@@ -29,7 +30,7 @@ function ItemListContainer() {
   return (
     <section className="item-list-container">
       {loading ? (
-        <p className="loading">{t("product.loading")}</p>
+        <LoaderComponent text={t("product.loading")} />
       ) : error ? (
         <p className="loading">Error: {error}</p>
       ) : !categoryExists ? (
@@ -42,5 +43,4 @@ function ItemListContainer() {
 }
 
 export default ItemListContainer;
-
 

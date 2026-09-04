@@ -4,6 +4,7 @@ import { getProductById } from "../../mock/asyncMock";
 import ItemDetail from "../ItemDetail/ItemDetail";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
+import LoaderComponent from "../LoaderComponent/LoaderComponent";
 
 function ItemDetailContainer() {
   const { t } = useTranslation();
@@ -39,11 +40,9 @@ function ItemDetailContainer() {
 
   if (!producto) {
     return (
-      <p className="loading">
-        {t("product.loadingDetail")}
-      </p>
-    );
-  }
+      <LoaderComponent text={t("product.loadingDetail")} />
+      );
+    }
 
   return (
     <div className="item-detail-container">
