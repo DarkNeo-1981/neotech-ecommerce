@@ -2,7 +2,7 @@
 import "./Navbar.css";
 import CartWidget from "../CartWidget/CartWidget";
 import { useTranslation } from "react-i18next";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 function Navbar() {
   const { t, i18n } = useTranslation();

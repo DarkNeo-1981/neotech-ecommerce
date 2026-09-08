@@ -3,9 +3,14 @@ import "./ItemDetail.css";
 import ItemCount from "../ItemCount/ItemCount";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
+import { useState } from "react";
+import { useCart } from "../../context/CartContext";
 
 function ItemDetail({ producto }) {
   const { t } = useTranslation();
+  const { addItem } = useCart();
+
+  const [cantidad, setCantidad] = useState(0);
 
   const productName = t(`product.names.${producto.id}`);
   const productDescription = t(
@@ -14,6 +19,13 @@ function ItemDetail({ producto }) {
   const productCategory = t(
     `product.categories.${producto.category}`
   );
+
+  const handleAddToCart = () => {
+    if (cantidad > 0) {
+      addItem(producto, cantidad);
+      setCantidad(0);
+    }
+  };
 
   return (
     <section className="item-detail">
@@ -49,9 +61,17 @@ function ItemDetail({ producto }) {
           </p>
 
           <div className="item-detail-actions">
-            <ItemCount stock={producto.stock} />
+            <ItemCount
+              stock={producto.stock}
+              cantidad={cantidad}
+              setCantidad={setCantidad}
+            />
 
-            <button className="add-to-cart-button">
+            <button
+              className="add-to-cart-button"
+              onClick={handleAddToCart}
+              disabled={cantidad === 0}
+            >
               {t("product.addToCart")}
             </button>
           </div>

@@ -1,10 +1,7 @@
 
 import "./ItemCount.css";
-import { useState } from "react";
 
-function ItemCount({ stock }) {
-  const [cantidad, setCantidad] = useState(0);
-
+function ItemCount({ stock, cantidad, setCantidad }) {
   const handleSumar = () => {
     setCantidad((prev) => Math.min(stock, prev + 1));
   };
