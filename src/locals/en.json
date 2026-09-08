@@ -58,5 +58,19 @@
     "loadingDetail": "Loading product...",
     "backToProducts": "Back to products",
     "addToCart": "Add to cart"
+  },
+  
+  "cart": {
+    "title": "Shopping cart",
+    "empty": "Your cart is empty",
+    "backToCatalog": "Back to catalog",
+    "unitPrice": "Unit price",
+    "subtotal": "Subtotal",
+    "summary": "Order summary",
+    "products": "Products",
+    "total": "Total",
+    "clear": "Clear cart",
+    "checkout": "Checkout",
+    "removeProduct": "Remove product"
   }
 }

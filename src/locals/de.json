@@ -58,5 +58,19 @@
     "loadingDetail": "Produkt wird geladen...",
     "backToProducts": "Zurück zu den Produkten",
     "addToCart": "In den Warenkorb"
+  },
+  
+  "cart": {
+    "title": "Warenkorb",
+    "empty": "Dein Warenkorb ist leer",
+    "backToCatalog": "Zurück zum Katalog",
+    "unitPrice": "Stückpreis",
+    "subtotal": "Zwischensumme",
+    "summary": "Bestellübersicht",
+    "products": "Produkte",
+    "total": "Gesamt",
+    "clear": "Warenkorb leeren",
+    "checkout": "Kauf abschließen",
+    "removeProduct": "Produkt entfernen"
   }
 }

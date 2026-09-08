@@ -58,5 +58,19 @@
     "loadingDetail": "Cargando producto...",
     "backToProducts": "Volver a productos",
     "addToCart": "Agregar al carrito"
+  },
+  
+  "cart": {
+    "title": "Carrito de compras",
+    "empty": "Tu carrito está vacío",
+    "backToCatalog": "Volver al catálogo",
+    "unitPrice": "Precio unitario",
+    "subtotal": "Subtotal",
+    "summary": "Resumen de compra",
+    "products": "Productos",
+    "total": "Total",
+    "clear": "Vaciar carrito",
+    "checkout": "Finalizar compra",
+    "removeProduct": "Eliminar producto"
   }
 }
