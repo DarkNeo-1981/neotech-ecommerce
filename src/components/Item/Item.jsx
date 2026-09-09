@@ -3,6 +3,7 @@ import { useState } from "react";
 import "./Item.css";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
+import { useCart } from "../../context/CartContext";
 
 function Item({ product }) {
   const { t } = useTranslation();
@@ -10,6 +11,21 @@ function Item({ product }) {
   const [esFavorito, setEsFavorito] = useState(false);
 
   const { price, img, stock } = product;
+
+  const { cart } = useCart();
+
+  const productoEnCarrito = cart.find(
+    (item) => item.id === product.id
+  );
+
+  const cantidadEnCarrito = productoEnCarrito
+    ? productoEnCarrito.quantity
+    : 0;
+
+  const stockDisponible = Math.max(
+    0,
+    stock - cantidadEnCarrito
+  );
 
   const productName = t(`product.names.${product.id}`);
   const productDescription = t(`product.descriptions.${product.id}`);
@@ -38,7 +54,7 @@ function Item({ product }) {
       <p>${price.toLocaleString()}</p>
 
       <p className="stock">
-        {t("product.availableStock")}: {stock}
+        {t("product.availableStock")}: {stockDisponible}
       </p>
 
       <Link to={`/item/${product.id}`}>

@@ -12,13 +12,13 @@ function ItemCount({ stock, cantidad, setCantidad }) {
 
   return (
     <div className="quantity">
-      <button onClick={handleRestar} disabled={cantidad === 0}>
+      <button onClick={handleRestar} disabled={cantidad <= 0}>
         -
       </button>
 
       <span>{cantidad}</span>
 
-      <button onClick={handleSumar} disabled={cantidad === stock}>
+      <button onClick={handleSumar} disabled={cantidad >= stock}>
         +
       </button>
     </div>

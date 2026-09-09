@@ -8,9 +8,22 @@ import { useCart } from "../../context/CartContext";
 
 function ItemDetail({ producto }) {
   const { t } = useTranslation();
-  const { addItem } = useCart();
+  const { cart, addItem } = useCart();
 
   const [cantidad, setCantidad] = useState(0);
+
+  const productoEnCarrito = cart.find(
+    (item) => item.id === producto.id
+  );
+
+  const cantidadEnCarrito = productoEnCarrito
+    ? productoEnCarrito.quantity
+    : 0;
+
+  const stockDisponible = Math.max(
+    0,
+    producto.stock - cantidadEnCarrito
+  );
 
   const productName = t(`product.names.${producto.id}`);
   const productDescription = t(
@@ -21,7 +34,7 @@ function ItemDetail({ producto }) {
   );
 
   const handleAddToCart = () => {
-    if (cantidad > 0) {
+    if (cantidad > 0 && cantidad <= stockDisponible) {
       addItem(producto, cantidad);
       setCantidad(0);
     }
@@ -57,12 +70,12 @@ function ItemDetail({ producto }) {
           </p>
 
           <p className="item-detail-stock">
-            {t("product.availableStock")}: {producto.stock}
+            {t("product.availableStock")}: {stockDisponible}
           </p>
 
           <div className="item-detail-actions">
             <ItemCount
-              stock={producto.stock}
+              stock={stockDisponible}
               cantidad={cantidad}
               setCantidad={setCantidad}
             />
@@ -70,7 +83,9 @@ function ItemDetail({ producto }) {
             <button
               className="add-to-cart-button"
               onClick={handleAddToCart}
-              disabled={cantidad === 0}
+              disabled={
+                cantidad <= 0 || cantidad > stockDisponible
+              }
             >
               {t("product.addToCart")}
             </button>
