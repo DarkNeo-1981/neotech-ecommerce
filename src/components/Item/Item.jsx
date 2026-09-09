@@ -3,7 +3,7 @@ import { useState } from "react";
 import "./Item.css";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
-import { useCart } from "../../context/CartContext";
+import { useCart } from "../../hooks/useCart";
 
 function Item({ product }) {
   const { t } = useTranslation();

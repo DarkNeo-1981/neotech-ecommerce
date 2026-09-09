@@ -7,23 +7,35 @@ import { useParams } from "react-router-dom";
 import LoaderComponent from "../LoaderComponent/LoaderComponent";
 
 function ItemDetailContainer() {
-  const { t } = useTranslation();
   const { id } = useParams();
+
+  return <ProductDetailLoader key={id} id={id} />;
+}
+
+function ProductDetailLoader({ id }) {
+  const { t } = useTranslation();
 
   const [producto, setProducto] = useState(null);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    setProducto(null);
-    setError(null);
+    let activo = true;
 
     getProductById(Number(id))
       .then((productoEncontrado) => {
-        setProducto(productoEncontrado);
+        if (activo) {
+          setProducto(productoEncontrado);
+        }
       })
       .catch((error) => {
-        setError(error.message);
+        if (activo) {
+          setError(error.message);
+        }
       });
+
+    return () => {
+      activo = false;
+    };
   }, [id]);
 
   if (error) {
@@ -41,8 +53,8 @@ function ItemDetailContainer() {
   if (!producto) {
     return (
       <LoaderComponent text={t("product.loadingDetail")} />
-      );
-    }
+    );
+  }
 
   return (
     <div className="item-detail-container">

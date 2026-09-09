@@ -3,7 +3,7 @@ import "./Cart.css";
 import { Link } from "react-router-dom";
 import { FaTrash } from "react-icons/fa";
 import { useTranslation } from "react-i18next";
-import { useCart } from "../../context/CartContext";
+import { useCart } from "../../hooks/useCart";
 
 function Cart() {
   const { t } = useTranslation();

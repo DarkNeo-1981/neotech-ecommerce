@@ -4,7 +4,7 @@ import ItemCount from "../ItemCount/ItemCount";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import { useCart } from "../../context/CartContext";
+import { useCart } from "../../hooks/useCart";
 
 function ItemDetail({ producto }) {
   const { t } = useTranslation();
