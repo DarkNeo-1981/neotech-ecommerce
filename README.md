@@ -5,7 +5,7 @@
 
 NEOTECH es un e-commerce de productos tecnológicos desarrollado con React como proyecto del curso de React JS.
 
-El proyecto se encuentra en desarrollo y actualmente incorpora un catálogo persistente mediante Firebase Cloud Firestore, navegación por categorías, detalle de productos, carrito de compras global e internacionalización.
+El proyecto se encuentra en desarrollo y actualmente incorpora persistencia de datos mediante Firebase Cloud Firestore, autenticación de usuarios mediante Firebase Authentication, navegación por categorías, detalle de productos, carrito de compras global e internacionalización.
 
 Actualmente incluye:
 
@@ -13,14 +13,16 @@ Actualmente incluye:
 - Consultas asíncronas a Firebase.
 - Filtrado de productos por categoría desde Firestore.
 - Detalle individual de productos mediante su ID de Firebase.
+- Registro de usuarios con Firebase Authentication.
+- Inicio y cierre de sesión.
+- Persistencia del usuario autenticado mediante `onAuthStateChanged`.
+- Estado global de autenticación mediante `AuthContext`.
 - Carrito global mediante Context API.
 - Control de cantidades y stock disponible.
 - Navegación con React Router.
 - Interfaz en Español, Inglés y Alemán.
 - Estados de carga y manejo de errores.
 - Configuración de Firebase mediante variables de entorno.
-
-La autenticación de usuarios, el checkout protegido y la generación de órdenes se incorporarán en la siguiente etapa del desarrollo.
 
 ---
 
@@ -33,6 +35,7 @@ La autenticación de usuarios, el checkout protegido y la generación de órdene
 - CSS3
 - Firebase
 - Cloud Firestore
+- Firebase Authentication
 - React Router
 - Context API
 - React Hooks
@@ -50,7 +53,7 @@ La autenticación de usuarios, el checkout protegido y la generación de órdene
 
 ## 🔥 Integración con Firebase
 
-Firebase se utiliza actualmente como fuente de datos del catálogo.
+Firebase se utiliza como backend para la persistencia de datos y la autenticación de usuarios.
 
 La configuración se encuentra centralizada en:
 
@@ -58,7 +61,7 @@ La configuración se encuentra centralizada en:
 src/firebase/config.js
 ```
 
-El archivo inicializa Firebase y exporta las instancias necesarias para trabajar con:
+El archivo inicializa Firebase y exporta las instancias:
 
 ```js
 db
@@ -67,7 +70,7 @@ auth
 
 `db` corresponde a Cloud Firestore.
 
-`auth` queda preparado para la incorporación de Firebase Authentication.
+`auth` corresponde a Firebase Authentication.
 
 ---
 
@@ -225,6 +228,80 @@ Durante la consulta se utiliza `LoaderComponent`.
 
 ---
 
+## 🔐 Firebase Authentication
+
+NEOTECH utiliza Firebase Authentication mediante correo electrónico y contraseña.
+
+La aplicación permite:
+
+- Registrar nuevos usuarios.
+- Iniciar sesión con una cuenta existente.
+- Cerrar sesión.
+- Mantener la sesión activa al recargar la página.
+- Mostrar el email del usuario autenticado en la barra de navegación.
+- Mostrar mensajes de error durante el registro o inicio de sesión.
+
+El estado global de autenticación se administra mediante:
+
+```text
+src/context/AuthContext.jsx
+```
+
+El contexto expone:
+
+```js
+user
+register
+login
+logout
+loadingAuth
+```
+
+La persistencia de sesión se gestiona mediante:
+
+```js
+onAuthStateChanged()
+```
+
+También se utiliza el custom hook:
+
+```text
+src/hooks/useAuth.js
+```
+
+para acceder al contexto desde los componentes.
+
+---
+
+## 👤 Registro e inicio de sesión
+
+La aplicación incorpora las rutas:
+
+```text
+/login
+/register
+```
+
+En el registro se solicita:
+
+- Email.
+- Contraseña.
+- Confirmación de contraseña.
+
+La contraseña debe tener como mínimo 6 caracteres.
+
+Durante el registro y el inicio de sesión se contemplan errores como:
+
+- Credenciales incorrectas.
+- Email inválido.
+- Email ya registrado.
+- Contraseña débil.
+- Contraseñas que no coinciden.
+
+Los mensajes se encuentran internacionalizados mediante i18next.
+
+---
+
 ## 🌎 Internacionalización
 
 NEOTECH utiliza:
@@ -265,6 +342,8 @@ Ejemplo:
 ```js
 t(`product.names.${product.translationKey}`)
 ```
+
+Los textos correspondientes a autenticación también se encuentran traducidos en los tres idiomas.
 
 El idioma seleccionado se conserva mediante `localStorage`.
 
@@ -335,6 +414,8 @@ Rutas actuales:
 | `/category/:categoryId` | Productos por categoría |
 | `/item/:id` | Detalle individual |
 | `/cart` | Carrito de compras |
+| `/login` | Inicio de sesión |
+| `/register` | Registro de usuario |
 | `*` | Ruta inexistente |
 
 Categorías:
@@ -372,10 +453,16 @@ NEOTECH/
 │   │   ├── ItemList/
 │   │   ├── ItemListContainer/
 │   │   ├── LoaderComponent/
+│   │   ├── Login/
+│   │   │   ├── Login.jsx
+│   │   │   └── Login.css
 │   │   ├── Navbar/
-│   │   └── NotFound/
+│   │   ├── NotFound/
+│   │   └── Register/
+│   │       └── Register.jsx
 │   │
 │   ├── context/
+│   │   ├── AuthContext.jsx
 │   │   ├── CartContext.jsx
 │   │   └── CartProvider.jsx
 │   │
@@ -383,6 +470,7 @@ NEOTECH/
 │   │   └── config.js
 │   │
 │   ├── hooks/
+│   │   ├── useAuth.js
 │   │   ├── useCart.js
 │   │   └── useProducts.js
 │   │
@@ -517,6 +605,13 @@ Actualmente se encuentra implementado:
 - Detalle mediante `doc` y `getDoc`.
 - IDs automáticos de Firestore.
 - Manejo de loading y errores.
+- Firebase Authentication.
+- Registro de usuarios.
+- Inicio de sesión.
+- Cierre de sesión.
+- Persistencia mediante `onAuthStateChanged`.
+- `AuthContext` global.
+- Email del usuario autenticado en el Navbar.
 - Internacionalización en tres idiomas.
 - Carrito global con Context API.
 - Control de cantidades.
@@ -528,16 +623,13 @@ Actualmente se encuentra implementado:
 
 ## 📌 Próximos pasos
 
-- Incorporar Firebase Authentication.
-- Crear `AuthContext`.
-- Registro de usuarios.
-- Inicio de sesión.
-- Cierre de sesión.
-- Persistencia de sesión con `onAuthStateChanged`.
-- Proteger el checkout.
+- Proteger el checkout para usuarios autenticados.
+- Validar carrito vacío antes de comprar.
 - Crear formulario de datos del comprador.
 - Generar órdenes en Firestore.
+- Asociar la orden al usuario autenticado.
 - Mostrar el ID de la orden.
+- Vaciar el carrito únicamente después de una compra exitosa.
 - Configurar las reglas definitivas de seguridad de Firestore.
 - Desplegar el proyecto en Vercel.
 
