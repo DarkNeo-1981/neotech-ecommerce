@@ -10,6 +10,8 @@ import NotFound from "./components/NotFound/NotFound";
 import Cart from "./components/Cart/Cart";
 import Login from "./components/Login/Login";
 import Register from "./components/Register/Register";
+import Checkout from "./components/Checkout/Checkout";
+import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 
 function App() {
   const { t } = useTranslation();
@@ -42,6 +44,13 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
 
+            <Route path="/checkout" element=
+                    {
+                      <ProtectedRoute>
+                        <Checkout />
+                      </ProtectedRoute>
+                    }
+                  />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </main>

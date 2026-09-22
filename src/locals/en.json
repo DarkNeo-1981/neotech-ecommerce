@@ -94,5 +94,23 @@
     "emailInUse": "An account already exists with this email.",
     "weakPassword": "Password must contain at least 6 characters.",
     "registerError": "Could not register the user."
+  },
+
+  "checkout": {
+    "title": "Checkout",
+    "account": "Account",
+    "name": "Full name",
+    "phone": "Phone",
+    "address": "Address",
+    "city": "City",
+    "confirm": "Confirm purchase",
+    "processing": "Processing purchase...",
+    "requiredFields": "Please complete all required fields.",
+    "authRequired": "You must sign in to complete the purchase.",
+    "emptyCart": "The cart is empty.",
+    "orderError": "The purchase could not be registered. Please try again.",
+    "successTitle": "Purchase registered!",
+    "successMessage": "Your purchase was registered successfully.",
+    "orderId": "Order ID"
   }
 }

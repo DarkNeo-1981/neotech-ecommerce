@@ -35,62 +35,68 @@ function Cart() {
       <h1>{t("cart.title")}</h1>
 
       <div className="cart-list">
-        {cart.map((item) => (
-          <div className="cart-item" key={item.id}>
-            <img
-              src={item.img}
-              alt={t(`product.names.${item.id}`)}
-              className="cart-item-image"
-            />
+        {cart.map((item) => {
+          const productName = t(
+            `product.names.${item.translationKey}`
+          );
 
-            <div className="cart-item-info">
-              <h2>{t(`product.names.${item.id}`)}</h2>
+          return (
+            <div className="cart-item" key={item.id}>
+              <img
+                src={item.img}
+                alt={productName}
+                className="cart-item-image"
+              />
 
-              <p>
-                {t("cart.unitPrice")}: $
-                {item.price.toLocaleString("es-AR")}
-              </p>
+              <div className="cart-item-info">
+                <h2>{productName}</h2>
 
-              <p>
-                {t("product.availableStock")}: {item.stock}
-              </p>
+                <p>
+                  {t("cart.unitPrice")}: $
+                  {item.price.toLocaleString("es-AR")}
+                </p>
 
-              <div className="cart-quantity-controls">
-                <button
-                  onClick={() => decreaseItem(item.id)}
-                  disabled={item.quantity === 1}
-                >
-                  −
-                </button>
+                <p>
+                  {t("product.availableStock")}: {item.stock}
+                </p>
 
-                <span>{item.quantity}</span>
+                <div className="cart-quantity-controls">
+                  <button
+                    onClick={() => decreaseItem(item.id)}
+                    disabled={item.quantity === 1}
+                  >
+                    −
+                  </button>
 
-                <button
-                  onClick={() => increaseItem(item.id)}
-                  disabled={item.quantity === item.stock}
-                >
-                  +
-                </button>
+                  <span>{item.quantity}</span>
+
+                  <button
+                    onClick={() => increaseItem(item.id)}
+                    disabled={item.quantity === item.stock}
+                  >
+                    +
+                  </button>
+                </div>
+
+                <p className="cart-item-subtotal">
+                  {t("cart.subtotal")}: $
+                  {(item.price * item.quantity).toLocaleString(
+                    "es-AR"
+                  )}
+                </p>
               </div>
 
-              <p className="cart-item-subtotal">
-                {t("cart.subtotal")}: $
-                {(item.price * item.quantity).toLocaleString(
-                  "es-AR"
-                )}
-              </p>
+              <button
+                className="cart-remove-button"
+                onClick={() => removeItem(item.id)}
+                title={t("cart.removeProduct")}
+                aria-label={t("cart.removeProduct")}
+              >
+                <FaTrash />
+              </button>
             </div>
-
-            <button
-              className="cart-remove-button"
-              onClick={() => removeItem(item.id)}
-              title={t("cart.removeProduct")}
-              aria-label={t("cart.removeProduct")}
-            >
-              <FaTrash />
-            </button>
-          </div>
-        ))}
+          );
+        })}
       </div>
 
       <div className="cart-summary">
@@ -115,9 +121,12 @@ function Cart() {
             {t("cart.clear")}
           </button>
 
-          <button className="cart-checkout-button">
+          <Link
+            to="/checkout"
+            className="cart-checkout-button"
+          >
             {t("cart.checkout")}
-          </button>
+          </Link>
         </div>
       </div>
     </section>

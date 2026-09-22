@@ -94,5 +94,23 @@
     "emailInUse": "Für diese E-Mail-Adresse existiert bereits ein Konto.",
     "weakPassword": "Das Passwort muss mindestens 6 Zeichen enthalten.",
     "registerError": "Der Benutzer konnte nicht registriert werden."
+  },
+
+  "checkout": {
+    "title": "Kauf abschließen",
+    "account": "Konto",
+    "name": "Vor- und Nachname",
+    "phone": "Telefon",
+    "address": "Adresse",
+    "city": "Stadt",
+    "confirm": "Kauf bestätigen",
+    "processing": "Kauf wird verarbeitet...",
+    "requiredFields": "Bitte fülle alle Pflichtfelder aus.",
+    "authRequired": "Du musst angemeldet sein, um den Kauf abzuschließen.",
+    "emptyCart": "Der Warenkorb ist leer.",
+    "orderError": "Der Kauf konnte nicht gespeichert werden. Bitte versuche es erneut.",
+    "successTitle": "Kauf registriert!",
+    "successMessage": "Dein Kauf wurde erfolgreich registriert.",
+    "orderId": "Bestellnummer"
   }
 }

@@ -94,5 +94,23 @@
     "emailInUse": "Ya existe una cuenta con ese email.",
     "weakPassword": "La contraseña debe tener al menos 6 caracteres.",
     "registerError": "No se pudo registrar el usuario."
+  },
+
+  "checkout": {
+    "title": "Finalizar compra",
+    "account": "Cuenta",
+    "name": "Nombre y apellido",
+    "phone": "Teléfono",
+    "address": "Dirección",
+    "city": "Ciudad",
+    "confirm": "Confirmar compra",
+    "processing": "Procesando compra...",
+    "requiredFields": "Completá todos los campos obligatorios.",
+    "authRequired": "Debés iniciar sesión para completar la compra.",
+    "emptyCart": "El carrito está vacío.",
+    "orderError": "No se pudo registrar la compra. Intentá nuevamente.",
+    "successTitle": "¡Compra registrada!",
+    "successMessage": "Tu compra se registró correctamente.",
+    "orderId": "ID de orden"
   }
 }

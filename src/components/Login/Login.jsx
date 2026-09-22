@@ -1,6 +1,10 @@
 
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import {
+  Link,
+  useLocation,
+  useNavigate,
+} from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useAuth } from "../../hooks/useAuth";
 import "./Login.css";
@@ -9,11 +13,14 @@ function Login() {
   const { t } = useTranslation();
   const { login } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+
+  const from = location.state?.from?.pathname || "/";
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -23,7 +30,7 @@ function Login() {
 
     try {
       await login(email, password);
-      navigate("/");
+      navigate(from, { replace: true });
     } catch (error) {
       console.error(error);
 
@@ -46,7 +53,9 @@ function Login() {
 
         <form className="auth-form" onSubmit={handleSubmit}>
           <div className="auth-field">
-            <label htmlFor="email">{t("auth.email")}</label>
+            <label htmlFor="email">
+              {t("auth.email")}
+            </label>
 
             <input
               id="email"
