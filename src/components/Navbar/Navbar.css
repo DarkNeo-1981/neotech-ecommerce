@@ -116,5 +116,48 @@
 
 .categories a.active {
   font-weight: bold;
-  color: #0057a8;
+  color: #00bfff;
+}
+
+/* AUTENTICACIÓN */
+
+.auth-section {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.auth-section a {
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.auth-section a:hover {
+  color: #00bfff;
+}
+
+.user-email {
+  font-size: 14px;
+  color: #e2e8f0;
+  white-space: nowrap;
+}
+
+.logout-button {
+  background-color: transparent;
+  border: 1px solid #00bfff;
+  color: white;
+  padding: 7px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.logout-button:hover {
+  background-color: #00bfff;
+  color: #0F172A;
 }

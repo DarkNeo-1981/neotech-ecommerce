@@ -8,6 +8,8 @@ import { useTranslation } from "react-i18next";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import NotFound from "./components/NotFound/NotFound";
 import Cart from "./components/Cart/Cart";
+import Login from "./components/Login/Login";
+import Register from "./components/Register/Register";
 
 function App() {
   const { t } = useTranslation();
@@ -36,6 +38,9 @@ function App() {
             />
 
             <Route path="/cart" element={<Cart />} />
+
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
 
             <Route path="*" element={<NotFound />} />
           </Routes>

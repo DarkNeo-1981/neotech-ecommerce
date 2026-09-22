@@ -27,39 +27,39 @@
       "Componentes": "Componentes"
     },
 
-  "names": {
-    "notebookGamer": "Notebook Gamer",
-    "mouseGamer": "Mouse Gamer",
-    "tecladoMecanico": "Teclado Mecánico",
-    "monitor24": "Monitor 24 pulgadas",
-    "auricularesGamer": "Auriculares Gamer",
-    "ryzen7": "Procesador AMD Ryzen 7"
-  },
+    "names": {
+      "notebookGamer": "Notebook Gamer",
+      "mouseGamer": "Mouse Gamer",
+      "tecladoMecanico": "Teclado Mecánico",
+      "monitor24": "Monitor 24 pulgadas",
+      "auricularesGamer": "Auriculares Gamer",
+      "ryzen7": "Procesador AMD Ryzen 7"
+    },
 
-  "descriptions": {
-    "notebookGamer": "Notebook gamer de alto rendimiento para juegos y aplicaciones exigentes.",
-    "mouseGamer": "Mouse gamer ergonómico con sensor de alta precisión.",
-    "tecladoMecanico": "Teclado mecánico ideal para gaming y productividad.",
-    "monitor24": "Monitor de 24 pulgadas con excelente calidad de imagen.",
-    "auricularesGamer": "Auriculares gamer con sonido envolvente y micrófono integrado.",
-    "ryzen7": "Procesador de alto rendimiento ideal para gaming y tareas exigentes."
-  },
+    "descriptions": {
+      "notebookGamer": "Notebook gamer de alto rendimiento para juegos y aplicaciones exigentes.",
+      "mouseGamer": "Mouse gamer ergonómico con sensor de alta precisión.",
+      "tecladoMecanico": "Teclado mecánico ideal para gaming y productividad.",
+      "monitor24": "Monitor de 24 pulgadas con excelente calidad de imagen.",
+      "auricularesGamer": "Auriculares gamer con sonido envolvente y micrófono integrado.",
+      "ryzen7": "Procesador de alto rendimiento ideal para gaming y tareas exigentes."
+    },
 
-  "longDescriptions": {
-    "notebookGamer": "Notebook gamer de alto rendimiento diseñada para gaming, trabajo y aplicaciones exigentes. Cuenta con un potente procesador, gráficos dedicados y almacenamiento rápido para ofrecer una experiencia fluida incluso en tareas intensivas.",
-    "mouseGamer": "Mouse gamer ergonómico diseñado para ofrecer precisión y comodidad durante largas sesiones de juego. Su sensor de alta precisión permite movimientos rápidos y exactos.",
-    "tecladoMecanico": "Teclado mecánico diseñado para gaming y productividad. Sus teclas ofrecen una respuesta rápida y precisa, brindando una experiencia cómoda tanto para jugar como para trabajar.",
-    "monitor24": "Monitor de 24 pulgadas pensado para gaming, entretenimiento y trabajo. Ofrece una excelente calidad de imagen y un tamaño ideal para disfrutar de tus contenidos con comodidad.",
-    "auricularesGamer": "Auriculares gamer con sonido envolvente y micrófono integrado. Diseñados para ofrecer una experiencia inmersiva durante los juegos y una comunicación clara con otros jugadores.",
-    "ryzen7": "Procesador AMD Ryzen 7 de alto rendimiento, diseñado para gaming, productividad y aplicaciones exigentes. Ofrece una excelente combinación de potencia y eficiencia para ejecutar múltiples tareas de manera fluida."
-  },
+    "longDescriptions": {
+      "notebookGamer": "Notebook gamer de alto rendimiento diseñada para gaming, trabajo y aplicaciones exigentes. Cuenta con un potente procesador, gráficos dedicados y almacenamiento rápido para ofrecer una experiencia fluida incluso en tareas intensivas.",
+      "mouseGamer": "Mouse gamer ergonómico diseñado para ofrecer precisión y comodidad durante largas sesiones de juego. Su sensor de alta precisión permite movimientos rápidos y exactos.",
+      "tecladoMecanico": "Teclado mecánico diseñado para gaming y productividad. Sus teclas ofrecen una respuesta rápida y precisa, brindando una experiencia cómoda tanto para jugar como para trabajar.",
+      "monitor24": "Monitor de 24 pulgadas pensado para gaming, entretenimiento y trabajo. Ofrece una excelente calidad de imagen y un tamaño ideal para disfrutar de tus contenidos con comodidad.",
+      "auricularesGamer": "Auriculares gamer con sonido envolvente y micrófono integrado. Diseñados para ofrecer una experiencia inmersiva durante los juegos y una comunicación clara con otros jugadores.",
+      "ryzen7": "Procesador AMD Ryzen 7 de alto rendimiento, diseñado para gaming, productividad y aplicaciones exigentes. Ofrece una excelente combinación de potencia y eficiencia para ejecutar múltiples tareas de manera fluida."
+    },
 
     "loading": "Cargando producto...",
     "loadingDetail": "Cargando producto...",
     "backToProducts": "Volver a productos",
     "addToCart": "Agregar al carrito"
   },
-  
+
   "cart": {
     "title": "Carrito de compras",
     "empty": "Tu carrito está vacío",
@@ -72,5 +72,27 @@
     "clear": "Vaciar carrito",
     "checkout": "Finalizar compra",
     "removeProduct": "Eliminar producto"
+  },
+
+  "auth": {
+    "login": "Iniciar sesión",
+    "register": "Registrarse",
+    "logout": "Cerrar sesión",
+    "email": "Email",
+    "password": "Contraseña",
+    "confirmPassword": "Repetir contraseña",
+    "loginButton": "Ingresar",
+    "registerButton": "Registrarse",
+    "loggingIn": "Ingresando...",
+    "registering": "Registrando...",
+    "noAccount": "¿No tenés una cuenta?",
+    "alreadyAccount": "¿Ya tenés una cuenta?",
+    "invalidCredentials": "Email o contraseña incorrectos.",
+    "invalidEmail": "El email ingresado no es válido.",
+    "loginError": "No se pudo iniciar sesión.",
+    "passwordMismatch": "Las contraseñas no coinciden.",
+    "emailInUse": "Ya existe una cuenta con ese email.",
+    "weakPassword": "La contraseña debe tener al menos 6 caracteres.",
+    "registerError": "No se pudo registrar el usuario."
   }
 }

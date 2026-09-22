@@ -27,39 +27,39 @@
       "Componentes": "Komponenten"
     },
 
-  "names": {
-    "notebookGamer": "Gaming-Laptop",
-    "mouseGamer": "Gaming-Maus",
-    "tecladoMecanico": "Mechanische Tastatur",
-    "monitor24": "24-Zoll-Monitor",
-    "auricularesGamer": "Gaming-Headset",
-    "ryzen7": "AMD Ryzen 7 Prozessor"
-  },
+    "names": {
+      "notebookGamer": "Gaming-Laptop",
+      "mouseGamer": "Gaming-Maus",
+      "tecladoMecanico": "Mechanische Tastatur",
+      "monitor24": "24-Zoll-Monitor",
+      "auricularesGamer": "Gaming-Headset",
+      "ryzen7": "AMD Ryzen 7 Prozessor"
+    },
 
-  "descriptions": {
-    "notebookGamer": "Leistungsstarker Gaming-Laptop für anspruchsvolle Spiele und Anwendungen.",
-    "mouseGamer": "Ergonomische Gaming-Maus mit hochpräzisem Sensor.",
-    "tecladoMecanico": "Mechanische Tastatur, ideal für Gaming und Produktivität.",
-    "monitor24": "24-Zoll-Monitor mit hervorragender Bildqualität.",
-    "auricularesGamer": "Gaming-Headset mit Surround-Sound und integriertem Mikrofon.",
-    "ryzen7": "Leistungsstarker Prozessor, ideal für Gaming und anspruchsvolle Aufgaben."
-  },
+    "descriptions": {
+      "notebookGamer": "Leistungsstarker Gaming-Laptop für anspruchsvolle Spiele und Anwendungen.",
+      "mouseGamer": "Ergonomische Gaming-Maus mit hochpräzisem Sensor.",
+      "tecladoMecanico": "Mechanische Tastatur, ideal für Gaming und Produktivität.",
+      "monitor24": "24-Zoll-Monitor mit hervorragender Bildqualität.",
+      "auricularesGamer": "Gaming-Headset mit Surround-Sound und integriertem Mikrofon.",
+      "ryzen7": "Leistungsstarker Prozessor, ideal für Gaming und anspruchsvolle Aufgaben."
+    },
 
-  "longDescriptions": {
-    "notebookGamer": "Leistungsstarker Gaming-Laptop für Gaming, Arbeit und anspruchsvolle Anwendungen. Er verfügt über einen leistungsfähigen Prozessor, dedizierte Grafik und schnellen Speicher für eine flüssige Nutzung auch bei intensiven Aufgaben.",
-    "mouseGamer": "Ergonomische Gaming-Maus für Präzision und Komfort bei langen Gaming-Sessions. Der hochpräzise Sensor ermöglicht schnelle und genaue Bewegungen.",
-    "tecladoMecanico": "Mechanische Tastatur für Gaming und Produktivität. Die Tasten bieten eine schnelle und präzise Reaktion und sorgen für ein komfortables Erlebnis beim Spielen und Arbeiten.",
-    "monitor24": "24-Zoll-Monitor für Gaming, Unterhaltung und Arbeit. Er bietet eine hervorragende Bildqualität und eine ideale Größe für komfortables Arbeiten und Genießen von Inhalten.",
-    "auricularesGamer": "Gaming-Headset mit Surround-Sound und integriertem Mikrofon. Entwickelt für ein immersives Spielerlebnis und eine klare Kommunikation mit anderen Spielern.",
-    "ryzen7": "Leistungsstarker AMD Ryzen 7 Prozessor, entwickelt für Gaming, Produktivität und anspruchsvolle Anwendungen. Er bietet eine hervorragende Kombination aus Leistung und Effizienz für flüssiges Multitasking."
-  },
+    "longDescriptions": {
+      "notebookGamer": "Leistungsstarker Gaming-Laptop für Gaming, Arbeit und anspruchsvolle Anwendungen. Er verfügt über einen leistungsfähigen Prozessor, dedizierte Grafik und schnellen Speicher für eine flüssige Nutzung auch bei intensiven Aufgaben.",
+      "mouseGamer": "Ergonomische Gaming-Maus für Präzision und Komfort bei langen Gaming-Sessions. Der hochpräzise Sensor ermöglicht schnelle und genaue Bewegungen.",
+      "tecladoMecanico": "Mechanische Tastatur für Gaming und Produktivität. Die Tasten bieten eine schnelle und präzise Reaktion und sorgen für ein komfortables Erlebnis beim Spielen und Arbeiten.",
+      "monitor24": "24-Zoll-Monitor für Gaming, Unterhaltung und Arbeit. Er bietet eine hervorragende Bildqualität und eine ideale Größe für komfortables Arbeiten und Genießen von Inhalten.",
+      "auricularesGamer": "Gaming-Headset mit Surround-Sound und integriertem Mikrofon. Entwickelt für ein immersives Spielerlebnis und eine klare Kommunikation mit anderen Spielern.",
+      "ryzen7": "Leistungsstarker AMD Ryzen 7 Prozessor, entwickelt für Gaming, Produktivität und anspruchsvolle Anwendungen. Er bietet eine hervorragende Kombination aus Leistung und Effizienz für flüssiges Multitasking."
+    },
 
     "loading": "Produkt wird geladen...",
     "loadingDetail": "Produkt wird geladen...",
     "backToProducts": "Zurück zu den Produkten",
     "addToCart": "In den Warenkorb"
   },
-  
+
   "cart": {
     "title": "Warenkorb",
     "empty": "Dein Warenkorb ist leer",
@@ -72,5 +72,27 @@
     "clear": "Warenkorb leeren",
     "checkout": "Kauf abschließen",
     "removeProduct": "Produkt entfernen"
+  },
+
+  "auth": {
+    "login": "Anmelden",
+    "register": "Registrieren",
+    "logout": "Abmelden",
+    "email": "E-Mail",
+    "password": "Passwort",
+    "confirmPassword": "Passwort wiederholen",
+    "loginButton": "Anmelden",
+    "registerButton": "Registrieren",
+    "loggingIn": "Anmeldung läuft...",
+    "registering": "Registrierung läuft...",
+    "noAccount": "Noch kein Konto?",
+    "alreadyAccount": "Bereits ein Konto?",
+    "invalidCredentials": "E-Mail oder Passwort ist falsch.",
+    "invalidEmail": "Die eingegebene E-Mail-Adresse ist ungültig.",
+    "loginError": "Anmeldung nicht möglich.",
+    "passwordMismatch": "Die Passwörter stimmen nicht überein.",
+    "emailInUse": "Für diese E-Mail-Adresse existiert bereits ein Konto.",
+    "weakPassword": "Das Passwort muss mindestens 6 Zeichen enthalten.",
+    "registerError": "Der Benutzer konnte nicht registriert werden."
   }
 }

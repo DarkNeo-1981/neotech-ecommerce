@@ -3,23 +3,34 @@ import "./Navbar.css";
 import CartWidget from "../CartWidget/CartWidget";
 import { useTranslation } from "react-i18next";
 import { NavLink } from "react-router-dom";
+import { useAuth } from "../../hooks/useAuth";
 
 function Navbar() {
   const { t, i18n } = useTranslation();
+  const { user, logout } = useAuth();
 
   const changeLanguage = (language) => {
     i18n.changeLanguage(language);
     localStorage.setItem("language", language);
   };
 
+  const handleLogout = async () => {
+    try {
+      await logout();
+    } catch (error) {
+      console.error("Error al cerrar sesión:", error);
+    }
+  };
+
   return (
     <nav className="navbar">
-      <NavLink to="/" className="logo"> 
-         NEOTECH
+      <NavLink to="/" className="logo">
+        NEOTECH
       </NavLink>
 
       <div className="categories">
-        <NavLink to="/category/1"
+        <NavLink
+          to="/category/1"
           className={({ isActive }) => (isActive ? "active" : "")}
         >
           {t("navbar.notebooks")}
@@ -83,6 +94,31 @@ function Navbar() {
               <span>Deutsch</span>
             </button>
           </div>
+        </div>
+
+        <div className="auth-section">
+          {user ? (
+            <>
+              <span className="user-email">{user.email}</span>
+
+              <button
+                className="logout-button"
+                onClick={handleLogout}
+              >
+                {t("auth.logout")}
+              </button>
+            </>
+          ) : (
+            <>
+              <NavLink to="/login">
+                {t("auth.login")}
+              </NavLink>
+
+              <NavLink to="/register">
+                {t("auth.register")}
+              </NavLink>
+            </>
+          )}
         </div>
 
         <CartWidget />
