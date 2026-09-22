@@ -27,32 +27,32 @@
       "Componentes": "Komponenten"
     },
 
-    "names": {
-      "1": "Gaming-Laptop",
-      "2": "Gaming-Maus",
-      "3": "Mechanische Tastatur",
-      "4": "24-Zoll-Monitor",
-      "5": "Gaming-Headset",
-      "6": "AMD Ryzen 7 Prozessor"
-    },
+  "names": {
+    "notebookGamer": "Gaming-Laptop",
+    "mouseGamer": "Gaming-Maus",
+    "tecladoMecanico": "Mechanische Tastatur",
+    "monitor24": "24-Zoll-Monitor",
+    "auricularesGamer": "Gaming-Headset",
+    "ryzen7": "AMD Ryzen 7 Prozessor"
+  },
 
-    "descriptions": {
-      "1": "Leistungsstarker Gaming-Laptop für anspruchsvolle Spiele und Anwendungen.",
-      "2": "Ergonomische Gaming-Maus mit hochpräzisem Sensor.",
-      "3": "Mechanische Tastatur, ideal für Gaming und Produktivität.",
-      "4": "24-Zoll-Monitor mit hervorragender Bildqualität.",
-      "5": "Gaming-Headset mit Surround-Sound und integriertem Mikrofon.",
-      "6": "Leistungsstarker Prozessor, ideal für Gaming und anspruchsvolle Aufgaben."
-    },
+  "descriptions": {
+    "notebookGamer": "Leistungsstarker Gaming-Laptop für anspruchsvolle Spiele und Anwendungen.",
+    "mouseGamer": "Ergonomische Gaming-Maus mit hochpräzisem Sensor.",
+    "tecladoMecanico": "Mechanische Tastatur, ideal für Gaming und Produktivität.",
+    "monitor24": "24-Zoll-Monitor mit hervorragender Bildqualität.",
+    "auricularesGamer": "Gaming-Headset mit Surround-Sound und integriertem Mikrofon.",
+    "ryzen7": "Leistungsstarker Prozessor, ideal für Gaming und anspruchsvolle Aufgaben."
+  },
 
-    "longDescriptions": {
-      "1": "Leistungsstarker Gaming-Laptop für Gaming, Arbeit und anspruchsvolle Anwendungen. Er verfügt über einen leistungsfähigen Prozessor, dedizierte Grafik und schnellen Speicher für eine flüssige Nutzung auch bei intensiven Aufgaben.",
-      "2": "Ergonomische Gaming-Maus für Präzision und Komfort bei langen Gaming-Sessions. Der hochpräzise Sensor ermöglicht schnelle und genaue Bewegungen.",
-      "3": "Mechanische Tastatur für Gaming und Produktivität. Die Tasten bieten eine schnelle und präzise Reaktion und sorgen für ein komfortables Erlebnis beim Spielen und Arbeiten.",
-      "4": "24-Zoll-Monitor für Gaming, Unterhaltung und Arbeit. Er bietet eine hervorragende Bildqualität und eine ideale Größe für komfortables Arbeiten und Genießen von Inhalten.",
-      "5": "Gaming-Headset mit Surround-Sound und integriertem Mikrofon. Entwickelt für ein immersives Spielerlebnis und eine klare Kommunikation mit anderen Spielern.",
-      "6": "Leistungsstarker AMD Ryzen 7 Prozessor, entwickelt für Gaming, Produktivität und anspruchsvolle Anwendungen. Er bietet eine hervorragende Kombination aus Leistung und Effizienz für flüssiges Multitasking."
-    },
+  "longDescriptions": {
+    "notebookGamer": "Leistungsstarker Gaming-Laptop für Gaming, Arbeit und anspruchsvolle Anwendungen. Er verfügt über einen leistungsfähigen Prozessor, dedizierte Grafik und schnellen Speicher für eine flüssige Nutzung auch bei intensiven Aufgaben.",
+    "mouseGamer": "Ergonomische Gaming-Maus für Präzision und Komfort bei langen Gaming-Sessions. Der hochpräzise Sensor ermöglicht schnelle und genaue Bewegungen.",
+    "tecladoMecanico": "Mechanische Tastatur für Gaming und Produktivität. Die Tasten bieten eine schnelle und präzise Reaktion und sorgen für ein komfortables Erlebnis beim Spielen und Arbeiten.",
+    "monitor24": "24-Zoll-Monitor für Gaming, Unterhaltung und Arbeit. Er bietet eine hervorragende Bildqualität und eine ideale Größe für komfortables Arbeiten und Genießen von Inhalten.",
+    "auricularesGamer": "Gaming-Headset mit Surround-Sound und integriertem Mikrofon. Entwickelt für ein immersives Spielerlebnis und eine klare Kommunikation mit anderen Spielern.",
+    "ryzen7": "Leistungsstarker AMD Ryzen 7 Prozessor, entwickelt für Gaming, Produktivität und anspruchsvolle Anwendungen. Er bietet eine hervorragende Kombination aus Leistung und Effizienz für flüssiges Multitasking."
+  },
 
     "loading": "Produkt wird geladen...",
     "loadingDetail": "Produkt wird geladen...",

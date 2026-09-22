@@ -25,10 +25,14 @@ function ItemDetail({ producto }) {
     producto.stock - cantidadEnCarrito
   );
 
-  const productName = t(`product.names.${producto.id}`);
-  const productDescription = t(
-    `product.longDescriptions.${producto.id}`
+  const productName = t(
+    `product.names.${producto.translationKey}`
   );
+
+  const productDescription = t(
+    `product.longDescriptions.${producto.translationKey}`
+  );
+
   const productCategory = t(
     `product.categories.${producto.category}`
   );

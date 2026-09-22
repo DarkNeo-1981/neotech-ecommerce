@@ -27,8 +27,13 @@ function Item({ product }) {
     stock - cantidadEnCarrito
   );
 
-  const productName = t(`product.names.${product.id}`);
-  const productDescription = t(`product.descriptions.${product.id}`);
+  const productName = t(
+    `product.names.${product.translationKey}`
+  );
+
+  const productDescription = t(
+    `product.descriptions.${product.translationKey}`
+  );
 
   const toggleFavorite = () => {
     setEsFavorito((prev) => !prev);

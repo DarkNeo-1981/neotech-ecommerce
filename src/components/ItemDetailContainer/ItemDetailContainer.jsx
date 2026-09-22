@@ -1,6 +1,7 @@
 
 import { useEffect, useState } from "react";
-import { getProductById } from "../../mock/asyncMock";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "../../firebase/config";
 import ItemDetail from "../ItemDetail/ItemDetail";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
@@ -21,17 +22,33 @@ function ProductDetailLoader({ id }) {
   useEffect(() => {
     let activo = true;
 
-    getProductById(Number(id))
-      .then((productoEncontrado) => {
-        if (activo) {
-          setProducto(productoEncontrado);
+    const fetchProduct = async () => {
+      try {
+        const productRef = doc(db, "products", id);
+        const productSnapshot = await getDoc(productRef);
+
+        if (!productSnapshot.exists()) {
+          throw new Error("Producto no encontrado.");
         }
-      })
-      .catch((error) => {
+
+        const productData = {
+          id: productSnapshot.id,
+          ...productSnapshot.data(),
+        };
+
         if (activo) {
-          setError(error.message);
+          setProducto(productData);
         }
-      });
+      } catch (error) {
+        if (activo) {
+          setError(
+            error.message || "No se pudo cargar el producto."
+          );
+        }
+      }
+    };
+
+    fetchProduct();
 
     return () => {
       activo = false;

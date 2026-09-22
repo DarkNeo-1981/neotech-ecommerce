@@ -27,32 +27,32 @@
       "Componentes": "Components"
     },
 
-    "names": {
-      "1": "Gaming Laptop",
-      "2": "Gaming Mouse",
-      "3": "Mechanical Keyboard",
-      "4": "24-inch Monitor",
-      "5": "Gaming Headset",
-      "6": "AMD Ryzen 7 Processor"
-    },
+  "names": {
+    "notebookGamer": "Gaming Laptop",
+    "mouseGamer": "Gaming Mouse",
+    "tecladoMecanico": "Mechanical Keyboard",
+    "monitor24": "24-inch Monitor",
+    "auricularesGamer": "Gaming Headset",
+    "ryzen7": "AMD Ryzen 7 Processor"
+  },
 
-    "descriptions": {
-      "1": "High-performance gaming laptop for demanding games and applications.",
-      "2": "Ergonomic gaming mouse with a high-precision sensor.",
-      "3": "Mechanical keyboard ideal for gaming and productivity.",
-      "4": "24-inch monitor with excellent image quality.",
-      "5": "Gaming headset with surround sound and integrated microphone.",
-      "6": "High-performance processor ideal for gaming and demanding tasks."
-    },
+  "descriptions": {
+    "notebookGamer": "High-performance gaming laptop for demanding games and applications.",
+    "mouseGamer": "Ergonomic gaming mouse with a high-precision sensor.",
+    "tecladoMecanico": "Mechanical keyboard ideal for gaming and productivity.",
+    "monitor24": "24-inch monitor with excellent image quality.",
+    "auricularesGamer": "Gaming headset with surround sound and integrated microphone.",
+    "ryzen7": "High-performance processor ideal for gaming and demanding tasks."
+  },
 
-    "longDescriptions": {
-      "1": "High-performance gaming laptop designed for gaming, work, and demanding applications. It features a powerful processor, dedicated graphics, and fast storage for a smooth experience even during intensive tasks.",
-      "2": "Ergonomic gaming mouse designed to provide precision and comfort during long gaming sessions. Its high-precision sensor allows fast and accurate movements.",
-      "3": "Mechanical keyboard designed for gaming and productivity. Its keys provide fast and precise response, offering a comfortable experience for both gaming and work.",
-      "4": "24-inch monitor designed for gaming, entertainment, and work. It delivers excellent image quality and an ideal size for enjoying your content comfortably.",
-      "5": "Gaming headset with surround sound and integrated microphone. Designed to provide an immersive gaming experience and clear communication with other players.",
-      "6": "High-performance AMD Ryzen 7 processor designed for gaming, productivity, and demanding applications. It offers an excellent combination of power and efficiency for smooth multitasking."
-    },
+  "longDescriptions": {
+    "notebookGamer": "High-performance gaming laptop designed for gaming, work, and demanding applications. It features a powerful processor, dedicated graphics, and fast storage for a smooth experience even during intensive tasks.",
+    "mouseGamer": "Ergonomic gaming mouse designed to provide precision and comfort during long gaming sessions. Its high-precision sensor allows fast and accurate movements.",
+    "tecladoMecanico": "Mechanical keyboard designed for gaming and productivity. Its keys provide fast and precise response, offering a comfortable experience for both gaming and work.",
+    "monitor24": "24-inch monitor designed for gaming, entertainment, and work. It delivers excellent image quality and an ideal size for enjoying your content comfortably.",
+    "auricularesGamer": "Gaming headset with surround sound and integrated microphone. Designed to provide an immersive gaming experience and clear communication with other players.",
+    "ryzen7": "High-performance AMD Ryzen 7 processor designed for gaming, productivity, and demanding applications. It offers an excellent combination of power and efficiency for smooth multitasking."
+  },
 
     "loading": "Loading product...",
     "loadingDetail": "Loading product...",

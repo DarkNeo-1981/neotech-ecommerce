@@ -10,7 +10,6 @@ import LoaderComponent from "../LoaderComponent/LoaderComponent";
 function ItemListContainer() {
   const { t } = useTranslation();
   const { categoryId } = useParams();
-  const { products, loading, error } = useProducts();
 
   const categories = {
     1: "Notebooks",
@@ -21,11 +20,7 @@ function ItemListContainer() {
 
   const categoryExists = !categoryId || categories[categoryId];
 
-  const filteredProducts = categoryId
-    ? products.filter(
-        (product) => product.category === categories[categoryId]
-      )
-    : products;
+  const { products, loading, error } = useProducts(categoryId);
 
   return (
     <section className="item-list-container">
@@ -36,7 +31,7 @@ function ItemListContainer() {
       ) : !categoryExists ? (
         <CategoryNotFound />
       ) : (
-        <ItemList items={filteredProducts} />
+        <ItemList items={products} />
       )}
     </section>
   );

@@ -27,32 +27,32 @@
       "Componentes": "Componentes"
     },
 
-    "names": {
-      "1": "Notebook Gamer",
-      "2": "Mouse Gamer",
-      "3": "Teclado Mecánico",
-      "4": "Monitor 24 pulgadas",
-      "5": "Auriculares Gamer",
-      "6": "Procesador AMD Ryzen 7"
-    },
+  "names": {
+    "notebookGamer": "Notebook Gamer",
+    "mouseGamer": "Mouse Gamer",
+    "tecladoMecanico": "Teclado Mecánico",
+    "monitor24": "Monitor 24 pulgadas",
+    "auricularesGamer": "Auriculares Gamer",
+    "ryzen7": "Procesador AMD Ryzen 7"
+  },
 
-    "descriptions": {
-      "1": "Notebook gamer de alto rendimiento para juegos y aplicaciones exigentes.",
-      "2": "Mouse gamer ergonómico con sensor de alta precisión.",
-      "3": "Teclado mecánico ideal para gaming y productividad.",
-      "4": "Monitor de 24 pulgadas con excelente calidad de imagen.",
-      "5": "Auriculares gamer con sonido envolvente y micrófono integrado.",
-      "6": "Procesador de alto rendimiento ideal para gaming y tareas exigentes."
-    },
+  "descriptions": {
+    "notebookGamer": "Notebook gamer de alto rendimiento para juegos y aplicaciones exigentes.",
+    "mouseGamer": "Mouse gamer ergonómico con sensor de alta precisión.",
+    "tecladoMecanico": "Teclado mecánico ideal para gaming y productividad.",
+    "monitor24": "Monitor de 24 pulgadas con excelente calidad de imagen.",
+    "auricularesGamer": "Auriculares gamer con sonido envolvente y micrófono integrado.",
+    "ryzen7": "Procesador de alto rendimiento ideal para gaming y tareas exigentes."
+  },
 
-    "longDescriptions": {
-      "1": "Notebook gamer de alto rendimiento diseñada para gaming, trabajo y aplicaciones exigentes. Cuenta con un potente procesador, gráficos dedicados y almacenamiento rápido para ofrecer una experiencia fluida incluso en tareas intensivas.",
-      "2": "Mouse gamer ergonómico diseñado para ofrecer precisión y comodidad durante largas sesiones de juego. Su sensor de alta precisión permite movimientos rápidos y exactos.",
-      "3": "Teclado mecánico diseñado para gaming y productividad. Sus teclas ofrecen una respuesta rápida y precisa, brindando una experiencia cómoda tanto para jugar como para trabajar.",
-      "4": "Monitor de 24 pulgadas pensado para gaming, entretenimiento y trabajo. Ofrece una excelente calidad de imagen y un tamaño ideal para disfrutar de tus contenidos con comodidad.",
-      "5": "Auriculares gamer con sonido envolvente y micrófono integrado. Diseñados para ofrecer una experiencia inmersiva durante los juegos y una comunicación clara con otros jugadores.",
-      "6": "Procesador AMD Ryzen 7 de alto rendimiento, diseñado para gaming, productividad y aplicaciones exigentes. Ofrece una excelente combinación de potencia y eficiencia para ejecutar múltiples tareas de manera fluida."
-    },
+  "longDescriptions": {
+    "notebookGamer": "Notebook gamer de alto rendimiento diseñada para gaming, trabajo y aplicaciones exigentes. Cuenta con un potente procesador, gráficos dedicados y almacenamiento rápido para ofrecer una experiencia fluida incluso en tareas intensivas.",
+    "mouseGamer": "Mouse gamer ergonómico diseñado para ofrecer precisión y comodidad durante largas sesiones de juego. Su sensor de alta precisión permite movimientos rápidos y exactos.",
+    "tecladoMecanico": "Teclado mecánico diseñado para gaming y productividad. Sus teclas ofrecen una respuesta rápida y precisa, brindando una experiencia cómoda tanto para jugar como para trabajar.",
+    "monitor24": "Monitor de 24 pulgadas pensado para gaming, entretenimiento y trabajo. Ofrece una excelente calidad de imagen y un tamaño ideal para disfrutar de tus contenidos con comodidad.",
+    "auricularesGamer": "Auriculares gamer con sonido envolvente y micrófono integrado. Diseñados para ofrecer una experiencia inmersiva durante los juegos y una comunicación clara con otros jugadores.",
+    "ryzen7": "Procesador AMD Ryzen 7 de alto rendimiento, diseñado para gaming, productividad y aplicaciones exigentes. Ofrece una excelente combinación de potencia y eficiencia para ejecutar múltiples tareas de manera fluida."
+  },
 
     "loading": "Cargando producto...",
     "loadingDetail": "Cargando producto...",
