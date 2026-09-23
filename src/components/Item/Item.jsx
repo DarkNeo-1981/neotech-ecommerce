@@ -1,18 +1,19 @@
 
-import { useState } from "react";
 import "./Item.css";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { useCart } from "../../hooks/useCart";
+import { useFavorites } from "../../hooks/useFavorites";
 
 function Item({ product }) {
   const { t } = useTranslation();
 
-  const [esFavorito, setEsFavorito] = useState(false);
-
   const { price, img, stock } = product;
 
   const { cart } = useCart();
+  const { toggleFavorite, isFavorite } = useFavorites();
+
+  const esFavorito = isFavorite(product.id);
 
   const productoEnCarrito = cart.find(
     (item) => item.id === product.id
@@ -35,15 +36,13 @@ function Item({ product }) {
     `product.descriptions.${product.translationKey}`
   );
 
-  const toggleFavorite = () => {
-    setEsFavorito((prev) => !prev);
-  };
-
   return (
     <article className="item">
       <button
         className={`favorite ${esFavorito ? "active" : ""}`}
-        onClick={toggleFavorite}
+        onClick={() => toggleFavorite(product)}
+        aria-label="Favorito"
+        title="Favorito"
       >
         {esFavorito ? "♥" : "♡"}
       </button>
@@ -54,7 +53,9 @@ function Item({ product }) {
 
       <h3>{productName}</h3>
 
-      <p className="description">{productDescription}</p>
+      <p className="description">
+        {productDescription}
+      </p>
 
       <p>${price.toLocaleString()}</p>
 

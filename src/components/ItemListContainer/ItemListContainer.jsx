@@ -3,9 +3,10 @@ import "./ItemListContainer.css";
 import ItemList from "../ItemList/ItemList";
 import CategoryNotFound from "../CategoryNotFound/CategoryNotFound";
 import { useTranslation } from "react-i18next";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import useProducts from "../../hooks/useProducts";
 import LoaderComponent from "../LoaderComponent/LoaderComponent";
+import { FaHeart } from "react-icons/fa";
 
 function ItemListContainer() {
   const { t } = useTranslation();
@@ -24,6 +25,15 @@ function ItemListContainer() {
 
   return (
     <section className="item-list-container">
+      {!loading && !error && categoryExists && (
+        <div className="catalog-actions">
+          <Link to="/favorites" className="favorites-filter-button">
+            <FaHeart />
+            <span>Ver favoritos</span>
+          </Link>
+        </div>
+      )}
+
       {loading ? (
         <LoaderComponent text={t("product.loading")} />
       ) : error ? (

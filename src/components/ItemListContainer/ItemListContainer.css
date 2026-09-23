@@ -1,6 +1,6 @@
 
 .item-list-container {
-  max-width: 1400px; /* Le damos más margen de ancho para que entren las 5 cards */
+  max-width: 1400px;
   margin: 0 auto;
   padding: 15px 20px;
   text-align: center;
@@ -11,12 +11,50 @@
   font-size: 1.6rem;
 }
 
+/* ACCIONES DEL CATÁLOGO */
+
+.catalog-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 12px;
+}
+
+.favorites-filter-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 14px;
+  background-color: #ffffff;
+  color: #0f172a;
+  border: 1px solid #d6dbe0;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.favorites-filter-button svg {
+  color: #e53935;
+}
+
+.favorites-filter-button:hover {
+  background-color: #0f172a;
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+
+/* PRODUCTOS */
+
 .product-list {
   display: flex;
   justify-content: center;
   align-items: stretch;
-  flex-wrap: nowrap; /* Fuerza a que se mantengan las 5 cards en 1 sola fila */
-  gap: 15px; /* Reducimos el espacio entre cards */
+  flex-wrap: nowrap;
+  gap: 15px;
   margin-top: 10px;
 }
 
@@ -25,4 +63,27 @@
   font-weight: bold;
   color: rgb(0, 87, 168);
   padding: 80px 0;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 900px) {
+  .product-list {
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 600px) {
+  .item-list-container {
+    padding: 12px;
+  }
+
+  .catalog-actions {
+    justify-content: center;
+  }
+
+  .favorites-filter-button {
+    width: 100%;
+    justify-content: center;
+  }
 }

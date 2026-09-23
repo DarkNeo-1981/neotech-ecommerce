@@ -12,6 +12,7 @@ import Login from "./components/Login/Login";
 import Register from "./components/Register/Register";
 import Checkout from "./components/Checkout/Checkout";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
+import Favorites from "./components/Favorites/Favorites";
 
 function App() {
   const { t } = useTranslation();
@@ -38,8 +39,10 @@ function App() {
               path="/item/:id"
               element={<ItemDetailContainer />}
             />
-
+            
             <Route path="/cart" element={<Cart />} />
+
+            <Route path="/favorites" element={<Favorites />} />
 
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
