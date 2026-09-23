@@ -1,21 +1,27 @@
 
 import { useEffect, useState } from "react";
-import { collection, getDocs, query, where, } from "firebase/firestore";
+import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "../firebase/config";
+
+const categories = {
+  1: "Notebooks",
+  2: "Periféricos",
+  3: "Monitores",
+  4: "Componentes",
+};
 
 function useProducts(categoryId) {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const categories = {
-    1: "Notebooks",
-    2: "Periféricos",
-    3: "Monitores",
-    4: "Componentes",
-  };
+  const isValidCategory = !categoryId || categories[categoryId];
 
   useEffect(() => {
+    if (!isValidCategory) {
+      return;
+    }
+
     const fetchProducts = async () => {
       setLoading(true);
       setError(null);
@@ -45,13 +51,16 @@ function useProducts(categoryId) {
       }
     };
 
-    if (!categoryId || categories[categoryId]) {
-      fetchProducts();
-    } else {
-      setProducts([]);
-      setLoading(false);
-    }
-  }, [categoryId]);
+    fetchProducts();
+  }, [categoryId, isValidCategory]);
+
+  if (!isValidCategory) {
+    return {
+      products: [],
+      loading: false,
+      error: null,
+    };
+  }
 
   return { products, loading, error };
 }
