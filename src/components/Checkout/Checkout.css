@@ -1,0 +1,172 @@
+
+.checkout-container {
+  width: 92%;
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 20px;
+}
+
+.checkout-container > h1 {
+  margin: 0 0 28px;
+  text-align: center;
+  color: #111827;
+}
+
+/* DATOS DE LA CUENTA */
+
+.checkout-user {
+  margin-bottom: 24px;
+  padding: 16px 20px;
+  background-color: #f3f0ea;
+  border: 1px solid #ded8ce;
+  border-radius: 10px;
+}
+
+.checkout-user p {
+  margin: 0;
+  color: #1f2937;
+}
+
+/* FORMULARIO */
+
+.checkout-container form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding: 28px;
+  background-color: #f7f4ef;
+  border: 1px solid #ded8ce;
+  border-radius: 12px;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+}
+
+.checkout-container form > div {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.checkout-container label {
+  font-weight: 600;
+  color: #1f2937;
+}
+
+/* CAMPOS */
+
+.checkout-container input {
+  width: 100%;
+  padding: 12px 14px;
+  background-color: #ffffff;
+  border: 1px solid #c9c5bd;
+  border-radius: 8px;
+  box-sizing: border-box;
+  font-size: 1rem;
+  color: #111827;
+  outline: none;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.checkout-container input:hover {
+  border-color: #9ca3af;
+}
+
+.checkout-container input:focus {
+  border-color: #0d6efd;
+  box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.15);
+}
+
+/* TOTAL */
+
+.checkout-container form h2 {
+  margin: 8px 0 0;
+  padding-top: 18px;
+  border-top: 1px solid #d6d0c7;
+  font-size: 1.35rem;
+  color: #111827;
+}
+
+/* MENSAJE DE ERROR */
+
+.checkout-container form > p {
+  margin: 0;
+  padding: 12px 14px;
+  background-color: #f8d7da;
+  color: #842029;
+  border: 1px solid #f5c2c7;
+  border-radius: 8px;
+}
+
+/* BOTÓN CONFIRMAR */
+
+.checkout-container button[type="submit"] {
+  width: 100%;
+  padding: 13px 18px;
+  border: none;
+  border-radius: 8px;
+  background-color: #0d6efd;
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.checkout-container button[type="submit"]:hover:not(:disabled) {
+  background-color: #0b5ed7;
+}
+
+.checkout-container button[type="submit"]:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+.checkout-container button[type="submit"]:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+/* COMPRA EXITOSA */
+
+.checkout-success {
+  padding: 32px;
+  background-color: #f7f4ef;
+  border: 1px solid #ded8ce;
+  border-radius: 12px;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+  text-align: center;
+}
+
+.checkout-success h1 {
+  margin-top: 0;
+  margin-bottom: 16px;
+  color: #111827;
+}
+
+.checkout-success p {
+  margin: 10px 0;
+}
+
+.checkout-success strong {
+  word-break: break-all;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 600px) {
+  .checkout-container {
+    width: 95%;
+    margin: 20px auto;
+    padding: 10px;
+  }
+
+  .checkout-container form {
+    padding: 20px;
+  }
+
+  .checkout-success {
+    padding: 24px 18px;
+  }
+}

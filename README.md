@@ -5,7 +5,7 @@
 
 NEOTECH es un e-commerce de productos tecnológicos desarrollado con React como proyecto del curso de React JS.
 
-El proyecto se encuentra en desarrollo y actualmente incorpora persistencia de datos mediante Firebase Cloud Firestore, autenticación de usuarios mediante Firebase Authentication, navegación por categorías, detalle de productos, carrito de compras global e internacionalización.
+La aplicación incorpora persistencia de datos mediante Firebase Cloud Firestore, autenticación de usuarios mediante Firebase Authentication, navegación por categorías, detalle de productos, carrito de compras global, checkout protegido, generación de órdenes de compra e internacionalización.
 
 Actualmente incluye:
 
@@ -19,7 +19,12 @@ Actualmente incluye:
 - Estado global de autenticación mediante `AuthContext`.
 - Carrito global mediante Context API.
 - Control de cantidades y stock disponible.
-- Navegación con React Router.
+- Checkout protegido para usuarios autenticados.
+- Formulario de datos del comprador.
+- Generación de órdenes en Cloud Firestore.
+- Asociación de órdenes con el usuario autenticado.
+- Confirmación de compra mediante ID de orden.
+- Navegación mediante React Router.
 - Interfaz en Español, Inglés y Alemán.
 - Estados de carga y manejo de errores.
 - Configuración de Firebase mediante variables de entorno.
@@ -97,7 +102,16 @@ El archivo `.env` se encuentra incluido en `.gitignore`.
 
 ## 📦 Cloud Firestore
 
-### Colección `products`
+La aplicación utiliza principalmente dos colecciones:
+
+```text
+products
+orders
+```
+
+---
+
+## 🛍️ Colección `products`
 
 El catálogo se almacena en la colección:
 
@@ -122,7 +136,7 @@ Ejemplo de documento:
 }
 ```
 
-Campos utilizados:
+### Campos utilizados
 
 | Campo | Tipo | Descripción |
 |---|---|---|
@@ -171,7 +185,7 @@ where()
 
 De esta manera el filtrado se realiza directamente en Firestore y no después de descargar el catálogo completo.
 
-El flujo general es:
+Flujo general:
 
 ```text
 ItemListContainer
@@ -237,15 +251,20 @@ La aplicación permite:
 - Registrar nuevos usuarios.
 - Iniciar sesión con una cuenta existente.
 - Cerrar sesión.
-- Mantener la sesión activa al recargar la página.
+- Mantener la sesión activa al recargar la aplicación.
 - Mostrar el email del usuario autenticado en la barra de navegación.
 - Mostrar mensajes de error durante el registro o inicio de sesión.
 
-El estado global de autenticación se administra mediante:
+El contexto de autenticación se encuentra dividido entre:
 
 ```text
+src/context/AuthContext.js
 src/context/AuthContext.jsx
 ```
+
+`AuthContext.js` crea y exporta el contexto.
+
+`AuthContext.jsx` contiene el `AuthProvider` y administra el estado global de autenticación.
 
 El contexto expone:
 
@@ -302,6 +321,138 @@ Los mensajes se encuentran internacionalizados mediante i18next.
 
 ---
 
+## 🛡️ Checkout protegido
+
+La ruta:
+
+```text
+/checkout
+```
+
+se encuentra protegida mediante un componente `ProtectedRoute`.
+
+Únicamente los usuarios autenticados pueden acceder al proceso de compra.
+
+Si un usuario intenta ingresar al checkout sin haber iniciado sesión, la aplicación lo redirige a:
+
+```text
+/login
+```
+
+Después de autenticarse puede continuar con el proceso de compra.
+
+El checkout también verifica que el carrito contenga productos.
+
+Si el carrito está vacío, no se permite generar una orden y el usuario es redirigido al carrito.
+
+---
+
+## 📝 Formulario de checkout
+
+El checkout solicita los siguientes datos:
+
+- Nombre y apellido.
+- Teléfono.
+- Dirección.
+- Ciudad.
+
+Todos los campos son obligatorios.
+
+Antes de generar una orden se verifica nuevamente que:
+
+- Exista un usuario autenticado.
+- El carrito tenga productos.
+- Los campos del formulario estén completos.
+
+Durante la creación de la orden se muestra feedback de carga y, si ocurre un error, se informa al usuario sin vaciar el carrito.
+
+---
+
+## 🧾 Colección `orders`
+
+Cuando el usuario confirma la compra se crea un documento dentro de:
+
+```text
+orders
+```
+
+La creación se realiza mediante:
+
+```js
+addDoc()
+```
+
+La fecha de creación se genera mediante:
+
+```js
+serverTimestamp()
+```
+
+Ejemplo de una orden:
+
+```js
+{
+  userId: "uid-del-usuario",
+  userEmail: "usuario@email.com",
+
+  buyer: {
+    name: "Nombre Apellido",
+    phone: "123456789",
+    address: "Dirección",
+    city: "Ciudad"
+  },
+
+  items: [
+    {
+      id: "id-firestore-producto",
+      name: "Notebook Gamer",
+      price: 1500000,
+      quantity: 1
+    }
+  ],
+
+  total: 1500000,
+
+  createdAt: serverTimestamp()
+}
+```
+
+### Campos principales
+
+| Campo | Descripción |
+|---|---|
+| `userId` | UID del usuario autenticado |
+| `userEmail` | Email del usuario que realizó la compra |
+| `buyer` | Datos de entrega del comprador |
+| `items` | Productos incluidos en la compra |
+| `total` | Importe total de la orden |
+| `createdAt` | Fecha generada por Firestore |
+
+Después de crear correctamente la orden:
+
+1. Firebase devuelve el ID del documento generado.
+2. La aplicación muestra el ID de la orden al usuario.
+3. Se informa que la compra fue registrada.
+4. El carrito se vacía.
+
+El carrito únicamente se vacía después de que `addDoc()` finaliza correctamente.
+
+Si ocurre un error, los productos permanecen en el carrito.
+
+---
+
+## 🔒 Reglas de seguridad
+
+Las reglas de seguridad de Cloud Firestore controlan el acceso a los datos independientemente de las validaciones realizadas desde React.
+
+La colección `products` puede ser consultada por la aplicación.
+
+La creación de documentos dentro de `orders` requiere que exista un usuario autenticado mediante Firebase Authentication.
+
+De esta forma, un usuario no autenticado no puede crear órdenes directamente en Firestore.
+
+---
+
 ## 🌎 Internacionalización
 
 NEOTECH utiliza:
@@ -343,7 +494,7 @@ Ejemplo:
 t(`product.names.${product.translationKey}`)
 ```
 
-Los textos correspondientes a autenticación también se encuentran traducidos en los tres idiomas.
+Los textos correspondientes a autenticación, carrito y checkout también se encuentran traducidos.
 
 El idioma seleccionado se conserva mediante `localStorage`.
 
@@ -416,9 +567,10 @@ Rutas actuales:
 | `/cart` | Carrito de compras |
 | `/login` | Inicio de sesión |
 | `/register` | Registro de usuario |
+| `/checkout` | Checkout protegido |
 | `*` | Ruta inexistente |
 
-Categorías:
+### Categorías
 
 | ID | Categoría |
 |---|---|
@@ -443,8 +595,16 @@ NEOTECH/
 ├── src/
 │   ├── components/
 │   │   ├── Cart/
+│   │   │   ├── Cart.jsx
+│   │   │   └── Cart.css
+│   │   │
 │   │   ├── CartWidget/
 │   │   ├── CategoryNotFound/
+│   │   │
+│   │   ├── Checkout/
+│   │   │   ├── Checkout.jsx
+│   │   │   └── Checkout.css
+│   │   │
 │   │   ├── Footer/
 │   │   ├── Item/
 │   │   ├── ItemCount/
@@ -454,14 +614,13 @@ NEOTECH/
 │   │   ├── ItemListContainer/
 │   │   ├── LoaderComponent/
 │   │   ├── Login/
-│   │   │   ├── Login.jsx
-│   │   │   └── Login.css
 │   │   ├── Navbar/
 │   │   ├── NotFound/
+│   │   ├── ProtectedRoute/
 │   │   └── Register/
-│   │       └── Register.jsx
 │   │
 │   ├── context/
+│   │   ├── AuthContext.js
 │   │   ├── AuthContext.jsx
 │   │   ├── CartContext.jsx
 │   │   └── CartProvider.jsx
@@ -485,7 +644,6 @@ NEOTECH/
 │   ├── index.css
 │   └── main.jsx
 │
-├── .env
 ├── .gitignore
 ├── eslint.config.js
 ├── index.html
@@ -519,7 +677,13 @@ Instalar dependencias:
 npm install
 ```
 
-Crear el archivo `.env` con las variables de Firebase indicadas anteriormente.
+Crear un archivo:
+
+```text
+.env
+```
+
+en la raíz del proyecto y completar las variables de Firebase indicadas anteriormente.
 
 Iniciar el servidor de desarrollo:
 
@@ -533,65 +697,29 @@ Vite mostrará en la terminal la dirección local de la aplicación.
 
 ## 🧪 Scripts disponibles
 
-Servidor de desarrollo:
+### Servidor de desarrollo
 
 ```bash
 npm run dev
 ```
 
-Revisión con ESLint:
+### Revisión con ESLint
 
 ```bash
 npm run lint
 ```
 
-Build de producción:
+### Build de producción
 
 ```bash
 npm run build
 ```
 
-Vista previa del build:
+### Vista previa del build
 
 ```bash
 npm run preview
 ```
-
----
-
-## 🧾 Colección de órdenes
-
-La siguiente etapa incorporará una colección:
-
-```text
-orders
-```
-
-La estructura prevista para una orden será similar a:
-
-```js
-{
-  userId: "uid-del-usuario",
-  buyer: {
-    name: "Nombre Apellido",
-    phone: "123456789",
-    address: "Dirección",
-    city: "Ciudad"
-  },
-  items: [
-    {
-      id: "id-firestore-producto",
-      name: "Notebook Gamer",
-      price: 1500000,
-      quantity: 1
-    }
-  ],
-  total: 1500000,
-  createdAt: serverTimestamp()
-}
-```
-
-Esta colección todavía no forma parte del flujo funcional actual.
 
 ---
 
@@ -617,21 +745,32 @@ Actualmente se encuentra implementado:
 - Control de cantidades.
 - Control de stock disponible.
 - Navegación mediante React Router.
+- Checkout protegido.
+- Validación de carrito vacío.
+- Formulario de datos del comprador.
+- Generación de órdenes mediante `addDoc`.
+- Asociación de órdenes al usuario autenticado.
+- Fecha de órdenes mediante `serverTimestamp`.
+- Confirmación mediante ID de orden.
+- Vaciado del carrito únicamente después de una compra exitosa.
+- Reglas de seguridad para impedir órdenes de usuarios no autenticados.
 - Variables de entorno para Firebase.
 
 ---
 
 ## 📌 Próximos pasos
 
-- Proteger el checkout para usuarios autenticados.
-- Validar carrito vacío antes de comprar.
-- Crear formulario de datos del comprador.
-- Generar órdenes en Firestore.
-- Asociar la orden al usuario autenticado.
-- Mostrar el ID de la orden.
-- Vaciar el carrito únicamente después de una compra exitosa.
-- Configurar las reglas definitivas de seguridad de Firestore.
+La lógica principal requerida para esta pre-entrega se encuentra implementada.
+
+Las próximas mejoras corresponden a la etapa de consolidación y despliegue final:
+
+- Realizar el build de producción.
+- Revisar casos de borde y experiencia de usuario.
+- Optimizar detalles visuales.
 - Desplegar el proyecto en Vercel.
+- Configurar las variables de entorno en Vercel.
+- Agregar el dominio de producción a Firebase Authentication.
+- Realizar pruebas finales sobre la versión publicada.
 
 ---
 

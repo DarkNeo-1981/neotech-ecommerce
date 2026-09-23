@@ -10,6 +10,7 @@ import { useTranslation } from "react-i18next";
 import { db } from "../../firebase/config";
 import { useCart } from "../../hooks/useCart";
 import { useAuth } from "../../hooks/useAuth";
+import "./Checkout.css";
 
 function Checkout() {
   const { t } = useTranslation();
