@@ -112,5 +112,12 @@
     "successTitle": "Kauf registriert!",
     "successMessage": "Dein Kauf wurde erfolgreich registriert.",
     "orderId": "Bestellnummer"
+  },
+
+  "favorites": {
+    "title": "Favoriten",
+    "viewFavorites": "Favoriten anzeigen",
+    "empty": "Du hast noch keine Produkte zu deinen Favoriten hinzugefügt.",
+    "backToCatalog": "Zurück zum Katalog"
   }
 }

@@ -29,7 +29,7 @@ function ItemListContainer() {
         <div className="catalog-actions">
           <Link to="/favorites" className="favorites-filter-button">
             <FaHeart />
-            <span>Ver favoritos</span>
+            <span>{t("favorites.viewFavorites")}</span>
           </Link>
         </div>
       )}
