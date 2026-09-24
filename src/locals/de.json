@@ -71,7 +71,13 @@
     "total": "Gesamt",
     "clear": "Warenkorb leeren",
     "checkout": "Kauf abschließen",
-    "removeProduct": "Produkt entfernen"
+    "removeProduct": "Produkt entfernen",
+
+    "clearConfirmTitle": "Warenkorb leeren?",
+    "clearConfirm": "Alle Produkte werden aus dem Warenkorb entfernt.",
+    "confirmClear": "Ja, leeren",
+    "cancel": "Abbrechen",
+    "cleared": "Warenkorb geleert"
   },
 
   "auth": {

@@ -71,7 +71,13 @@
     "total": "Total",
     "clear": "Vaciar carrito",
     "checkout": "Finalizar compra",
-    "removeProduct": "Eliminar producto"
+    "removeProduct": "Eliminar producto",
+
+    "clearConfirmTitle": "¿Vaciar carrito?",
+    "clearConfirm": "Se eliminarán todos los productos del carrito.",
+    "confirmClear": "Sí, vaciar",
+    "cancel": "Cancelar",
+    "cleared": "Carrito vaciado"
   },
 
   "auth": {

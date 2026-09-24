@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { FaTrash } from "react-icons/fa";
 import { useTranslation } from "react-i18next";
 import { useCart } from "../../hooks/useCart";
+import Swal from "sweetalert2";
 
 function Cart() {
   const { t } = useTranslation();
@@ -17,6 +18,42 @@ function Cart() {
     totalItems,
     totalPrice,
   } = useCart();
+
+  const handleClearCart = async () => {
+    const result = await Swal.fire({
+      title: t("cart.clearConfirmTitle"),
+      text: t("cart.clearConfirm"),
+      icon: "warning",
+
+      showCancelButton: true,
+      confirmButtonText: t("cart.confirmClear"),
+      cancelButtonText: t("cart.cancel"),
+
+      confirmButtonColor: "#0f172a",
+      cancelButtonColor: "#64748b",
+
+      reverseButtons: true,
+
+      customClass: {
+        popup: "neotech-alert",
+      },
+    });
+
+    if (result.isConfirmed) {
+      clear();
+
+      Swal.fire({
+        title: t("cart.cleared"),
+        icon: "success",
+        confirmButtonColor: "#0f172a",
+        timer: 1400,
+        showConfirmButton: false,
+        customClass: {
+          popup: "neotech-alert",
+        },
+      });
+    }
+  };
 
   if (cart.length === 0) {
     return (
@@ -116,7 +153,7 @@ function Cart() {
         <div className="cart-actions">
           <button
             className="cart-clear-button"
-            onClick={clear}
+            onClick={handleClearCart}
           >
             {t("cart.clear")}
           </button>

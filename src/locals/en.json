@@ -71,7 +71,13 @@
     "total": "Total",
     "clear": "Clear cart",
     "checkout": "Checkout",
-    "removeProduct": "Remove product"
+    "removeProduct": "Remove product",
+
+    "clearConfirmTitle": "Empty cart?",
+    "clearConfirm": "All products will be removed from your cart.",
+    "confirmClear": "Yes, empty it",
+    "cancel": "Cancel",
+    "cleared": "Cart emptied"
   },
 
   "auth": {
