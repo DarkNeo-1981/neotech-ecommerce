@@ -1,12 +1,13 @@
 
 import { useState } from "react";
-import { Navigate } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import {
   addDoc,
   collection,
   serverTimestamp,
 } from "firebase/firestore";
 import { useTranslation } from "react-i18next";
+import confetti from "canvas-confetti";
 import { db } from "../../firebase/config";
 import { useCart } from "../../hooks/useCart";
 import { useAuth } from "../../hooks/useAuth";
@@ -35,6 +36,61 @@ function Checkout() {
       ...prevBuyer,
       [name]: value,
     }));
+  };
+
+  const launchConfetti = () => {
+    const duration = 3000;
+    const animationEnd = Date.now() + duration;
+
+    const defaults = {
+      startVelocity: 35,
+      spread: 360,
+      ticks: 70,
+      zIndex: 9999,
+    };
+
+    const randomInRange = (min, max) =>
+      Math.random() * (max - min) + min;
+
+    confetti({
+      particleCount: 120,
+      spread: 100,
+      startVelocity: 45,
+      origin: {
+        x: 0.5,
+        y: 0.6,
+      },
+      zIndex: 9999,
+    });
+
+    const interval = setInterval(() => {
+      const timeLeft = animationEnd - Date.now();
+
+      if (timeLeft <= 0) {
+        clearInterval(interval);
+        return;
+      }
+
+      const particleCount = 45 * (timeLeft / duration);
+
+      confetti({
+        ...defaults,
+        particleCount,
+        origin: {
+          x: randomInRange(0.1, 0.3),
+          y: Math.random() - 0.2,
+        },
+      });
+
+      confetti({
+        ...defaults,
+        particleCount,
+        origin: {
+          x: randomInRange(0.7, 0.9),
+          y: Math.random() - 0.2,
+        },
+      });
+    }, 250);
   };
 
   const handleSubmit = async (e) => {
@@ -95,7 +151,9 @@ function Checkout() {
       setOrderId(orderRef.id);
 
       clear();
-    } catch {      
+
+      launchConfetti();
+    } catch {
       setError(t("checkout.orderError"));
     } finally {
       setLoading(false);
@@ -106,14 +164,26 @@ function Checkout() {
     return (
       <section className="checkout-container">
         <div className="checkout-success">
+          <div className="checkout-success-icon">
+            ✓
+          </div>
+
           <h1>{t("checkout.successTitle")}</h1>
 
           <p>{t("checkout.successMessage")}</p>
 
-          <p>
-            {t("checkout.orderId")}:
-            <strong> {orderId}</strong>
-          </p>
+          <div className="checkout-order">
+            <span>{t("checkout.orderId")}</span>
+
+            <strong>{orderId}</strong>
+          </div>
+
+          <Link
+            to="/"
+            className="checkout-back-button"
+          >
+            {t("cart.backToCatalog")}
+          </Link>
         </div>
       </section>
     );
@@ -129,7 +199,8 @@ function Checkout() {
 
       <div className="checkout-user">
         <p>
-          {t("checkout.account")}: <strong>{user.email}</strong>
+          {t("checkout.account")}:{" "}
+          <strong>{user.email}</strong>
         </p>
       </div>
 
@@ -201,9 +272,16 @@ function Checkout() {
           </h2>
         </div>
 
-        {error && <p>{error}</p>}
+        {error && (
+          <p className="checkout-error">
+            {error}
+          </p>
+        )}
 
-        <button type="submit" disabled={loading}>
+        <button
+          type="submit"
+          disabled={loading}
+        >
           {loading
             ? t("checkout.processing")
             : t("checkout.confirm")}
