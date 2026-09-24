@@ -2,12 +2,13 @@
 import "./Navbar.css";
 import CartWidget from "../CartWidget/CartWidget";
 import { useTranslation } from "react-i18next";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
 
 function Navbar() {
   const { t, i18n } = useTranslation();
   const { user, logout } = useAuth();
+  const location = useLocation();
 
   const changeLanguage = (language) => {
     i18n.changeLanguage(language);
@@ -17,7 +18,9 @@ function Navbar() {
   const handleLogout = async () => {
     try {
       await logout();
-    } catch { alert(t("auth.logoutError"));}
+    } catch {
+      alert(t("auth.logoutError"));
+    }
   };
 
   return (
@@ -69,8 +72,8 @@ function Navbar() {
               {i18n.language === "es"
                 ? "Español"
                 : i18n.language === "en"
-                ? "English"
-                : "Deutsch"}
+                  ? "English"
+                  : "Deutsch"}
             </span>
 
             <span className="language-arrow">▾</span>
@@ -97,7 +100,9 @@ function Navbar() {
         <div className="auth-section">
           {user ? (
             <>
-              <span className="user-email">{user.email}</span>
+              <span className="user-email">
+                {user.email}
+              </span>
 
               <button
                 className="logout-button"
@@ -108,11 +113,17 @@ function Navbar() {
             </>
           ) : (
             <>
-              <NavLink to="/login">
+              <NavLink
+                to="/login"
+                state={{ from: location }}
+              >
                 {t("auth.login")}
               </NavLink>
 
-              <NavLink to="/register">
+              <NavLink
+                to="/register"
+                state={{ from: location }}
+              >
                 {t("auth.register")}
               </NavLink>
             </>

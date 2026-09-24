@@ -6,8 +6,8 @@
 }
 
 main {
-  padding: 20px 40px 10px;
   flex: 1;
+  padding: 20px 40px 10px;
 }
 
 .store-title {
@@ -15,8 +15,9 @@ main {
   text-align: center;
   margin: 5px 0 10px;
   font-size: 35px;
+  line-height: 1.15;
   font-weight: 700;
-  color: #0F172A;
+  color: #0f172a;
 }
 
 .products-container {
@@ -24,4 +25,39 @@ main {
   justify-content: center;
   gap: 25px;
   flex-wrap: wrap;
+}
+
+/* TABLET */
+
+@media (max-width: 768px) {
+  main {
+    padding: 16px 20px 10px;
+  }
+
+  .store-title {
+    font-size: 30px;
+    margin: 8px 0 14px;
+  }
+
+  .products-container {
+    gap: 18px;
+  }
+}
+
+/* MOBILE */
+
+@media (max-width: 480px) {
+  main {
+    padding: 12px 10px 8px;
+  }
+
+  .store-title {
+    font-size: 26px;
+    line-height: 1.1;
+    margin: 6px 0 12px;
+  }
+
+  .products-container {
+    gap: 14px;
+  }
 }
