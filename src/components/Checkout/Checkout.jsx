@@ -95,7 +95,7 @@ function Checkout() {
       setOrderId(orderRef.id);
 
       clear();
-    } catch (error) {      
+    } catch {      
       setError(t("checkout.orderError"));
     } finally {
       setLoading(false);

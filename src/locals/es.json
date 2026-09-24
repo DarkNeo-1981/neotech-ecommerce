@@ -94,7 +94,8 @@
     "emailInUse": "Ya existe una cuenta con ese email.",
     "weakPassword": "La contraseña debe tener al menos 6 caracteres.",
     "registerError": "No se pudo registrar el usuario.",
-    "logoutError": "No se pudo cerrar la sesión. Intentá nuevamente."
+    "logoutError": "No se pudo cerrar la sesión. Intentá nuevamente.",
+    "validatingSession": "Validando sesión..."
   },
 
   "checkout": {
