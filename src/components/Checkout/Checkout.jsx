@@ -95,8 +95,7 @@ function Checkout() {
       setOrderId(orderRef.id);
 
       clear();
-    } catch (error) {
-      console.error("Error al generar la orden:", error);
+    } catch (error) {      
       setError(t("checkout.orderError"));
     } finally {
       setLoading(false);

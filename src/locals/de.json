@@ -93,7 +93,8 @@
     "passwordMismatch": "Die Passwörter stimmen nicht überein.",
     "emailInUse": "Für diese E-Mail-Adresse existiert bereits ein Konto.",
     "weakPassword": "Das Passwort muss mindestens 6 Zeichen enthalten.",
-    "registerError": "Der Benutzer konnte nicht registriert werden."
+    "registerError": "Der Benutzer konnte nicht registriert werden.",
+    "logoutError": "Abmelden fehlgeschlagen. Bitte versuche es erneut."
   },
 
   "checkout": {

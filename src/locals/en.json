@@ -93,7 +93,8 @@
     "passwordMismatch": "Passwords do not match.",
     "emailInUse": "An account already exists with this email.",
     "weakPassword": "Password must contain at least 6 characters.",
-    "registerError": "Could not register the user."
+    "registerError": "Could not register the user.",
+    "logoutError": "Could not log out. Please try again."
   },
 
   "checkout": {

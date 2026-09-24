@@ -32,8 +32,7 @@ function Login() {
       await login(email, password);
       navigate(from, { replace: true });
     } catch (error) {
-      console.error(error);
-
+      
       if (error.code === "auth/invalid-credential") {
         setError(t("auth.invalidCredentials"));
       } else if (error.code === "auth/invalid-email") {

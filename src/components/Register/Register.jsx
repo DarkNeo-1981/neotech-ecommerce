@@ -32,8 +32,6 @@ function Register() {
       await register(email, password);
       navigate("/");
     } catch (error) {
-      console.error(error);
-
       if (error.code === "auth/email-already-in-use") {
         setError(t("auth.emailInUse"));
       } else if (error.code === "auth/weak-password") {
