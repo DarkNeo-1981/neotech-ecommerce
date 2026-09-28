@@ -1,5 +1,10 @@
 
 {
+  "notFound": {
+    "page": "Page not found.",
+    "category": "Category not found."
+  },
+  
   "navbar": {
     "notebooks": "Notebooks",
     "peripherals": "Peripherals",
@@ -19,6 +24,8 @@
     "availableStock": "Available stock",
     "viewProduct": "View product",
     "category": "Category",
+    "notFound": "Product not found.",
+    "loadError": "The product could not be loaded. Please try again later.",
 
     "categories": {
       "Notebooks": "Notebooks",

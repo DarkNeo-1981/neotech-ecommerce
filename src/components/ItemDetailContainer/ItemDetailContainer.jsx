@@ -4,8 +4,9 @@ import { doc, getDoc } from "firebase/firestore";
 import { db } from "../../firebase/config";
 import ItemDetail from "../ItemDetail/ItemDetail";
 import { useTranslation } from "react-i18next";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import LoaderComponent from "../LoaderComponent/LoaderComponent";
+import "./ItemDetailContainer.css";
 
 function ItemDetailContainer() {
   const { id } = useParams();
@@ -28,7 +29,10 @@ function ProductDetailLoader({ id }) {
         const productSnapshot = await getDoc(productRef);
 
         if (!productSnapshot.exists()) {
-          throw new Error("Producto no encontrado.");
+          if (activo) {
+            setError("product.notFound");
+          }
+          return;
         }
 
         const productData = {
@@ -39,11 +43,9 @@ function ProductDetailLoader({ id }) {
         if (activo) {
           setProducto(productData);
         }
-      } catch (error) {
+      } catch {
         if (activo) {
-          setError(
-            error.message || "No se pudo cargar el producto."
-          );
+          setError("product.loadError");
         }
       }
     };
@@ -57,13 +59,17 @@ function ProductDetailLoader({ id }) {
 
   if (error) {
     return (
-      <div>
-        <p>{error}</p>
+      <section className="product-error">
+        <div className="product-error-card">
+          <h1 className="product-error-title">
+            {t(error)}
+          </h1>
 
-        <button onClick={() => window.history.back()}>
-          {t("product.backToProducts")}
-        </button>
-      </div>
+          <Link to="/" className="product-error-link">
+            {t("cart.backToCatalog")}
+          </Link>
+        </div>
+      </section>
     );
   }
 

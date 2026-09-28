@@ -1,5 +1,10 @@
 
 {
+  "notFound": {
+    "page": "Página no encontrada.",
+    "category": "Categoría no encontrada."
+  },
+
   "navbar": {
     "notebooks": "Notebooks",
     "peripherals": "Periféricos",
@@ -19,6 +24,8 @@
     "availableStock": "Stock disponible",
     "viewProduct": "Ver producto",
     "category": "Categoría",
+    "notFound": "Producto no encontrado.",
+    "loadError": "No se pudo cargar el producto. Intentá nuevamente más tarde.",
 
     "categories": {
       "Notebooks": "Notebooks",

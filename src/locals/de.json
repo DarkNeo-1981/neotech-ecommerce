@@ -1,5 +1,10 @@
 
 {
+  "notFound": {
+    "page": "Seite nicht gefunden.",
+    "category": "Kategorie nicht gefunden."
+  },
+
   "navbar": {
     "notebooks": "Laptops",
     "peripherals": "Peripheriegeräte",
@@ -19,6 +24,8 @@
     "availableStock": "Verfügbarer Bestand",
     "viewProduct": "Produkt ansehen",
     "category": "Kategorie",
+    "notFound": "Produkt nicht gefunden.",
+    "loadError": "Das Produkt konnte nicht geladen werden. Bitte versuche es später erneut.",
 
     "categories": {
       "Notebooks": "Laptops",
