@@ -16,6 +16,8 @@ function useProducts(categoryId) {
       return;
     }
 
+    let active = true;
+
     const fetchProducts = async () => {
       setLoading(true);
       setError(null);
@@ -37,15 +39,25 @@ function useProducts(categoryId) {
           ...doc.data(),
         }));
 
-        setProducts(productsData);
+        if (active) {
+          setProducts(productsData);
+        }
       } catch (error) {
-        setError(error.message || "No se pudieron cargar los productos.");
+        if (active) {
+          setError(error.message || "No se pudieron cargar los productos.");
+        }
       } finally {
-        setLoading(false);
+        if (active) {
+          setLoading(false);
+        }
       }
     };
 
     fetchProducts();
+
+    return () => {
+      active = false;
+    };
   }, [categoryId, isValidCategory]);
 
   if (!isValidCategory) {
