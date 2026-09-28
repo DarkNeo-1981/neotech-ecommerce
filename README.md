@@ -7,6 +7,8 @@ NEOTECH es un e-commerce de productos tecnológicos desarrollado con React como 
 
 La aplicación incorpora persistencia de datos mediante Firebase Cloud Firestore, autenticación de usuarios mediante Firebase Authentication, navegación por categorías, detalle de productos, carrito de compras global, checkout protegido, generación de órdenes de compra e internacionalización.
 
+La aplicación se encuentra desplegada en Vercel.
+
 Actualmente incluye:
 
 - Catálogo de productos almacenado en Cloud Firestore.
@@ -18,7 +20,7 @@ Actualmente incluye:
 - Persistencia del usuario autenticado mediante `onAuthStateChanged`.
 - Estado global de autenticación mediante `AuthContext`.
 - Carrito global mediante Context API.
-- Control de cantidades y stock disponible.
+- Control de cantidades y stock disponible en el carrito.
 - Checkout protegido para usuarios autenticados.
 - Formulario de datos del comprador.
 - Generación de órdenes en Cloud Firestore.
@@ -28,6 +30,9 @@ Actualmente incluye:
 - Interfaz en Español, Inglés y Alemán.
 - Estados de carga y manejo de errores.
 - Configuración de Firebase mediante variables de entorno.
+- Plantilla de configuración en `.env.example`.
+- Reglas de seguridad versionadas en `firestore.rules`.
+- Mapa de categorías centralizado en un módulo compartido.
 
 ---
 
@@ -53,6 +58,7 @@ Actualmente incluye:
 - ESLint
 - Git
 - GitHub
+- Vercel
 
 ---
 
@@ -68,14 +74,8 @@ src/firebase/config.js
 
 El archivo inicializa Firebase y exporta las instancias:
 
-```js
-db
-auth
-```
-
-`db` corresponde a Cloud Firestore.
-
-`auth` corresponde a Firebase Authentication.
+- `db`: instancia de Cloud Firestore.
+- `auth`: instancia de Firebase Authentication.
 
 ---
 
@@ -83,20 +83,28 @@ auth
 
 La configuración de Firebase utiliza variables de entorno mediante Vite.
 
-El proyecto requiere un archivo `.env` en la raíz con las siguientes variables:
+El repositorio incluye el archivo `.env.example` en la raíz del proyecto como plantilla de configuración:
 
 ```env
-VITE_FIREBASE_API_KEY=
-VITE_FIREBASE_AUTH_DOMAIN=
-VITE_FIREBASE_PROJECT_ID=
-VITE_FIREBASE_STORAGE_BUCKET=
-VITE_FIREBASE_MESSAGING_SENDER_ID=
-VITE_FIREBASE_APP_ID=
+VITE_FIREBASE_API_KEY=TU_API_KEY
+VITE_FIREBASE_AUTH_DOMAIN=TU_PROYECTO.firebaseapp.com
+VITE_FIREBASE_PROJECT_ID=TU_PROJECT_ID
+VITE_FIREBASE_STORAGE_BUCKET=TU_STORAGE_BUCKET
+VITE_FIREBASE_MESSAGING_SENDER_ID=TU_MESSAGING_SENDER_ID
+VITE_FIREBASE_APP_ID=TU_APP_ID
 ```
 
-Los valores reales no se incluyen en el repositorio.
+Estos valores son ejemplos y deben reemplazarse con la configuración del proyecto de Firebase.
 
-El archivo `.env` se encuentra incluido en `.gitignore`.
+Para configurar el entorno local:
+
+1. Copiar `.env.example` y nombrar la copia `.env`.
+2. Reemplazar los valores de ejemplo por los correspondientes al proyecto de Firebase.
+3. Guardar el archivo antes de iniciar la aplicación.
+
+Si ya existe un `.env` configurado, se debe conservar.
+
+El archivo `.env` se encuentra incluido en `.gitignore`. El archivo `.env.example` sí forma parte del repositorio.
 
 ---
 
@@ -184,6 +192,8 @@ where()
 ```
 
 De esta manera el filtrado se realiza directamente en Firestore y no después de descargar el catálogo completo.
+
+El mapa de categorías se importa desde `src/constants/categories.js`, compartido con `ItemListContainer`.
 
 Flujo general:
 
@@ -445,11 +455,43 @@ Si ocurre un error, los productos permanecen en el carrito.
 
 Las reglas de seguridad de Cloud Firestore controlan el acceso a los datos independientemente de las validaciones realizadas desde React.
 
-La colección `products` puede ser consultada por la aplicación.
+Las reglas se encuentran versionadas en el archivo:
 
-La creación de documentos dentro de `orders` requiere que exista un usuario autenticado mediante Firebase Authentication.
+```text
+firestore.rules
+```
+
+Su contenido es:
+
+```text
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    match /products/{productId} {
+      allow read: if true;
+      allow write: if false;
+    }
+
+    match /orders/{orderId} {
+      allow create: if request.auth != null;
+      allow read, update, delete: if false;
+    }
+  }
+}
+```
+
+Estas reglas establecen que:
+
+- La colección `products` permite lectura pública.
+- La escritura de productos desde el cliente está bloqueada.
+- La creación de órdenes requiere un usuario autenticado.
+- La lectura, modificación y eliminación de órdenes desde el cliente están bloqueadas.
 
 De esta forma, un usuario no autenticado no puede crear órdenes directamente en Firestore.
+
+El archivo permite revisar y mantener las reglas junto con el código fuente. Guardarlo en GitHub no actualiza automáticamente las reglas publicadas en Firebase.
 
 ---
 
@@ -522,7 +564,7 @@ El carrito permite:
 - Vaciar el carrito.
 - Calcular cantidad total.
 - Calcular precio total.
-- Controlar el stock disponible.
+- Controlar el stock disponible en el carrito.
 
 El contador del Navbar muestra la cantidad total de unidades agregadas.
 
@@ -564,6 +606,7 @@ Rutas actuales:
 | `/` | Catálogo completo |
 | `/category/:categoryId` | Productos por categoría |
 | `/item/:id` | Detalle individual |
+| `/favorites` | Productos favoritos |
 | `/cart` | Carrito de compras |
 | `/login` | Inicio de sesión |
 | `/register` | Registro de usuario |
@@ -571,6 +614,28 @@ Rutas actuales:
 | `*` | Ruta inexistente |
 
 ### Categorías
+
+El mapa de categorías está centralizado en:
+
+```text
+src/constants/categories.js
+```
+
+```js
+export const categories = {
+  1: "Notebooks",
+  2: "Periféricos",
+  3: "Monitores",
+  4: "Componentes",
+};
+```
+
+Este módulo es utilizado por:
+
+- `useProducts.js`, para validar la categoría y construir la consulta a Firestore.
+- `ItemListContainer.jsx`, para validar la categoría de la ruta y mostrar la vista correspondiente.
+
+Así se evita mantener el mismo objeto duplicado en ambos archivos.
 
 | ID | Categoría |
 |---|---|
@@ -605,6 +670,7 @@ NEOTECH/
 │   │   │   ├── Checkout.jsx
 │   │   │   └── Checkout.css
 │   │   │
+│   │   ├── Favorites/
 │   │   ├── Footer/
 │   │   ├── Item/
 │   │   ├── ItemCount/
@@ -619,11 +685,16 @@ NEOTECH/
 │   │   ├── ProtectedRoute/
 │   │   └── Register/
 │   │
+│   ├── constants/
+│   │   └── categories.js
+│   │
 │   ├── context/
 │   │   ├── AuthContext.js
 │   │   ├── AuthContext.jsx
 │   │   ├── CartContext.jsx
-│   │   └── CartProvider.jsx
+│   │   ├── CartProvider.jsx
+│   │   ├── FavoritesContext.js
+│   │   └── FavoritesProvider.jsx
 │   │
 │   ├── firebase/
 │   │   └── config.js
@@ -631,6 +702,7 @@ NEOTECH/
 │   ├── hooks/
 │   │   ├── useAuth.js
 │   │   ├── useCart.js
+│   │   ├── useFavorites.js
 │   │   └── useProducts.js
 │   │
 │   ├── locals/
@@ -644,12 +716,15 @@ NEOTECH/
 │   ├── index.css
 │   └── main.jsx
 │
+├── .env.example
 ├── .gitignore
 ├── eslint.config.js
+├── firestore.rules
 ├── index.html
 ├── package.json
 ├── package-lock.json
 ├── README.md
+├── vercel.json
 └── vite.config.js
 ```
 
@@ -677,13 +752,9 @@ Instalar dependencias:
 npm install
 ```
 
-Crear un archivo:
+Copiar el archivo `.env.example` como `.env` en la raíz del proyecto.
 
-```text
-.env
-```
-
-en la raíz del proyecto y completar las variables de Firebase indicadas anteriormente.
+Reemplazar los valores de ejemplo con la configuración del proyecto de Firebase, según la sección de variables de entorno.
 
 Iniciar el servidor de desarrollo:
 
@@ -743,7 +814,7 @@ Actualmente se encuentra implementado:
 - Internacionalización en tres idiomas.
 - Carrito global con Context API.
 - Control de cantidades.
-- Control de stock disponible.
+- Control de stock disponible en el carrito.
 - Navegación mediante React Router.
 - Checkout protegido.
 - Validación de carrito vacío.
@@ -755,22 +826,24 @@ Actualmente se encuentra implementado:
 - Vaciado del carrito únicamente después de una compra exitosa.
 - Reglas de seguridad para impedir órdenes de usuarios no autenticados.
 - Variables de entorno para Firebase.
+- Mapa de categorías centralizado en `src/constants/categories.js`.
+- Plantilla de variables de entorno en `.env.example`.
+- Reglas de seguridad versionadas en `firestore.rules`.
+- Aplicación desplegada en Vercel.
 
 ---
 
 ## 📌 Próximos pasos
 
-La lógica principal requerida para esta pre-entrega se encuentra implementada.
+La lógica principal requerida para esta pre-entrega se encuentra implementada y la aplicación está desplegada en Vercel.
 
-Las próximas mejoras corresponden a la etapa de consolidación y despliegue final:
+Las próximas mejoras corresponden a la etapa de consolidación:
 
-- Realizar el build de producción.
 - Revisar casos de borde y experiencia de usuario.
 - Optimizar detalles visuales.
-- Desplegar el proyecto en Vercel.
-- Configurar las variables de entorno en Vercel.
-- Agregar el dominio de producción a Firebase Authentication.
-- Realizar pruebas finales sobre la versión publicada.
+- Revisar el rendimiento y el tamaño del build de producción.
+- Verificar los flujos de autenticación y compra en la versión publicada.
+- Mantener actualizada la documentación del proyecto.
 
 ---
 
@@ -780,9 +853,4 @@ Nicolás Fasanella
 
 Proyecto desarrollado durante el curso de React JS.
 
-Repositorio:
-
-```text
-https://github.com/DarkNeo-1981/neotech-ecommerce
-```
-
+Repositorio: [neotech-ecommerce](https://github.com/DarkNeo-1981/neotech-ecommerce)
