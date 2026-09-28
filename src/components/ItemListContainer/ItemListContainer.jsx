@@ -34,6 +34,20 @@ function ItemListContainer() {
         <p className="loading">Error: {error}</p>
       ) : !categoryExists ? (
         <CategoryNotFound />
+      ) : products.length === 0 ? (
+        <div className="empty-catalog" role="status">
+          <p>
+            {t(
+              categoryId
+                ? "product.emptyCategory"
+                : "product.emptyCatalog"
+            )}
+          </p>
+
+          {categoryId && (
+            <Link to="/">{t("product.backToProducts")}</Link>
+          )}
+        </div>
       ) : (
         <ItemList items={products} />
       )}

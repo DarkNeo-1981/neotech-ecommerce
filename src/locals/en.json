@@ -54,10 +54,12 @@
       "ryzen7": "High-performance AMD Ryzen 7 processor designed for gaming, productivity, and demanding applications. It offers an excellent combination of power and efficiency for smooth multitasking."
     },
 
-    "loading": "Loading product...",
+    "loading": "Loading products...",
     "loadingDetail": "Loading product...",
     "backToProducts": "Back to products",
-    "addToCart": "Add to cart"
+    "addToCart": "Add to cart",
+    "emptyCategory": "No products are available in this category.",
+    "emptyCatalog": "No products are available at the moment."
   },
 
   "cart": {
