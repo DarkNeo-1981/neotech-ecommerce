@@ -19,6 +19,42 @@ function Cart() {
     totalPrice,
   } = useCart();
 
+  const handleRemoveItem = async (itemId) => {
+    const result = await Swal.fire({
+      title: t("cart.removeConfirmTitle"),
+      text: t("cart.removeConfirm"),
+      icon: "warning",
+
+      showCancelButton: true,
+      confirmButtonText: t("cart.confirmRemove"),
+      cancelButtonText: t("cart.cancel"),
+
+      confirmButtonColor: "#0f172a",
+      cancelButtonColor: "#64748b",
+
+      reverseButtons: true,
+
+      customClass: {
+        popup: "neotech-alert",
+      },
+    });
+
+    if (result.isConfirmed) {
+      removeItem(itemId);
+
+      Swal.fire({
+        title: t("cart.removed"),
+        icon: "success",
+        confirmButtonColor: "#0f172a",
+        timer: 1400,
+        showConfirmButton: false,
+        customClass: {
+          popup: "neotech-alert",
+        },
+      });
+    }
+  };
+
   const handleClearCart = async () => {
     const result = await Swal.fire({
       title: t("cart.clearConfirmTitle"),
@@ -125,7 +161,7 @@ function Cart() {
 
               <button
                 className="cart-remove-button"
-                onClick={() => removeItem(item.id)}
+                onClick={() => handleRemoveItem(item.id)}
                 title={t("cart.removeProduct")}
                 aria-label={t("cart.removeProduct")}
               >

@@ -81,6 +81,10 @@
     "clear": "Clear cart",
     "checkout": "Checkout",
     "removeProduct": "Remove product",
+    "removeConfirmTitle": "Remove product?",
+    "removeConfirm": "All units of this product will be removed from your cart.",
+    "confirmRemove": "Yes, remove",
+    "removed": "Product removed",
 
     "clearConfirmTitle": "Empty cart?",
     "clearConfirm": "All products will be removed from your cart.",

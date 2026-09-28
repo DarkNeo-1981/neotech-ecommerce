@@ -81,6 +81,10 @@
     "clear": "Warenkorb leeren",
     "checkout": "Kauf abschließen",
     "removeProduct": "Produkt entfernen",
+    "removeConfirmTitle": "Produkt entfernen?",
+    "removeConfirm": "Alle Einheiten dieses Produkts werden aus deinem Warenkorb entfernt.",
+    "confirmRemove": "Ja, entfernen",
+    "removed": "Produkt entfernt",
 
     "clearConfirmTitle": "Warenkorb leeren?",
     "clearConfirm": "Alle Produkte werden aus dem Warenkorb entfernt.",
