@@ -32,7 +32,6 @@ function Login() {
       await login(email, password);
       navigate(from, { replace: true });
     } catch (error) {
-      
       if (error.code === "auth/invalid-credential") {
         setError(t("auth.invalidCredentials"));
       } else if (error.code === "auth/invalid-email") {
@@ -49,6 +48,10 @@ function Login() {
     <section className="auth-page">
       <div className="auth-card">
         <h2>{t("auth.login")}</h2>
+
+        {from === "/checkout" && (
+          <p>{t("checkout.authRequired")}</p>
+        )}
 
         <form className="auth-form" onSubmit={handleSubmit}>
           <div className="auth-field">
