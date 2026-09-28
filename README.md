@@ -5,23 +5,28 @@
 
 NEOTECH es un e-commerce de productos tecnológicos desarrollado con React como proyecto del curso de React JS.
 
-La aplicación incorpora persistencia de datos mediante Firebase Cloud Firestore, autenticación de usuarios mediante Firebase Authentication, navegación por categorías, detalle de productos, carrito de compras global, checkout protegido, generación de órdenes de compra e internacionalización.
+La aplicación incorpora persistencia de datos mediante Firebase Cloud Firestore, autenticación de usuarios mediante Firebase Authentication, navegación por categorías, detalle de productos, carrito de compras global con persistencia local, checkout protegido, generación de órdenes de compra e internacionalización.
 
-La aplicación se encuentra desplegada en Vercel.
+**Aplicación publicada:** [NEOTECH en Vercel](https://neotech-ecommerce.vercel.app/)
 
 Actualmente incluye:
 
 - Catálogo de productos almacenado en Cloud Firestore.
 - Consultas asíncronas a Firebase.
 - Filtrado de productos por categoría desde Firestore.
+- Protección frente a respuestas desactualizadas al cambiar de categoría.
+- Mensajes para categorías vacías y catálogo sin productos.
 - Detalle individual de productos mediante su ID de Firebase.
 - Registro de usuarios con Firebase Authentication.
 - Inicio y cierre de sesión.
 - Persistencia del usuario autenticado mediante `onAuthStateChanged`.
 - Estado global de autenticación mediante `AuthContext`.
 - Carrito global mediante Context API.
+- Persistencia del carrito mediante `localStorage`.
 - Control de cantidades y stock disponible en el carrito.
+- Confirmaciones para eliminar productos y vaciar el carrito.
 - Checkout protegido para usuarios autenticados.
+- Mensaje de autenticación requerida al ingresar desde el checkout.
 - Formulario de datos del comprador.
 - Generación de órdenes en Cloud Firestore.
 - Asociación de órdenes con el usuario autenticado.
@@ -29,10 +34,12 @@ Actualmente incluye:
 - Navegación mediante React Router.
 - Interfaz en Español, Inglés y Alemán.
 - Estados de carga y manejo de errores.
+- Pantallas de producto, categoría y página inexistentes con estilos y traducciones.
 - Configuración de Firebase mediante variables de entorno.
 - Plantilla de configuración en `.env.example`.
 - Reglas de seguridad versionadas en `firestore.rules`.
 - Mapa de categorías centralizado en un módulo compartido.
+- Diseño adaptable a escritorio y dispositivos móviles.
 
 ---
 
@@ -54,6 +61,8 @@ Actualmente incluye:
 - react-i18next
 - react-icons
 - flag-icons
+- SweetAlert2
+- canvas-confetti
 - LocalStorage
 - ESLint
 - Git
@@ -195,6 +204,10 @@ De esta manera el filtrado se realiza directamente en Firestore y no después de
 
 El mapa de categorías se importa desde `src/constants/categories.js`, compartido con `ItemListContainer`.
 
+El hook ignora las respuestas de consultas anteriores cuando cambia la categoría o se desmonta el componente. Esto evita que una consulta anterior sobrescriba los productos, el error o el estado de carga de la consulta actual.
+
+Esta protección descarta resultados desactualizados; no cancela las peticiones enviadas a Firestore.
+
 Flujo general:
 
 ```text
@@ -212,6 +225,19 @@ ItemList
        ↓
 Item
 ```
+
+### Estados del listado
+
+El listado distingue entre:
+
+- Consulta en curso: muestra un indicador de carga.
+- Error de consulta: informa el problema.
+- Categoría inexistente: muestra la pantalla correspondiente.
+- Categoría válida sin productos: muestra un mensaje y un enlace para volver al catálogo.
+- Catálogo completo vacío: informa que no hay productos disponibles.
+- Consulta con resultados: muestra las tarjetas de productos.
+
+Los mensajes de catálogo y categoría vacíos están disponibles en los tres idiomas.
 
 ---
 
@@ -246,9 +272,11 @@ getDoc()
 ItemDetail
 ```
 
-Si el producto no existe o la consulta falla, se muestra un mensaje de error.
-
 Durante la consulta se utiliza `LoaderComponent`.
+
+Si el producto no existe o la consulta falla, se muestra una tarjeta con un mensaje traducido y un enlace para volver al catálogo.
+
+El enlace apunta directamente a `/`, por lo que funciona también cuando el usuario ingresó desde una dirección externa o escribió la URL manualmente.
 
 ---
 
@@ -286,7 +314,7 @@ logout
 loadingAuth
 ```
 
-La persistencia de sesión se gestiona mediante:
+El estado de autenticación se sincroniza mediante:
 
 ```js
 onAuthStateChanged()
@@ -329,6 +357,10 @@ Durante el registro y el inicio de sesión se contemplan errores como:
 
 Los mensajes se encuentran internacionalizados mediante i18next.
 
+Cuando el usuario llega al login desde el checkout, se muestra un mensaje que explica que debe iniciar sesión para completar la compra.
+
+Después de iniciar sesión, se utiliza la ruta de origen para regresar al checkout.
+
 ---
 
 ## 🛡️ Checkout protegido
@@ -341,15 +373,13 @@ La ruta:
 
 se encuentra protegida mediante un componente `ProtectedRoute`.
 
-Únicamente los usuarios autenticados pueden acceder al proceso de compra.
+El contenido depende del estado de autenticación:
 
-Si un usuario intenta ingresar al checkout sin haber iniciado sesión, la aplicación lo redirige a:
+- Mientras se valida la sesión, se muestra un indicador de carga.
+- Si no existe un usuario autenticado, se redirige al login.
+- Si el usuario está autenticado, se muestra el checkout.
 
-```text
-/login
-```
-
-Después de autenticarse puede continuar con el proceso de compra.
+El usuario puede iniciar sesión y continuar con la compra sin perder los productos del carrito.
 
 El checkout también verifica que el carrito contenga productos.
 
@@ -372,9 +402,16 @@ Antes de generar una orden se verifica nuevamente que:
 
 - Exista un usuario autenticado.
 - El carrito tenga productos.
-- Los campos del formulario estén completos.
+- Los campos obligatorios contengan texto después de quitar los espacios iniciales y finales.
 
-Durante la creación de la orden se muestra feedback de carga y, si ocurre un error, se informa al usuario sin vaciar el carrito.
+Durante la creación de la orden, el botón muestra el estado de procesamiento y queda deshabilitado.
+
+Si la operación falla:
+
+- Se muestra un mensaje de error.
+- Se conservan los productos del carrito.
+- El botón vuelve a habilitarse.
+- No se muestra una confirmación de compra.
 
 ---
 
@@ -443,11 +480,12 @@ Después de crear correctamente la orden:
 1. Firebase devuelve el ID del documento generado.
 2. La aplicación muestra el ID de la orden al usuario.
 3. Se informa que la compra fue registrada.
-4. El carrito se vacía.
+4. El carrito se vacía y se actualiza su almacenamiento local.
+5. Se muestra una animación de confirmación con confeti.
 
 El carrito únicamente se vacía después de que `addDoc()` finaliza correctamente.
 
-Si ocurre un error, los productos permanecen en el carrito.
+Si ocurre un error durante el guardado, los productos permanecen en el carrito.
 
 ---
 
@@ -536,7 +574,14 @@ Ejemplo:
 t(`product.names.${product.translationKey}`)
 ```
 
-Los textos correspondientes a autenticación, carrito y checkout también se encuentran traducidos.
+También se encuentran traducidos:
+
+- Formularios y mensajes de autenticación.
+- Carrito y checkout.
+- Confirmaciones para eliminar productos y vaciar el carrito.
+- Mensajes de catálogo y categoría vacíos.
+- Pantallas de producto, categoría y página inexistentes.
+- Mensaje de error de carga del detalle.
 
 El idioma seleccionado se conserva mediante `localStorage`.
 
@@ -565,8 +610,43 @@ El carrito permite:
 - Calcular cantidad total.
 - Calcular precio total.
 - Controlar el stock disponible en el carrito.
+- Conservar los productos al recargar la página.
 
 El contador del Navbar muestra la cantidad total de unidades agregadas.
+
+### Persistencia local
+
+El carrito se guarda en `localStorage` bajo la clave:
+
+```text
+neotech-cart
+```
+
+Al iniciar la aplicación, se recupera el contenido guardado y se valida su estructura básica.
+
+Cada modificación del carrito actualiza el almacenamiento local, incluyendo:
+
+- Cambios de cantidades.
+- Eliminación de productos.
+- Vaciado manual.
+- Vaciado después de una compra exitosa.
+
+Si los datos guardados no se pueden interpretar, la aplicación inicia con un carrito vacío. Si el navegador no permite guardar los cambios, el carrito continúa funcionando en memoria.
+
+La persistencia corresponde al mismo navegador y origen. El entorno local y la aplicación publicada en Vercel mantienen carritos independientes.
+
+El carrito no está asociado a una cuenta ni se sincroniza entre dispositivos.
+
+### Confirmaciones de eliminación
+
+Se utiliza SweetAlert2 para confirmar dos acciones:
+
+- Eliminar todas las unidades de un producto mediante el botón del tachito.
+- Vaciar completamente el carrito.
+
+Si el usuario cancela, el carrito conserva su contenido.
+
+Si confirma, se realiza la acción, se actualizan cantidades y totales, y se muestra un aviso de éxito.
 
 ---
 
@@ -591,7 +671,13 @@ const stockDisponible = Math.max(
 );
 ```
 
-Por el momento este control corresponde al carrito actual y no modifica el stock almacenado en Firestore.
+Los controles de cantidad limitan las unidades según el stock disponible en los datos utilizados por la aplicación.
+
+Si todas las unidades disponibles ya están en el carrito, no se permite agregar más desde el detalle. Al quitar una unidad, vuelve a estar disponible para seleccionarla.
+
+Por el momento, este control corresponde al carrito actual y no modifica el stock almacenado en Firestore.
+
+Los precios y el stock recuperados del carrito persistido no se actualizan automáticamente cuando cambian en Firebase.
 
 ---
 
@@ -644,6 +730,18 @@ Así se evita mantener el mismo objeto duplicado en ambos archivos.
 | `3` | Monitores |
 | `4` | Componentes |
 
+### Rutas y recursos inexistentes
+
+La aplicación diferencia entre:
+
+- Categoría inexistente.
+- Producto inexistente.
+- Página inexistente.
+
+Estas situaciones muestran mensajes traducidos y un enlace directo para volver al catálogo.
+
+Las pantallas utilizan tarjetas centradas, botones con el estilo de NEOTECH y ajustes para pantallas pequeñas.
+
 ---
 
 ## 📂 Estructura principal
@@ -665,6 +763,7 @@ NEOTECH/
 │   │   │
 │   │   ├── CartWidget/
 │   │   ├── CategoryNotFound/
+│   │   │   └── CategoryNotFound.jsx
 │   │   │
 │   │   ├── Checkout/
 │   │   │   ├── Checkout.jsx
@@ -676,12 +775,18 @@ NEOTECH/
 │   │   ├── ItemCount/
 │   │   ├── ItemDetail/
 │   │   ├── ItemDetailContainer/
+│   │   │   ├── ItemDetailContainer.jsx
+│   │   │   └── ItemDetailContainer.css
+│   │   │
 │   │   ├── ItemList/
 │   │   ├── ItemListContainer/
 │   │   ├── LoaderComponent/
 │   │   ├── Login/
 │   │   ├── Navbar/
 │   │   ├── NotFound/
+│   │   │   ├── NotFound.jsx
+│   │   │   └── NotFound.css
+│   │   │
 │   │   ├── ProtectedRoute/
 │   │   └── Register/
 │   │
@@ -794,56 +899,95 @@ npm run preview
 
 ---
 
-## ✅ Estado actual
+## 🌐 Despliegue
 
-Actualmente se encuentra implementado:
+La aplicación está publicada en Vercel:
 
-- Catálogo almacenado en Cloud Firestore.
-- Consulta asíncrona de productos.
-- Filtrado desde Firestore mediante `query` y `where`.
-- Detalle mediante `doc` y `getDoc`.
-- IDs automáticos de Firestore.
-- Manejo de loading y errores.
-- Firebase Authentication.
-- Registro de usuarios.
-- Inicio de sesión.
-- Cierre de sesión.
-- Persistencia mediante `onAuthStateChanged`.
-- `AuthContext` global.
-- Email del usuario autenticado en el Navbar.
-- Internacionalización en tres idiomas.
-- Carrito global con Context API.
-- Control de cantidades.
-- Control de stock disponible en el carrito.
-- Navegación mediante React Router.
-- Checkout protegido.
-- Validación de carrito vacío.
-- Formulario de datos del comprador.
-- Generación de órdenes mediante `addDoc`.
-- Asociación de órdenes al usuario autenticado.
-- Fecha de órdenes mediante `serverTimestamp`.
-- Confirmación mediante ID de orden.
-- Vaciado del carrito únicamente después de una compra exitosa.
-- Reglas de seguridad para impedir órdenes de usuarios no autenticados.
-- Variables de entorno para Firebase.
-- Mapa de categorías centralizado en `src/constants/categories.js`.
-- Plantilla de variables de entorno en `.env.example`.
-- Reglas de seguridad versionadas en `firestore.rules`.
-- Aplicación desplegada en Vercel.
+[https://neotech-ecommerce.vercel.app/](https://neotech-ecommerce.vercel.app/)
+
+El proyecto está conectado al repositorio de GitHub y los cambios enviados a la rama `main` generan nuevos despliegues.
+
+Las variables de entorno de Firebase se configuran en Vercel. El archivo `.env` local no se sube al repositorio.
+
+El proyecto incluye `vercel.json` para permitir el acceso directo a las rutas de React Router en producción.
 
 ---
 
-## 📌 Próximos pasos
+## ✅ Verificaciones realizadas
 
-La lógica principal requerida para esta pre-entrega se encuentra implementada y la aplicación está desplegada en Vercel.
+Durante la preparación de la entrega final se realizaron comprobaciones manuales en desarrollo y en la aplicación publicada.
 
-Las próximas mejoras corresponden a la etapa de consolidación:
+### Catálogo y navegación
 
-- Revisar casos de borde y experiencia de usuario.
-- Optimizar detalles visuales.
-- Revisar el rendimiento y el tamaño del build de producción.
-- Verificar los flujos de autenticación y compra en la versión publicada.
-- Mantener actualizada la documentación del proyecto.
+- Carga del catálogo desde Firestore.
+- Filtrado de las cuatro categorías.
+- Consulta del detalle de producto.
+- Cambios rápidos entre categorías.
+- Mensaje de categoría válida sin productos y sus traducciones.
+- Regreso al catálogo desde la categoría vacía.
+- Mensajes de categoría, producto y página inexistentes.
+- Traducciones y enlaces de regreso de las pantallas de recursos inexistentes.
+
+### Carrito
+
+- Agregado de productos.
+- Incremento y disminución de cantidades.
+- Cálculo de subtotales, cantidad total y precio total.
+- Límite de cantidades según el stock.
+- Disponibilidad de una unidad después de reducir la cantidad en el carrito.
+- Cancelación y confirmación de la eliminación de productos.
+- Vaciado del carrito.
+- Persistencia del carrito al recargar.
+- Persistencia de la eliminación y del vaciado después de recargar.
+
+### Autenticación y checkout
+
+- Registro e inicio de sesión.
+- Persistencia de la sesión al recargar.
+- Cierre de sesión.
+- Redirección al login al intentar acceder al checkout sin sesión.
+- Mensaje de autenticación requerida.
+- Regreso al checkout después del login con el carrito conservado.
+- Generación de una orden y visualización de su ID de confirmación.
+- Vaciado del carrito después de una compra exitosa.
+
+### Manejo de errores
+
+Se realizó una simulación temporal y local de un error antes de guardar una orden para comprobar que:
+
+- Se muestra el mensaje de error.
+- El carrito conserva sus productos.
+- El botón vuelve a habilitarse.
+- No se muestra una confirmación de compra.
+
+La simulación se retiró después de la prueba. Esta comprobación valida la respuesta de la interfaz ante una excepción, no todos los posibles errores de red o de Firebase.
+
+### Producción y presentación
+
+- Despliegues completados en Vercel.
+- Acceso y recarga de rutas internas.
+- Uso de la aplicación desde un teléfono.
+- Revisión de la consola sin errores observados durante el recorrido normal probado.
+- Ejecución de ESLint sin errores.
+- Compilación de producción completada correctamente.
+
+Estas verificaciones corresponden a pruebas manuales de los recorridos descritos.
+
+---
+
+## 📌 Alcance y próximas mejoras
+
+La aplicación integra las funcionalidades desarrolladas durante el curso y se encuentra publicada en Vercel.
+
+Como posibles mejoras posteriores se consideran:
+
+- Optimizar el tamaño de los archivos generados en el build. La compilación actual finaliza correctamente, pero muestra una advertencia por el tamaño del JavaScript generado.
+- Actualizar precios y stock de los productos recuperados del carrito persistido.
+- Incorporar una validación de precios y stock del lado del servidor antes de registrar una compra.
+- Ampliar las validaciones de las órdenes en las reglas de Firestore.
+- Incorporar pruebas automatizadas de los flujos principales.
+
+El proyecto registra órdenes de compra; no integra una pasarela de pagos.
 
 ---
 
@@ -853,4 +997,6 @@ Nicolás Fasanella
 
 Proyecto desarrollado durante el curso de React JS.
 
-Repositorio: [neotech-ecommerce](https://github.com/DarkNeo-1981/neotech-ecommerce)
+**Aplicación:** [NEOTECH en Vercel](https://neotech-ecommerce.vercel.app/)
+
+**Repositorio:** [neotech-ecommerce](https://github.com/DarkNeo-1981/neotech-ecommerce)
