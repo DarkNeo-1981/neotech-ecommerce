@@ -7,17 +7,11 @@ import { Link, useParams } from "react-router-dom";
 import useProducts from "../../hooks/useProducts";
 import LoaderComponent from "../LoaderComponent/LoaderComponent";
 import { FaHeart } from "react-icons/fa";
+import { categories } from "../../constants/categories";
 
 function ItemListContainer() {
   const { t } = useTranslation();
   const { categoryId } = useParams();
-
-  const categories = {
-    1: "Notebooks",
-    2: "Periféricos",
-    3: "Monitores",
-    4: "Componentes",
-  };
 
   const categoryExists = !categoryId || categories[categoryId];
 

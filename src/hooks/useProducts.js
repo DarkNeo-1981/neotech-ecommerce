@@ -2,13 +2,7 @@
 import { useEffect, useState } from "react";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "../firebase/config";
-
-const categories = {
-  1: "Notebooks",
-  2: "Periféricos",
-  3: "Monitores",
-  4: "Componentes",
-};
+import { categories } from "../constants/categories";
 
 function useProducts(categoryId) {
   const [products, setProducts] = useState([]);
